@@ -1,0 +1,179 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/shopLayout}">
+
+<div class="container" style="margin-top: 20px;"
+	layout:fragment="container">
+	<div class="menuRoot">
+		<div class="table-cell" style="">
+			<span style="color: #9b9b9b;">홈&nbsp;&nbsp;&nbsp; &gt; </span> <span
+				style="color: #333333; font-weight: bold;">&nbsp; 장바구니</span>
+		</div>
+	</div>
+	<div class="shoppingBasketArea" style="">
+		<div class="displayTable" style="height: 65px;">
+			<tbody id="basketAllTable">
+				<div id="basketDirectTitle" style="padding: 0 0 30px 0px;">
+					<img src="../img/bg_cart_ssm_title_banner_01.png"
+						style="width: 100%; cursor: pointer;">
+				</div>
+				<div style="display: inline-block; width: 760px">
+					<table class="table">
+						<tbody>
+							<tr>
+								<td class="" style="width: 30px;">
+									<div class="check_box agreeCheckDiv" title="상품 전체선택 및 해제"
+										style="width: 80px;">
+										<input type="checkbox" id="allCheck_box"
+											onclick="allCheckControl()"> <label>
+											<div class="allSelect">전체선택</div>
+										</label>
+									</div>
+								</td>
+								<td style="text-align: left;">
+									<button class="selectDeleteBtn" onclick="selectedDelete();">선택삭제</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div style="border-bottom: 4px solid #e5e5e5; width: 760px;"></div>
+					<table class="basketGoodsTableMiddle" cellspacing="0"
+						style="width: 760px;">
+						<tbody>
+							<tr>
+								<td colspan="6" class="borderBottom"
+									style="height: 52px; text-align: left;"><a
+									style="color: #202225; font-size: 14px;">누죤 6층 607호 짱구(y s
+										h)</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<table cellspacing="0" class="basketGoodsTableMiddle"
+						style="width: 760px;">
+						<tbody>
+							<tr style="height: 120px;">
+								<td class="checkBoxTd borderBottom">
+									<div class="check_box">
+										<input type="checkbox" id="133912908"> <label
+											for="133912908"></label>
+									</div>
+								</td>
+								<td class="height90 borderBottom" colspan="4"
+									style="text-align: left;">
+									<div class="shoppingGoodsThumbnail">
+										<img
+											src="https://img7.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img7.sinsangmarket.co.kr/upfiles3/ssmGoods/u_153139400118506700_2086705566.jpg&amp;h=293&amp;w=224"
+											style="width: 60px; display: inline-block; vertical-align: middle;">
+									</div>
+									<div
+										style="display: inline-block; margin-left: 6px; vertical-align: middle;">
+										<div class="basketGoodsName" style="width: 360px;">
+											<a class="modalOpen" style="color: #333;">567</a>
+											<div class="basketGoodsDeleteBtn"></div>
+										</div>
+										<div class="basketStoreInfo"
+											style="font-size: 15px; margin-top: 6px;">28,000원</div>
+									</div>
+								</td>
+								<td class="height90 borderBottom btnTdArea"><br>
+									<button class="basketCommonBtn" style="margin-top: 8px;">옵션변경/수정
+									</button></td>
+							</tr>
+							<tr>
+								<td class="borderRight" colspan="5" style="border-spacing: 0px;">
+									<table cellspacing="0" style="width: 100%;">
+										<tbody>
+											<tr class="height60 optionClass">
+												<td class="checkBoxTd ">
+													<div class="check_box">
+														<input type="checkbox" id="133912909"> <label
+															for="133912909"></label>
+													</div>
+												</td>
+												<td class="textLeft basketOptionArea">브라운/270</td>
+												<td class=" upDownTd">
+													<div class="upDownDiv">
+														<div class="downArea" onclick="btnCountDown()"></div>
+														<input class="upDownNumArea" maxlength="3" type="text"
+															value="1" placeholder="0" style="ime-mode: disabled;">
+														<div class="upArea"></div>
+													</div>
+												</td>
+												<td class=" optionPrice">28,000원</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td class="basketGoodsSumPrice">
+									<div class="sumPrice">0원</div>
+									<p class="optionLine" style="display: none;">28000</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="basketGoodsTableEnd" cellspacing="0"
+						style="width: 760px;">
+						<tbody>
+						</tbody>
+					</table>
+					<table style="padding: 0px 34px;">
+						<tbody>
+							<tr>
+								<td colspan="6"
+									style="padding: 30px 0px 40px 0px; width: 760px;">
+									<div class="cart">
+										임시저장 버튼을 통해 현재의 장바구니 상태를 그대로 저장할 수 있습니다.<br>주문하기는 <span
+											style="color: #ff5252; font-weight: bold;">선택된 상품 및 옵션</span>만
+										주문되고 선택되지 않은 상품은 장바구니에 남아 있습니다.<br>우측에 <span
+											style="color: #00bfa5; font-weight: bold;">매장별 주문하기</span>을
+										하면 도매 매장별로 주문이 들어가며, 주문서를 <span style="color: #4db05e;">엑셀파일로
+											저장</span> 가능합니다.<br>주문하는 시점에 품절되어 있는 상품은 주문되지 않고 장바구니에 남아있습니다.
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="floatArea" style="height: 1585px;">
+					<div class="floatMenu" style="">
+						<table class="buyNPriceTable" cellspacing="0"
+							style="width: 100%; color: #202225;">
+							<tbody>
+								<tr>
+									<td colspan="2" style="">
+										<button class="formBuyNPriceInfoBoxTitle">주문예정 금액</button>
+									</td>
+								</tr>
+
+								<tr>
+									<td class="floatTableText"
+										style="border-bottom: 1px solid #e1e1e1;">총 주문금액</td>
+									<td class="floatTableNumber"
+										style="border-bottom: 1px solid #e1e1e1; text-align: right; color: #ff5252;"><span
+										class="d_totalPrice">0</span>원</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="height: 10px;"></td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<button class="orderBtn" onclick="dBuyingOrder()"
+											style="background-color: #00bfa5; border: 1px solid #00bfa5;">
+											주문하기</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</tbody>
+
+			<div id="basketSSCTitle" style="display: none; padding: 30px 0px;">
+				<img src="../img/bg_cart_ssc_title_banner_01.png"
+					style="width: 100%;">
+			</div>
+		</div>
+	</div>
+
+</div>
+</html>

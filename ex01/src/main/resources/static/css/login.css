@@ -1,0 +1,381 @@
+@charset "utf-8";
+
+html {
+    overflow:-moz-scrollbars-vertical;
+    overflow-y:scroll;
+}
+
+body {
+    font-family: '돋움',dotum,sans-serif;
+    color: #5a5a5a;
+    font-size:12px;
+    line-height:140%;
+    padding:0;
+    margin:0;
+    letter-spacing: 0px;
+}
+
+img {
+    border:none;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+ol, ul, dl, dd, li {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+a {color: #5a5a5a; text-decoration:none;}
+a:link {color: #5a5a5a; text-decoration:none;}
+a:visied {color: #5a5a5a; text-decoration:none;}
+a:hover {color: #5a5a5a; text-decoration:none;}
+
+input {
+    border: none;
+    outline-style:none;
+}
+input:focus {
+    outline: none;
+}
+
+textarea {
+    border: none;
+}
+textarea:focus {
+    outline:none;
+}
+
+button {
+    border: none;
+}
+button:focus {
+    outline:none;
+}
+
+
+/* 이미지용 롤오버 */
+a.roll img { display:inline; border:0;}
+a.roll img.over { display:none; }
+
+a.roll:hover { border:0; }
+a.roll:hover img { display:none; }
+a.roll:hover img.over { display:inline; }
+
+/* 텍스트용 롤오버 */
+a.roll span { display:inline; }
+a.roll span.over { display:none; }
+
+a.roll:hover { border:0; }
+a.roll:hover span { display:none; }
+a.roll:hover span.over { display:inline; }
+
+.wrapper {
+    /*height: 100%;
+    position: relative;*/
+    background-color: #eae5d6;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 681;
+}
+
+.alignCenter {
+    margin: 0 auto;
+}
+
+.loginBox {
+    position: relative;
+    margin: 0 auto;
+    background: url("../img/bg_intro_login.png") no-repeat scroll 0 0 transparent;
+    width: 452px;
+    height: 457px;
+}
+
+#contents {
+    min-height: 640px;
+    width: 1100px;
+    background-color:#fff;
+    margin: 0px auto;
+}
+
+/* ie 8,9 적용핵 */
+html>body .loginForm {
+    line-height: 30px;
+}
+
+/* ie7 적용핵 */
+/**:first-child+html .loginForm {
+	line-height: 30px;
+}*/
+/* ie7 적용핵 */
+*+html body .loginForm {
+    line-height:45px;
+}
+/* ie7 적용핵 */
+/*html*.loginForm {
+	line-height: 30px;
+}*/
+
+.loginForm {
+    padding: 200px 0px 0px 110px;
+}
+
+.input-txt {
+    font-size:14px;
+    width: 260px;
+    height: 30px;
+    background: none;
+    color: #333333;
+}
+
+.input-passwd {
+    margin-top: 24px;
+    *margin-top: 18px;
+}
+
+.loginBtn {
+    margin: 0 auto;
+    margin-top: 25px;
+    width: 336px;
+}
+
+.btn_autologin {
+    float:left;
+    margin-left:0px;
+    vertical-align: middle;
+}
+
+.btn_login {
+    float:left;
+    margin-left:26px;
+}
+
+.joinBtn {
+    margin-top:25px;
+}
+
+.btn_join {
+    margin-left:0px;
+}
+
+.msgBox {
+    width: 513px;
+}
+
+.intro_msg0 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.intro_msg1 {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.intro_msg2 {
+    margin-top:18px;
+}
+
+.bottomSection {
+    background-color: #eae5d6;
+    bottom: 0;
+    left: 0;
+    margin-top: 608px;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.intro_footer {
+    background: url("../img/img_intro_bg.png") no-repeat scroll 0 0 transparent;
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    max-width: 1008px;
+    max-height: 477px;
+    width:100%;
+    height:100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
+}
+
+.mt5 {
+    margin-top:5px !important;
+}
+
+.mt10 {
+    margin-top:10px !important;
+}
+
+.mt20 {
+    margin-top:20px !important;
+}
+
+.mt27 {
+    margin-top:27px !important;
+}
+
+.mtm12_ie7 {
+    *margin-top:-12px !important;
+}
+
+.pt10 {
+    padding-top: 10px;
+}
+
+
+.ellipsis { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+
+.wrap {
+    width: 100%;
+    background-color: #efefef;
+}
+
+#header {
+    width: 100%;
+    height: 587px;
+    position: relative;
+}
+
+#header .logo {
+    background-color: #fcfcfc;
+    width: 100%;
+    height: 140px;
+    z-index: 10;
+}
+
+.inner_contents {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+.top_global_menu {
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.logo_img {
+    text-align: center;
+    padding-top: 47px;
+}
+
+.search {
+    width: 190px;
+    height: 25px;
+    float: right;
+}
+
+.search_input {
+    font-size: 12px;
+    width: 150px;
+    height: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-color: #f67c7b;
+    border-style: none none solid none;
+    border-width: 0 0 1px 0;
+}
+
+.top_menu {
+    background-color: #f56c6c;
+    width: 100%;
+    height: 43px;
+    position: absolute;
+    top:139px;
+    z-index: 10;
+}
+
+.sub_menu {
+    width: 1100px;
+    height: 50px;
+    margin-top: 43px;
+    position: absolute;
+    top:0;
+    left:50%;
+}
+
+.sub_menu ul {
+    background: url("../img/bg_building_category.png") repeat-x scroll 0 0 transparent;
+    width:1100px;
+    position: relative;
+    left:-50%;
+    overflow:hidden;
+    margin:0 auto;
+}
+
+.category_submenu {
+    width: 1100px;
+    height: 60px;
+    margin-top: 43px;
+    position: absolute;
+    top:0;
+    left:50%;
+}
+
+.category_submenu ul {
+    background: url("../img/bg_category.png") repeat-x scroll 0 0 transparent;
+    width:1100px;
+    position: relative;
+    left:-50%;
+    overflow:hidden;
+    margin:0 auto;
+    padding-top: 3px;
+}
+
+.overflow_hidden {
+    overflow: hidden;
+}
+
+.float_left {
+    float: left;
+}
+
+#footer {
+    margin-top: 30px
+    both: clear;
+    background-color: #f56c6c;
+    width: 100%;
+    height: 262px;
+}
+
+.bottom_logo {
+    padding-top: 32px;
+}
+
+.bottom_menu {
+    margin-top: 27px;
+}
+
+.bottom_menu_li {
+    margin-left: 63px;
+}
+
+.bottom_info {
+    float: left;
+    background: url("../img/bottom_notice_08.png") no-repeat scroll 0 0 transparent;
+    width: 389px;
+    height: 74px;
+    margin-top: 10px;
+}
+
+.bottom_copyright {
+    float: right;
+    margin-top: 70px;
+}
+
+.div_contents {
+    width: 1100px;
+    margin: 0 auto;
+    background-color: #fff;
+}
