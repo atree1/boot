@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.oos.mapper.OrderMapper">
+	
+	<select id="getList" parameterType="map" 
+		resultType="org.oos.domain.OrderVO">
+		select * from tbl_order 
+		where ono > 0 and mid = #{mid} and del='N'
+		order by ono desc
+		limit #{cri.skip}, #{cri.amount}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from tbl_order 
+		where ono > 0 and mid = #{mid} and del='N'
+	</select>
+	
+	<select id="get" resultType="org.oos.domain.OrderVO">
+		select * from tbl_order where ono = #{ono}
+	</select>
+	
+	<insert id="insert"  useGeneratedKeys="true" keyProperty="ono">
+		insert into tbl_order(mid, sno) value(#{mid},#{sno})
+	</insert>
+	
+	<update id="modify">
+		update tbl_order set state = #{state}, dno = #{dno} where ono = #{ono}
+	</update>
+	
+	<update id="delete">
+		update tbl_order set del = "Y" where ono = #{ono}
+	</update>
+	
+</mapper>

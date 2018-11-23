@@ -1,0 +1,144 @@
+<html xmlns:th="http://www.thymeleaf.org"
+>
+
+<style>
+.col-lg-9 {
+	text-align: center;
+}
+
+.f1 {
+	background-color: #E9CC44;
+	height: 100px;
+}
+
+.f2 {
+	text-align: center;
+}
+
+.cartBtn {
+	height: 100px;
+	width: 100%;
+	background-color: transparent;
+}
+
+.checked {
+	color: orange;
+}
+</style>
+
+	<!-- content -->
+	<div class="col-lg-9">
+
+		<h1>寃곗젣�븯湲�</h1>
+
+		<h4>二쇰Ц�젙蹂�</h4>
+
+
+		<div class="col-lg-9">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">硫붾돱</th>
+						<th scope="col">�닔�웾</th>
+						<th scope="col">媛�寃�</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td>�븘硫붾━移대끂</td>
+						<td>1</td>
+						<td>2000</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>移댄럹�씪�뼹</td>
+						<td>2</td>
+						<td>5000</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>移섑궓�뙆�땲�땲</td>
+						<td>1</td>
+						<td>4300</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<div class="row">
+				<h3>TOTAL 11300�썝</h3>
+			</div>
+
+
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">�슂泥��궗�빆</span>
+				</div>
+				<textarea class="form-control" aria-label="With textarea"></textarea>
+			</div>
+
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input"
+					id="customCheck1"> <label class="custom-control-label"
+					for="customCheck1">諛붾줈 二쇰Ц</label>
+
+			</div>
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input"
+					id="customCheck2"> <label class="custom-control-label"
+					for="customCheck2">�삁�빟 二쇰Ц</label> <select>
+					<option selected>�삤�쟾/�삤�썑</option>
+					<option value="1">�삤�쟾</option>
+					<option value="2">�삤�썑</option>
+
+				</select> <select>
+					<option selected>�떆</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+
+				</select> <select>
+					<option selected>遺�</option>
+					<option value="1">10</option>
+					<option value="2">20</option>
+					<option value="3">30</option>
+					<option value="4">40</option>
+					<option value="5">50</option>
+					<option value="6">00</option>
+				</select>
+			</div>
+			<div class="row">
+				<h4>寃곗젣�닔�떒</h4>
+
+			</div>
+
+
+			<div class="col-lg-9">
+
+				<div class="facet f1">
+				<form method="post" action="/kakao/pay">
+					<button class="cartBtn" >寃곗젣�븯湲�</button>
+				</form>
+
+
+
+			</div>
+
+
+			<!-- end content -->
+		</div>
+	</div>
+
+</div>
+</html>

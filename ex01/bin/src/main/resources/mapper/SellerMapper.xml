@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.oos.mapper.SellerMapper">
+
+	<select id="getList" resultType="org.oos.domain.SellerVO">
+		select * from tbl_seller
+		where sid !='' and del='N' order by regdate desc
+		limit #{skip},#{amount}
+	</select>
+	
+	<select id="get" resultType="org.oos.domain.SellerVO">
+		select * from tbl_seller
+		where sid = #{sid} 
+	</select>
+	
+	<insert id="insert">
+		insert into tbl_seller(sid,spw,sname,bnum,pnum,tel) values(#{sid},#{spw},#{sname},#{bnum},#{pnum},#{tel})
+	</insert>
+	
+	<update id="modify">	
+		update tbl_seller set spw = #{spw}, sname = #{sname}, bnum = #{bnum}, pnum = #{pnum}, tel = #{tel}, updatedate = now()
+		 where sid = #{sid}		
+	</update>
+	
+	<update id="delete">	
+		update tbl_seller set del='Y' where sid = #{sid}	
+	</update>
+	
+	<update id="authorize">	
+		update tbl_seller set permit='Y' where sid = #{sid}	
+	</update>
+	
+	<select id="count" resultType="int">
+		select count(*) from tbl_seller where sid !='' and del = 'N'
+	</select>
+	
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.oos.mapper.StoreMapper">
+
+	<select id="getList" resultType="org.oos.domain.StoreVO">
+		select * from tbl_store where sno > 0 and del='N'
+		and sno > 0 order by sno desc
+		limit #{skip}, #{amount}
+	</select>
+	
+	<select id="get" resultType="org.oos.domain.StoreVO">
+		select * from tbl_store where sno = #{sno}
+		
+				
+	</select>
+	
+	<insert id="insert">
+		insert into tbl_store(sname,owner,sinfo,saddress,tel) values(#{sname},#{owner},#{sinfo},#{saddress},#{tel})
+	</insert>
+	
+	<update id="modify">
+		
+		update tbl_store set sname = #{sname}, owner = #{owner}, sinfo = #{sinfo}, saddress = #{saddress}, tel = #{tel}, updatedate = now()
+		where sno = #{sno}
+		
+	</update>
+	
+	<update id="delete">
+	
+		update tbl_store set del='Y' where sno = #{sno}
+	
+	</update>
+	
+	<select id="count" resultType="int">
+		select count(*) from tbl_store where sno > 0 and del = 'N'
+	</select>
+	
+
+</mapper>

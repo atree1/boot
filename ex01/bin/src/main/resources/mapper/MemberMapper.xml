@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.oos.mapper.MemberMapper">
+
+	<select id="getList" resultType="org.oos.domain.MemberVO">
+		select
+		*
+		from
+		tbl_member
+		where mid
+		!=''
+		and del = 'N'
+		order by regdate desc
+		limit #{skip}, #{amount}
+	</select>
+
+	<select id="get" resultType="org.oos.domain.MemberVO">
+		select * from tbl_member where
+		mid=#{mid}
+	</select>
+	
+	<insert id="insert">
+		insert into tbl_member(mid,mpw,mname,pnum,birth,email,address) values(#{mid},#{mpw},#{mname},#{pnum},#{birth},#{email},#{address})
+	</insert>
+
+	<update id="modify">
+		update tbl_member set mpw = #{mpw}, mname =
+		#{mname},
+		pnum = #{pnum}, birth = #{birth}, email = #{email}, address =
+		#{address}
+		where mid = #{mid}
+	</update>
+
+	<update id="delete">
+		update tbl_member
+		set del = 'Y'
+		where mid = #{mid} 
+	</update>
+
+	<update id="changeAutority">
+		update tbl_member set permit = #{permit}
+		where mid =
+		#{mid}
+
+	</update>
+	
+	<select id="count" resultType="int">
+	
+	select count(*)
+	from
+    tbl_member
+	where mid != '' and del = 'N'
+	
+	</select>
+
+</mapper>

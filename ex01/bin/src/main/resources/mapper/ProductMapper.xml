@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.oos.mapper.ProductMapper">
+
+	<select id="getList" parameterType="map" resultType="org.oos.domain.ProductVO">
+		select *
+		from tbl_product
+		where pno>0 and sno=#{sno}
+		order by pno desc
+		limit #{criteria.skip} ,#{criteria.amount} 
+	</select>
+	
+	<select id="get" resultType="org.oos.domain.ProductVO">
+		select *
+		from tbl_product
+		where pno=#{pno}
+	 </select>
+
+	 <insert id="insert">
+	 	insert into tbl_product(pname,price,sno)
+	 	values(#{pname},#{price},#{sno})
+	 	<selectKey resultType="Long" keyProperty="pno" order="AFTER"> select max(pno) from tbl_product</selectKey>
+	 
+	 </insert>
+	 
+	 <update id="modify">
+	 	update tbl_product 
+	 	set pname=#{pname},price=#{price}
+	 	where pno=${pno}
+	 </update>
+	 <update id="delete">
+	 	update tbl_product 
+	 	set del='Y'
+	 	where pno=${pno}
+	 </update>
+	 <select id="count" parameterType="map" resultType="int">
+	 	select count(*)
+	 	from tbl_product
+	 	where
+	 		 pno>0 and sno=#{sno}
+	 
+	 </select> 
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.oos.mapper.ProductOptionMapper">
+
+<select id="getList" resultType="org.oos.domain.ProductOptionVO">
+		select *
+		from tbl_product_option
+		where opno>0 and pno=#{pno};
+	</select>
+	
+	<select id="get" resultType="org.oos.domain.ProductOptionVO">
+		select *
+		from tbl_product_option
+		where opno>0 and opno=#{opno}
+	 </select>
+
+	 <insert id="insert">
+	 	insert into tbl_product_option(pno,size,qty)
+	 	values(#{pno},#{size},#{qty})
+	 </insert>
+	 
+	 <update id="modifyQty">
+	 	update tbl_product_option
+	 	set qty=#{qty}
+	 	where odno=#{odno}
+	 </update>
+</mapper>

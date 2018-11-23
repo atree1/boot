@@ -1,0 +1,291 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/shopLayout}">
+
+<div class="container" style="margin-top: 20px;"
+	layout:fragment="container">
+	<div class="menuRoot">
+		<div class="table-cell" style="">
+			<span class="bigCategoryName" style="color: #9b9b9b;">여성의류&nbsp;&nbsp;&nbsp;
+				&gt; &nbsp;&nbsp;</span><span class="detailCategoryName"
+				style="color: #9b9b9b;">티&amp;탑&nbsp;&nbsp;&nbsp; &gt;
+				&nbsp;&nbsp;</span><span class="selectedMypageMenu selectedGoodsNameInner">양면기모
+				레터링맨투맨(주문폭주, 리오더폭발)</span>
+		</div>
+	</div>
+
+	<div class="innerDetail_goods_info" style="padding-bottom: 50px;">
+
+
+		<div class="img_area"
+			style="border-right: 1px solid rgb(221, 221, 221);">
+			<div class="gthumbs" style="max-height: 720px; overflow-y: auto;">
+				<div class="gthumb">
+					<img width="60" height="80"
+						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154259213776627100_302507012.jpg"
+						style="display: block;"> <span class="img_edge"></span>
+				</div>
+				<div class="gthumb">
+					<img width="60" height="80"
+						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154259213799793800_1094352992.jpg"
+						style="display: block;"><span class="img_edge"></span>
+				</div>
+				<div class="gthumb">
+					<img width="60" height="80"
+						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_15425921383346300_519679408.jpg"
+						style="display: block;"> <span class="img_edge"></span>
+				</div>
+				<div class="gthumb">
+					<img width="60" height="80"
+						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_15425921386451100_1657614549.jpg"
+						style="display: block;"><span class="img_edge"></span>
+				</div>
+			</div>
+			<div class="inner_main_img">
+				<img width="540" height="720"
+					src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_15425921383346300_519679408.jpg&amp;h=907&amp;w=690">
+			</div>
+			<div id="innerDetail_goods_detail" class="goods_detail">
+				<div class="div_line_1px" style="width: 632px; margin-right: 20px;"></div>
+				<div class="goods_detail_title displayTable">
+					<div class="table-cell">제품 상세설명</div>
+				</div>
+				<div class="goods_detail_text">
+					디오트 2층j12호 그레이메인(greymain)<br> 제조국 : 대한민국<br> 혼용률 : 면 <br>
+					색상 : 오트밀, 차콜그레이<br> 매장 : 02-2117-4333<br> 휴대폰 :
+					010-7443-1373<br> 카카오톡 : greymain<br> 카카오톡 주문시 신상마켓임을
+					밝혀주세요<br> 계좌입금시 예금주명을 알려주세요.<br> <br> 따뜻한 느낌의 양면기모
+					맨투맨입니다.<br> <br> 차콜그레이, 오트밀 2가지 색상으로 구성되어있으며<br> <br>
+					심플한 레터링 포인트 그리고 <br> <br> 양면기모원단으로 제작되어 부드러운 터치감과 착용감이
+					뛰어나 반응이 좋은 상품입니다.<br> <br> 남여공용 :)<br> <br> 두께감
+					: 두꺼움<br> 비침 : 없음<br> 신축성 : 중간<br> 안감 : 있음<br>
+					세탁방법 : 손세탁, 드라이(클리닝)<br>
+				</div>
+
+				<div class="goods_comments_area">
+					<div name="goods_comment_title" id="goods_comment_title"
+						class="goods_comment_title displayTable">
+						<div class="table-cell">
+							상품문의 <span id="innerRepleTotalCount"
+								style="color: #9b9b9b; font-size: 14px; font-weight: normal; vertical-align: top;">(0)</span>
+						</div>
+					</div>
+					<div class="goods_comment_input"
+						style="position: relative; box-sizing: border-box; border: 1px solid #e3e3e3; height: 150px;">
+						<textarea id="innerCommentMsg" class="replyTextarea"
+							placeholder="덧글을 입력해주세요." style="width: 100%; height: 100px;"></textarea>
+						<input id="targetId" value="" type="hidden">
+
+						<div class="faqBox"
+							style="position: absolute; top: 136px; left: 4px; z-index: 2; width: 465px; height: 71px; font-size: 12px; padding: 14px 10px 0px 10px;">
+							※ 상품에 대한 문의를 올려주세요. 도매 대표님에게 푸시알림이 갑니다.<br>문의한 덧글은 도매매장에서만
+							확인 할 수 있고, 다른 사용자에게는 비공개 덧글입니다.<br>도매매장이 바빠서 답변이 늦을 수 있습니다.
+							그럴 경우 매장으로 전화주세요~
+						</div>
+						<button onclick="sendComment()" class="repleRegiBtn">등록하기</button>
+					</div>
+					<ul id="inner_goods_comments" style="position: relative;">
+						<li class="g_comment_li" style="border-bottom: 1px solid #e3e3e3;">
+							<div class="store_name ellipsis wstore_name">덧글</div>
+							<div class="contents"
+								style="margin-top: 17px; padding-bottom: 15px;">작성된 덧글이
+								없습니다.</div>
+						</li>
+					</ul>
+					<div style="text-align: center;">
+						<div class="pageControlLeft" onclick="prev10PageMove()"
+							title="10페이지 이전" style="margin-right: 2px; margin-top: 30px;"></div>
+						<div class="innerShowPage"
+							style="display: inline-block; vertical-align: top; margin-top: 30px;"></div>
+						<div class="pageControlRight" onclick="next10PageMove()"
+							title="10페이지 다음" style="margin-left: 2px; margin-top: 30px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="info_area">
+			<div class="info_area_inner"
+				style="margin-left: 18px; position: relative;">
+				<div class="more_goods">
+					<div class="goods_name">양면기모 레터링맨투맨(주문폭주, 리오더폭발)</div>
+					<div class="detail_store_name">
+						<span onclick="storeMoveFunc(16011)">디오트 2층 J12
+							그레이메인(GREYMAIN)</span> / 02-2117-4333
+					</div>
+					<div class="goods_price">15,000</div>
+					<div class="div_line_1px" style="width: 100%; margin-bottom: 30px;"></div>
+					<table class="goods_option_table" style="margin-bottom: 30px;">
+						<tbody>
+							<tr>
+								<td class="title">색상</td>
+								<td class="color">오트밀 차콜그레이</td>
+							</tr>
+							<tr>
+								<td class="title">사이즈</td>
+								<td class="content">FREE</td>
+							</tr>
+							<tr>
+								<td class="title">혼용률</td>
+								<td class="content">면</td>
+							</tr>
+							<tr>
+								<td class="title">제조국</td>
+								<td class="content">대한민국</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="div_line_1px" style="width: 100%; margin-bottom: 21px;"></div>
+					<table class="goods_option_table" style="margin-bottom: 30px;">
+						<tbody>
+							<tr>
+								<td class="title" style="color: #ff7675;">신상배송</td>
+								<td class="content">카카오 결제만 가능, 택배배송<span
+									style="color: #b0b0b0;">(우체국택배)</span></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="div_line_1px" style="width: 100%; margin-bottom: 21px;"></div>
+					<div class="option_area">
+						<ul class="goods_option_ul" style="width: 100%;">
+							<li class="min-height42 optionLi">
+								<div class="option">
+									<div style="color: #333; font-weight: 500; font-size: 14px;">오트밀/FREE</div>
+									<div style="margin-top: 6px; font-size: 12px;">15,000</div>
+								</div>
+								<div class="count">
+									<div class="option_count_control" style="">
+										<div class="detailUpDownDiv">
+											<div class="detailDownArea"></div>
+											<input class="detailUpDownNumArea" maxlength="3" type="text"
+												value="0">
+											<div class="detailUpArea"></div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<div class="div_line_1px"
+							style="width: 100%; margin-top: 20px; margin-bottom: 15px;"></div>
+					</div>
+					<div class="displayTable"
+						style="width: 100%; background-color: #ffefef; height: 50px; padding: 0px 16px; box-sizing: border-box; margin-bottom: 15px;">
+						<div class="table-cell" style="font-size: 14px;">총 결제금액</div>
+						<div class="detailOrderPrice table-cell"
+							style="text-align: right; font-size: 20px; color: #ff5252; font-weight: 500;">0원
+						</div>
+					</div>
+
+					<div class="btn_area">
+						<div class="basketInfoTextBox basketMoveBox"
+							style="position: absolute; left: 111px; top: 500px; width: 318px; height: 100px; z-index: 3; display: none">
+							<div class="close_btn"
+								style="position: absolute; right: 8px; top: 8px;"></div>
+							<div
+								style="text-align: center; font-size: 14px; margin-top: 16px; font-weight: bold; letter-spacing: -0.4px;">
+								매장주문 장바구니에 상품이 담겼습니다.<br>
+								<button class="basketMoveBtn" onclick="goShoppingBasket()"
+									style="margin-top: 14px; height: 38px; cursor: pointer;">
+									매장주문 장바구니 바로가기 <span class="btn_css_arrow"></span>
+								</button>
+							</div>
+						</div>
+
+						<button class="btn_order" style="display: inline-block;">장바구니에
+							담기</button>
+						<button class="btn_order_direct" onclick="dBuyingOrder()"
+							style="display: inline-block;">
+							<div class="symbolLogo"></div>
+							주문하기
+						</button>
+					</div>
+
+				</div>
+				<div class="div_line_1px"></div>
+				<div class="mgoods_images">
+
+					<div class="mgoods_images_title displayTable">
+						<div class="table-cell" style="">매장 최신 등록상품</div>
+						<div class="table-cell moreShow" style="text-align: right;">
+							<a href="wstore?sid=16011" target="_blank"><span>더보기&nbsp;&nbsp;
+									&gt;</span></a>
+						</div>
+					</div>
+					<div class="mgoods_thumb scopeLimit" style="margin-right: 46px;">
+						<a class="modalOpen" href="goodsDetail?gid=19767931">
+							<div style="position: relative;">
+								<img width="180" height="240"
+									src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_15425382225968100_1821781105.jpg&amp;h=293&amp;w=224"
+									style="display: block;"><span class="img_edge"></span>
+							</div>
+							<div class="mgoods_gname">(주문폭주)하운두 투스 울 체크자켓</div>
+						</a>
+					</div>
+					<div class="mgoods_thumb scopeLimit" style="margin-right: 46px;">
+						<a class="modalOpen" href="goodsDetail?gid=19767854">
+							<div style="position: relative;">
+								<img width="180" height="240"
+									src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154253809051503000_47540165.jpg&amp;h=293&amp;w=224"
+									style="display: block;"><span class="img_edge"></span>
+							</div>
+							<div class="mgoods_gname">(주문폭주,미송필수)알파카 포그니니트</div>
+						</a>
+					</div>
+					<div class="mgoods_thumb scopeLimit">
+						<a class="modalOpen" href="goodsDetail?gid=19767796">
+							<div style="position: relative;">
+								<img width="180" height="240"
+									src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154253800659404000_2143852372.jpg&amp;h=293&amp;w=224"
+									style="display: block;"><span class="img_edge"></span>
+							</div>
+							<div class="mgoods_gname">(주문폭주,리오더폭주)레터링 양기모 맨투맨</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<block layout:fragment="script"> 
+<script th:inline="javascript">
+	$(document).ready(function() {
+		$(".detailDownArea").click(function(e) {
+			var count = $(this).next("input").val();
+			if (count > 0) {
+				count -= 1;
+				$(this).next("input").val(count);
+			}else{
+				$('html').css({'cursor':'url(cursor.png), auto'});
+			}
+
+		})
+
+		$(".detailUpArea").click(function(e) {
+
+			var count = Number($(this).prev("input").val());
+			
+			count += 1;
+			$(this).prev("input").val(count);
+		
+		})
+
+		$(".gthumb").mouseenter(function() {
+			$(this).find("span").attr("class", "hover");
+			var src = $(this).find("img").attr("src");
+			$(".inner_main_img").find("img").attr("src", src);
+		}).mouseout(function() {
+			$(this).find("span").attr("class", "img_edge")
+		})
+
+		$(".btn_order").click(function(e) {
+			$(".basketInfoTextBox").css("display", "block")
+		})
+
+		$(".close_btn").click(function(e) {
+			$(".basketInfoTextBox").css("display", "none")
+		})
+	});
+</script> 
+</block>
+
+</html>

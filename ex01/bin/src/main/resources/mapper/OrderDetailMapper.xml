@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.oos.mapper.OrderDetailMapper">
+
+	<select id="getList" 
+ 		resultType="org.oos.domain.OrderDetailVO">
+		select * from tbl_order_detail 
+		where odno > 0 and ono = #{ono} and del='N'
+		order by odno desc
+	</select>
+
+	<select id="count" resultType="int">
+		select count(*) from tbl_order_detail 
+		where odno > 0 and ono = #{ono} and del='N'
+	</select>
+
+	<select id="get" resultType="org.oos.domain.OrderDetailVO">
+		select * from tbl_order_detail 
+		where odno = #{odno}
+	</select>
+
+	<insert id="insert">
+		insert into tbl_order_detail(ono, pno, qty, opno) 
+		value(#{ono}, #{pno}, #{qty}, #{opno})
+	</insert>
+
+	<update id="modify">
+		update tbl_order_detail
+		set qty = #{qty}, opno = #{opno}
+		where odno = #{odno}
+	</update>
+
+	<update id="delete">
+		update tbl_order_detail set del = "Y" 
+		where odno = #{odno}
+	</update>
+</mapper>
