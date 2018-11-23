@@ -6,7 +6,7 @@ import lombok.Data;
 public class ProductImgVO {
 
 	private String uuid;
-	private String pid;
+	private Long pno;
 	private String iname;
 	private String ipath;
 }

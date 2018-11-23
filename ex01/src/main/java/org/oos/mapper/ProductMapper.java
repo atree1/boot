@@ -13,5 +13,5 @@ public interface ProductMapper {
 	public int modify(ProductVO vo);
 	public int delete(ProductVO vo);
 	public int insert(ProductVO vo);
-	public int count(Long sno);
+	public int count(Map<String, Object> map);
 }

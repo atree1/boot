@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
 import org.oos.domain.Criteria;
 import org.oos.domain.ProductVO;
+import org.oos.mapper.MemberMapper;
 import org.oos.mapper.ProductImgMapper;
 import org.oos.mapper.ProductMapper;
 import org.oos.mapper.ProductOptionMapper;
@@ -31,6 +32,18 @@ public class ProductTests {
 	private ProductImgMapper imgMapper;
 	@Setter(onMethod_=@Autowired)
 	private ProductOptionMapper optMapper;
+	
+	@Setter(onMethod_=@Autowired)
+	private MemberMapper memberMapper;
+	
+	@Test
+	public void testMemberMapper() {
+		
+		log.info("============================");
+		log.info("" + memberMapper);
+		log.info("============================");
+		
+	}
 	
 	@Test
 	public void test() {
@@ -56,9 +69,25 @@ public class ProductTests {
 	public void imgTest() {
 		log.info(""+imgMapper.getList(1L));
 	}
+	@Test
+	public void modiTest() {
+		log.info(""+mapper.get(1L));
+	log.info(""+mapper.modify(mapper.get(1L)));
+	}
 	
 	@Test
 	public void OptionTest() {
 		log.info(""+optMapper.get(1L));
+	}
+	
+	@Test
+	public void pserviceTest() {
+		
+		Criteria cri=new Criteria();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("criteria", cri);
+		map.put("sno",1L);
+
+		log.info(""+mapper.count(map));
 	}
 }

@@ -1,23 +1,22 @@
-package org.oos.mapper;
+package org.oos.service;
 
 import java.util.List;
 
 import org.oos.domain.Criteria;
 import org.oos.domain.SellerVO;
 
-public interface SellerMapper {
-
+public interface SellerService {
+	
 	public List<SellerVO> getList(Criteria cri);
 	
 	public SellerVO get(String sid);
 	
-	public int insert(SellerVO vo);
+	public int register(SellerVO vo);
 	
 	public int modify(SellerVO vo);
 	
-	public int delete(String sid);
-	
-	public int authorize(String sid);
+	public int remove(String sid);
 	
 	public int count(Criteria cri);
+
 }

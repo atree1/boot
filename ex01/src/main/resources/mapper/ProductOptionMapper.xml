@@ -21,4 +21,10 @@
 	 	insert into tbl_product_option(pno,size,qty)
 	 	values(#{pno},#{size},#{qty})
 	 </insert>
+	 
+	 <update id="modifyQty">
+	 	update tbl_product_option
+	 	set qty=#{qty}
+	 	where odno=#{odno}
+	 </update>
 </mapper>

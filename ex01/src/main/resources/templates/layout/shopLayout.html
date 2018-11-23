@@ -15,14 +15,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 </head>
 
 <body>
-
 <div class="wrap">
     <div class="header" style="height:148px;">
 
         <div class="sinsangLogoArea" onmouseover="javascript:$('.textImg').removeClass('hover')">
             <div class="logo"><a href="/user/main" style="text-decoration:none; color:#9a9a9a;">
-                <div class="logoInner" style="cursor:pointer; font-size:13px;"><img src="../img/ssm_logo.png"
-                                                                                    style="width:168px;">
+                <div class="logoInner" style="cursor:pointer; font-size:13px;">
+                <img src="../img/ssm_logo.png" style="width:168px;">
                     <br>No.1 패션 B2B 플랫폼
                 </div>
             </a>
@@ -34,51 +33,36 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     <div class="searchKeywordBox" style="position:absolute; left:50%; margin-left:-177px; bottom:39px;">
 
                         <div style="position:relative; width:350px; height:38px; border:2px solid #ff7f7a;">
-                            <button id="searchOptionSelect" class="selectBox"
-                                    style="float:left; width:112px; border:0px; height:38px; border-right:1px solid #ccc; text-align:left; color:#9a9a9a; display:inline-block; font-size:13px;"
-                                    value="">전체신상
+                            <button id="searchOptionSelect" class="selectBox" value="">전체신상
                             </button>
                             <div id="searchOptionList"
-                                 style="position: absolute; height: 128px; top: 39px; left: -2px; z-index: 1001; background-color: rgb(255, 255, 255); border: 1px solid rgb(255, 127, 122); user-select: none; display: none;"
                                  class="MultipleSelectBox vertical" unselectable="on" tabindex="0">
-                                <li class="selectSearchLi" onclick="searchStartBefore(0)" style="margin-top:8px;">전체신상
-                                </li>
-
+                                <li class="selectSearchLi" onclick="searchStartBefore(0)" style="margin-top:8px;">전체신상</li>
                                 <li class="selectSearchLi" onclick="searchStartBefore(2)">매장</li>
                                 <li class="selectSearchLi" onclick="searchStartBefore(3)" style="border:0px;">신상초이스</li>
                             </div>
-
                             <input type="text" id="searchText" onkeyup="textInputKeyUp(event, 0)"
-                                   style="width:190px; height:36px; border:0px; margin-top:1px; padding:0px; font-size:13px; display:inline-block; padding-left:10px; color:#000;"
                                    placeholder="검색어를 입력해주세요.">
 
                             <img src="../img/search_btn.png" onclick="search();" align="middle"
                                  style="position:absolute; width:21px; height:21px; right:10px; top:8px; cursor:pointer;">
-
                             <div class="autoCompleteArea" style="">
-
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="baseMenuOuter" style="position:absolute; right:0px; margin-top:-5px;">
                     <div class="baseMenu" style="display:table;">
                         <div class="baseMenuInner" style="cursor:default;">
-
-                            <span style="padding:0px 10px;"><span style="cursor:pointer;"><a href="../logout"
-                                                                                             style="color:#484848; text-decoration:none;">로그아웃</a></span></span>
-                        
+                            <span style="padding:0px 10px;"><span style="cursor:pointer;">
+                            	<a href="../logout" style="color:#484848; text-decoration:none;">로그아웃</a>
+                            </span></span>
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
-
     </div>
     <div class="topMenuHeight" style="height:53px; width:100%; display:none;"></div>
     <div class="topMenu" style="position: relative; margin-top: 0px;">
@@ -86,7 +70,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             <table class="innerMenuTable" cellspacing="0">
                 <tbody>
                 <tr>
-                    <!-- <td style="width:51px; border-right:1px solid #e1e1e1;" onmouseover="javascript:$('.textImg').removeClass('hover')" onmouseout="javascript:$('.categoryMenu').hide();"><img src="../img/hamburger_btn.png" style="width:16px;"></td> -->
                     <td id="allSinsang" class="menuMouseOver" style="padding-right:20px;"
                         onclick="javascript:location.href='./home?showTrade=false'" onmouseover="categoryMenuShow(1)"
                         onmouseout="javascript:$('.categoryMenu').hide()">
@@ -110,21 +93,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                              onmouseover="javascript:$('.fixedCart .fixedMenuHoverBox').show()"
                              onmouseout="javascript:$('.fixedCart .fixedMenuHoverBox').hide()"
                              style="margin-left:30px; position:relative;">
-                            <div class="fixedMenuHoverBox"
-                                 style="position: absolute; top: 32px; left: -16px; width: 60px; padding: 3px; display: none;">
-                                		장바구니
-                            </div>
+                            <div class="fixedMenuHoverBox">장바구니 </div>
                         </div>
                     </td>
                     <td style="width:82px;">
-                        <div class="fixedZzim" onclick="goWishList()"
+                        <div class="fixedZzim"
                              onmouseover="javascript:$('.fixedZzim .fixedMenuHoverBox').show()"
                              onmouseout="javascript:$('.fixedZzim .fixedMenuHoverBox').hide()"
                              style="margin-left:34px; margin-right:24px; position:relative;">
-                            <div class="fixedMenuHoverBox"
-                                 style="position: absolute; top: 32px; left: -22px; width: 60px; padding: 3px; display: none;">
-                                찜리스트
-                            </div>
+                            <div class="fixedMenuHoverBox">찜리스트</div>
                         </div>
                     </td>
 
@@ -140,48 +117,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                             <ul class="myPageMenu" onclick="myPageMove(1)">거래처목록 <span class="css-arrow"></span></ul>
                             <ul class="myPageMenu" onclick="myPageMove(3)">사입전용 주문서 <span class="css-arrow"></span></ul>
                             <ul class="myPageMenu" onclick="myPageMove(4)">주문목록 <span class="css-arrow"></span></ul>
-                            <!-- <ul class="myPageMenu" onclick="myPageMove(7)" style="">신상배송 주문목록 <span class="css-arrow"></span></ul>
-                            <ul class="myPageMenu" onclick="myPageMove(5)" style="">신상초이스 주문목록 <span class="css-arrow"></span></ul> -->
                             <ul class="myPageMenu" onclick="myPageMove(6)">전잔 적립/사용 내역 <span class="css-arrow"></span>
                             </ul>
                             <ul class="myPageMenu" onclick="myPageMove(7)">1:1 문의 <span class="css-arrow"></span></ul>
-                            <ul class="myPageMenu" onclick="myPageMove(8)" style="border-bottom:0px;">FAQ <span
-                                    class="css-arrow"></span></ul>
+                            <ul class="myPageMenu" onclick="myPageMove(8)" style="border-bottom:0px;">FAQ <spanclass="css-arrow"></span>
+                            </ul>
                         </div>
                     </td>
                 </tr>
-
-
                 </tbody>
             </table>
-            <!-- <div class="mainMenu" style="width:51px;">
-                햄버거
-            </div> -->
-            <!-- onmouseout="javascript:$('.categoryMenu').hide()" -->
-            <style>
-                .categoryMenu {
-                    position: absolute;
-                    width: 1100px;
-                    height: 411px;
-                    padding: 20px;
-                    background-color: rgb(255, 255, 255);
-                    z-index: 100;
-                    margin-left: -1px;
-                    border-width: 0px 1px 1px;
-                    border-right-style: solid;
-                    border-bottom-style: solid;
-                    border-left-style: solid;
-                    border-right-color: rgb(225, 225, 225);
-                    border-bottom-color: rgb(225, 225, 225);
-                    border-left-color: rgb(225, 225, 225);
-                    border-image: initial;
-                    border-top-style: initial;
-                    border-top-color: initial;
-                    display: none;
-                }
-            </style>
             <div class="categoryMenu">
-
                 <div style="float:left; width:160px;">
                     <div class="selectCategory womanCategory active" onmouseover="categoryMenuChange(1)"
                          style="border-bottom:1px solid #e5e5e5; width:150px; padding:10px 5px 10px 10px;">여성<span
@@ -196,8 +142,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                 <div class="categoryDetail"
                      style="display:inline-block; width:903px; height:381px; padding-left:25px; float:left;">
                     <div class="selectCategoryArea womanCategoryArea active" onmouseover="categoryChange(1)">
-                        <div class="womanClothes"
-                             style="width:115px; display:inline-block; margin-right:22px; float:left;">
+                        <div class="clothes womanClothes">
                             <span style="font-size:14px; font-weight:bold;">여성의류</span>
                             <div style="width:100%; background-color:#484848; height:2px; margin:14px 0;"></div>
                             <ul style="list-style:none; padding:0px; font-size:13px; line-height:1.8; color:#9b9b9b;">
@@ -217,8 +162,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                 <li class="categoryLi" onclick="categoryClickFunc('season')">- 시즌상품</li>
                             </ul>
                         </div>
-                        <div class="womanShoes"
-                             style="width:115px; height:381px; display:inline-block; padding:0 22px; border-left:1px solid #f6f6f6; float:left;">
+                        <div class="ect womanShoes">
                             <span style="font-size:14px; font-weight:bold;">여성신발</span>
                             <div style="width:100%; background-color:#484848; height:2px; margin:14px 0;"></div>
                             <ul style="list-style:none; padding:0px; font-size:13px; line-height:1.8; color:#9b9b9b;">
@@ -232,8 +176,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                 <li class="categoryLi" onclick="categoryClickFunc('saleshoes')">- 세일상품</li>
                             </ul>
                         </div>
-                        <div class="womanBag"
-                             style="width:115px; height:381px; display:inline-block; padding:0 22px; border-left:1px solid #f6f6f6; float:left;">
+                        <div class="ect womanBag">
                             <span style="font-size:14px; font-weight:bold;">여성가방</span>
                             <div style="width:100%; background-color:#484848; height:2px; margin:14px 0;"></div>
                             <ul style="list-style:none; padding:0px; font-size:13px; line-height:1.8; color:#9b9b9b;">
@@ -247,8 +190,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                 <li class="categoryLi" onclick="categoryClickFunc('salebag')">- 세일상품</li>
                             </ul>
                         </div>
-                        <div class="womanAccessory"
-                             style="width:115px; height:381px; display:inline-block; padding:0 22px; border-left:1px solid #f6f6f6; float:left;">
+                        <div class="ect womanAccessory">
                             <span style="font-size:14px; font-weight:bold;">여성 악세사리</span>
                             <div style="width:100%; background-color:#484848; height:2px; margin:14px 0;"></div>
                             <ul style="list-style:none; padding:0px; font-size:13px; line-height:1.8; color:#9b9b9b;">
@@ -264,8 +206,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     
                     </div>
                     <div class="selectCategoryArea manCategoryArea" onmouseover="categoryChange(2)">
-                        <div class="manClothes"
-                             style="width:115px; display:inline-block; margin-right:22px; float:left;">
+                        <div class="clothes manClothes">
                             <span style="font-size:14px; font-weight:bold;">남성의류</span>
                             <div style="width:100%; background-color:#484848; height:2px; margin:14px 0;"></div>
                             <ul style="list-style:none; padding:0px; font-size:13px; line-height:1.8; color:#9b9b9b;">
@@ -280,8 +221,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                 <li class="categoryLi" onclick="categoryClickFunc('season')">- 시즌상품</li>
                             </ul>
                         </div>
-                        <div class="manShoes"
-                             style="width:115px; height:381px; display:inline-block; padding:0 22px; border-left:1px solid #f6f6f6; float:left;">
+                        <div class="ect manShoes">
                             <span style="font-size:14px; font-weight:bold;">남성신발</span>
                             <div style="width:100%; background-color:#484848; height:2px; margin:14px 0;"></div>
                             <ul style="list-style:none; padding:0px; font-size:13px; line-height:1.8; color:#9b9b9b;">
@@ -294,8 +234,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                 <li class="categoryLi" onclick="categoryClickFunc('saleshoes')">- 세일상품</li>
                             </ul>
                         </div>
-                        <div class="manBag"
-                             style="width:115px; height:381px; display:inline-block; padding:0 22px; border-left:1px solid #f6f6f6; float:left;">
+                        <div class="ect manBag">
                             <span style="font-size:14px; font-weight:bold;">남성가방</span>
                             <div style="width:100%; background-color:#484848; height:2px; margin:14px 0;"></div>
                             <ul style="list-style:none; padding:0px; font-size:13px; line-height:1.8; color:#9b9b9b;">
@@ -309,8 +248,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                 <li class="categoryLi" onclick="categoryClickFunc('salebag')">- 세일상품</li>
                             </ul>
                         </div>
-                        <div class="manAccessory"
-                             style="width:115px; height:381px; display:inline-block; padding:0 22px; border-left:1px solid #f6f6f6; float:left;">
+                        <div class="ect manAccessory">
                             <span style="font-size:14px; font-weight:bold;">남성 악세사리</span>
                             <div style="width:100%; background-color:#484848; height:2px; margin:14px 0;"></div>
                             <ul style="list-style:none; padding:0px; font-size:13px; line-height:1.8; color:#9b9b9b;">
@@ -325,8 +263,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         </div>
                     </div>
                     <div class="selectCategoryArea childCategoryArea" onmouseover="categoryChange(3)">
-                        <div class="childClothes"
-                             style="width:115px; display:inline-block; margin-right:22px; float:left;">
+                        <div class="clothes childClothes">
                             <span style="font-size:14px; font-weight:bold;">유아의류</span>
                             <div style="width:100%; background-color:#484848; height:2px; margin:14px 0;"></div>
                             <ul style="list-style:none; padding:0px; font-size:13px; line-height:1.8; color:#9b9b9b;">
@@ -344,8 +281,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                 <li class="categoryLi" onclick="categoryClickFunc('season')">- 시즌상품</li>
                             </ul>
                         </div>
-                        <div class="childGoods"
-                             style="width:145px; height:381px; display:inline-block; padding:0 22px; border-left:1px solid #f6f6f6; float:left;">
+                        <div class="ect childGoods">
                             <span style="font-size:14px; font-weight:bold;">유/아동잡화</span>
                             <div style="width:100%; background-color:#484848; height:2px; margin:14px 0;"></div>
                             <ul style="list-style:none; padding:0px; font-size:13px; line-height:1.8; color:#9b9b9b;">
@@ -364,17 +300,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     </div>
 
                     <div id="oneAdvertisement"><a class="modalOpen" href="goodsDetail?gid=17385144">
-                        <div class="goodsContainer"
-                             style="display:inline-block; width:285px; float:right; position:relative; ">
+                        <div class="goodsContainer">
                             <div class="hotSinsangMark" style="position:absolute; top:0px; display:table; z-index:2;">
                                 <div style="display:table-cell; vertical-align:middle;">인기<br>신상</div>
                             </div>
-                            <div class="hotSinsangInfo"
-                                 style="position:absolute; display:table; bottom:20px; left:20px; opacity:0.95; z-index:2; background-color: #ffffff; width:245px; height:100px; text-align:center;">
+                            <div class="hotSinsangInfo">
                                 <div style="display:table-cell; vertical-align:middle;">
                                     <div class="oneAdverGname"
-                                         style="font-size:14px; font-weight:bold; line-height:1.3; color:#484848;">실크
-                                        나뭇잎
+                                         style="font-size:14px; font-weight:bold; line-height:1.3; color:#484848;">실크 나뭇잎
                                     </div>
                                     <div style="margin-top:4px; font-size:13px; color:#9a9a9a;">체리</div>
                                     <div style="margin-top:4px; font-size:13px; color:#9a9a9a;">5,000</div>
@@ -384,33 +317,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                     src="https://img9.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img9.sinsangmarket.co.kr/upfiles1/ssmGoods/u_153533050754673200_423854395.jpg&amp;h=587&amp;w=448"
                                     style="width:285px; float:right;"></div>
                         </div>
-                    </a></div>
-
+                    </a>
+                    </div>
                 </div>
             </div>
-
-            <style>
-                .buildingMenu{
-                    position: absolute;
-                    width: 1100px;
-                    height: 70px;
-                    background-color: rgb(255, 255, 255);
-                    z-index: 99;
-                    margin-left: -1px;
-                    border-width: 0px 1px 1px;
-                    border-right-style: solid;
-                    border-bottom-style: solid;
-                    border-left-style: solid;
-                    border-right-color: rgb(225, 225, 225);
-                    border-bottom-color: rgb(225, 225, 225);
-                    border-left-color: rgb(225, 225, 225);
-                    border-image: initial;
-                    border-top-style: initial;
-                    border-top-color: initial;
-                    opacity: 0.95;
-                    display: none;
-                }
-            </style>
 
             <div class="buildingMenu" onmouseover="javascript:$('.buildingMenu').show()"
                  onmouseout="javascript:$('.buildingMenu').hide()">
@@ -499,31 +409,25 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             </div>
 
         </div>
-
-
     </div>
    <div id="overlay_t"></div>
    
  <div class="container" style="margin-top:20px;" layout:fragment="container"></div>  
- 
-	
-</div> <!-- wrap -->
-
+</div> 
 <div id="footer" style="margin-top:20px;">
     <div class="footerTop"
          style="border-bottom:1px solid #e1e1e1; border-top:1px solid #e1e1e1; height:51px; width:100%;">
         <div class="footerInner" style="width:1100px; position:relative; margin: 0 auto;">
             <div class="footerMenu"
                  style="display:table-cell; vertical-align:middle; height:51px; font-size:14px; font-weight:bold; cursor:default;">
-                <span style="padding:0 30px 0 0; cursor:pointer; color:#000;"><a href="http://about.sinsangmarket.kr/"
-                                                                                 target="_blank"
-                                                                                 style="color:#000; cursor:pointer; text-decoration:none;">신상마켓 소개</a></span>
+                <span style="padding:0 30px 0 0; cursor:pointer; color:#000;">
+                <a href="http://about.sinsangmarket.kr/" target="_blank" style="color:#000; cursor:pointer; text-decoration:none;">신상마켓 소개</a></span>
                 <span style="color:#d4d4d4; font-weight:100;">|</span>
-                <span style="padding:0 30px 0 25px; cursor:pointer; color:#000;"><a href="./privacy"
-                                                                                    style="color:#000; cursor:pointer; text-decoration:none;">개인정보취급방침</a></span>
+                <span style="padding:0 30px 0 25px; cursor:pointer; color:#000;">
+                <a href="./privacy" style="color:#000; cursor:pointer; text-decoration:none;">개인정보취급방침</a></span>
                 <span style="color:#d4d4d4; font-weight:100;">|</span>
-                <span style="padding:0 0 0 25px; cursor:pointer; color:#000;"><a href="./policies"
-                                                                                 style="color:#000; cursor:pointer; text-decoration:none;">이용약관</a></span>
+                <span style="padding:0 0 0 25px; cursor:pointer; color:#000;">
+                <a href="./policies"  style="color:#000; cursor:pointer; text-decoration:none;">이용약관</a></span>
 
             </div>
         </div>
@@ -532,9 +436,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
          style="width:1100px; margin: 0 auto; margin-top:20px; margin-bottom:30px; font-size:13px; color:#9a9a9a; font-weight:100; line-height:150%;">
         주소 : 서울시 동대문구 청계천로 447, 5층(신설동, 한국도자기 빌딩) (주)딜리셔스 대표 : 김준호 개인정보 관리책임자 : 조현동<br>
         사업자등록번호 : 206-86-50285 통신판매업 신고 : 제2011-서울광진-0111호<br>
-        <!-- 상호 : 주식회사 딜리셔스 -->
         (주)딜리셔스는 통신판매 중개자로서 신상마켓의 거래당사자가 아니며, 입점판매자가 등록한 상품정보 및 입점판매자와의 직접 거래에 대해 일체 책임을 지지 않습니다.
-        <!-- (주)딜리셔스는 통신판매 중개자로서 신상마켓의 거래당사자가 아니며, 입점판매자가 등록한 상품정보 및 거래에 대해 일체 책임을 지지 않습니다. -->
         <br><br>
         <span style="color:#000; font-weight:bold;">대표전화 : 02-1661-1916</span><br>
         Contact@deali.net (결제, 환불, 인증 등과 관련된 문의는 카카오톡 신상마켓 고객센터로 문의해주세요)<br>
@@ -549,11 +451,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <div class="modal-dialog modal-lg" style="width:1160px;">
         <div class="modalLeftBtn" style="" onclick="inModalNextGidMove(0)"></div>
         <div class="modalRightBtn" style="" onclick="inModalNextGidMove(1)"></div>
-        <button type="button" class="modalCloseImg" data-dismiss="modal"
-                style="position:absolute; right:0px; top:0px; z-index:5; background-color:#fff; border-radius:4px; border:1px solid #ccc; font-size:16px; font-weight:200;"></button>
+        <button type="button" class="modalCloseImg" data-dismiss="modal"></button>
         <div class="modal-content">
-
-
             <div class="modal-footer">
 
             </div>
@@ -571,7 +470,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
         </header>
 
-        <button class="_close bt_ly_close" type="button" onclick="$('div.ly_wp').hide(), $('.dimmed').hide();">
+        <button class="_close bt_ly_close" type="button">
         </button>
 
         <div class="imgbuyState"
@@ -616,18 +515,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     <td style="width:120px; text-align:center; font-size:14px;">문의 유형</td>
                     <td colspan="3" style="position:relative;">
                         <button id="questionType" class="questionSelectbox">기타문의</button>
-                        <!-- <div class="questionTypeListDiv" style="display:none; position:absolute; margin-top:-1px; z-index: 2; background-color: #fff; width:370px; border:1px solid #d5dbe0; box-sizing: border-box;">
-                            <li class="questionLi" onclick="questionTypeSelect(1)">매장/상품문의</li>
-                            <li class="questionLi" onclick="questionTypeSelect(2)">기타문의</li>
-                        </div> -->
                     </td>
                 </tr>
                 <tr>
                     <td style="width:120px; text-align:center; font-size:14px;">문의 사유</td>
                     <td colspan="3" style="position:relative;">
                         <button id="questionReason" class="questionSelectbox">문의 사유를 선택해주세요</button>
-                        <div class="questionReasonListDiv"
-                             style="display:none; position:absolute; margin-top:-1px; z-index: 2; background-color: #fff; width:370px; border:1px solid #d5dbe0; box-sizing: border-box;"></div>
+                        <div class="questionReasonListDiv"></div>
                     </td>
                 </tr>
                 </tbody>
@@ -635,32 +529,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
             <div style="margin-top:15px;">
                 <textarea class="questionContent"
-                          placeholder="1. 인증관련, 이용불가, 접속불가 문의는 신상마켓 카카오톡으로 문의주세요.&#13;&#10;2. 주문 및 배송, 교환문의는 해당 주문내역에서 문의하실 수 있습니다."
-                          style="resize:none; width:100%; box-sizing: border-box; height:200px; border:1px solid #d5dbe0; padding:20px; font-size:14px;"></textarea>
-
-            </div>
+                          placeholder="1. 인증관련, 이용불가, 접속불가 문의는 신상마켓 카카오톡으로 문의주세요.&#13;&#10;2. 주문 및 배송, 교환문의는 해당 주문내역에서 문의하실 수 있습니다."></textarea>
+		 </div>
 
             <div style="margin-top:15px; color:#b9b9b9; font-size:12px;">
-                <!-- 주문 및 교환 문의는 해당 주문내역에서 하실 수 있습니다. -->
-
             </div>
 
             <div style="margin-top:15px;">
-                <button onclick="$('div.ly_wp').hide(), $('.dimmed').hide();"
-                        style="border:1px solid #ddd; width:245px; height:50px; color:#aaa; background-color: #fff; font-size:18px; margin-right:10px; cursor:pointer;">
-                    취소
-                </button>
-                <button onclick="questionRequest()"
-                        style="border:1px solid #0075b4; width:245px; height:50px; color:#fff; background-color: #0288d1; font-size:18px; cursor:pointer;">
-                    문의하기
-                </button>
+                <button class="cancelBtn"> 취소 </button>
+                <button class="qnaBtn">문의하기</button>
             </div>
 
         </div>
-
-
-        <button class="_close bt_ly_close" type="button" onclick="$('div.ly_wp').hide(), $('.dimmed').hide();">
-            <!-- <img src="./img/quick_close_btn.png"  style="width:24px;"> -->
+		<button class="_close bt_ly_close">
         </button>
     </section>
 </div>
@@ -717,7 +598,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
     </div>
     <div style="border-top:1px solid #e5e5e5; position:relative;">
-        <!-- <div onclick="closeCardPayInfoPopup('cardPayInfo','no');" style="position:absolute; top:12px; left:20px; cursor:pointer;">한달간 보지 않기</div> -->
         <div onclick="$('.oneCardPayInfoPopup').hide()"
              style="position:absolute; top:16px; right:20px; cursor:pointer; font-size:16px;">닫기
         </div>
@@ -767,6 +647,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<script src="../js/menuhover.js" type="text/javascript"></script>
 	<script src="../js/move.js" type="text/javascript"></script>
 	<th:block script layout:fragment="script">
+	
 	</th:block>
 </body>
 

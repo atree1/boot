@@ -8,5 +8,5 @@ public interface ProductOptionMapper {
 	public List<ProductOptionVO> getList(Long pno);
 	public ProductOptionVO get(Long opno);
 	public int modifyQty(ProductOptionVO vo);
-
+	public int insert(ProductOptionVO vo);
 }
