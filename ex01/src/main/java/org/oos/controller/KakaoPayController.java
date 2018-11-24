@@ -23,7 +23,7 @@ public class KakaoPayController {
 	public String kakaoPay() {
 		log.info("kakaoPay post............................................");
 		
-		return "redirect:";//service.kakaoPayReady()
+		return "redirect:"+service.kakaoPayReady();
 
 	}
 	@GetMapping("/success")

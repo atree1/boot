@@ -27,7 +27,7 @@ public class KakaopayService {
 	@Setter(onMethod_ = @Autowired)
 	private OrderDetailService service;
 
-	public String kakaoPayReady(OrderDetailVO odvo,MemberVO mvo) {
+	public String kakaoPayReady() {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
@@ -37,11 +37,11 @@ public class KakaopayService {
 
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("cid", "TC0ONETIME");
-		params.add("partner_order_id", ""+odvo.getOno());
-		params.add("partner_user_id", mvo.getMid());
-		params.add("item_name", odvo.getProduct().getPname());
-		params.add("quantity", ""+odvo.getQty());
-		params.add("total_amount", ""+odvo.getQty()*odvo.getProduct().getPrice());
+		params.add("partner_order_id", "1111");
+		params.add("partner_user_id", "atree");
+		params.add("item_name", "가방");
+		params.add("quantity", "1");
+		params.add("total_amount", "100");
 		params.add("tax_free_amount", "0");
 		params.add("approval_url", "http://localhost:8080/kakaopay/success");
 		params.add("cancel_url", "http://localhost:8080/kakaopay/cancel");
