@@ -131,35 +131,47 @@ width:40px;
 						<div class="option_area">
 							<ul class="goods_option_ul" style="width: 100%;" th:each="arr:${product.optList}">
 								<li class="min-height42 optionLi">
+									
 									<div class="option">
-										<div style="color: #333; font-weight: 500; font-size: 14px;" 
+										<div th:name="${arr.opno}" th:data-size="${arr.size}" style="color: #333; font-weight: 500; font-size: 14px;" 
 										th:text="|SIZE / ${arr.size}|">SIZE</div>
 										<div style="margin-top: 6px; font-size: 12px;"
 											th:text="|재고수량 / ${arr.qty}|">QTY</div>
 											
 									</div>
+									
 									<div class="count">
+									
 										<div class="option_count_control" style="">
 											<div class="detailUpDownDiv">
 												<div class="detailDownArea"></div>
 												<input th:name="${arr.opno}" class="detailUpDownNumArea" maxlength="3" type="text"
 													value="0">
 												<div class="detailUpArea"></div>
+											
 											</div>
+												
+												<button class="selectBtn" th:name="${arr.opno}">선택</button>
+									
 										</div>
+										
+									
 									</div>
+								
 								</li>
+								
 							</ul>
 							<div class="div_line_1px"
 								style="width: 100%; margin-top: 20px; margin-bottom: 15px;"></div>
 						</div>
 					<div class="div_line_1px" style="width: 100%; margin-bottom: 21px;"></div>
-					<form action="/order/list">
+					<form id="actionForm" action="/order/list">
 						<input type="hidden" name="pno" th:value="${product.pno}">
 						<input type="hidden" name="mid" value="test1">
-				
+					
 						<div class="displayTable"
 							style="width: 100%; background-color: #ffefef; height: 50px; padding: 0px 16px; box-sizing: border-box; margin-bottom: 15px;">
+							<div id="selectResult" class="table-cell"></div>
 							<div class="table-cell" style="font-size: 14px;">총 결제금액</div>
 							<div class="detailOrderPrice table-cell"
 								style="text-align: right; font-size: 20px; color: #ff5252; font-weight: 500;">0원
@@ -203,7 +215,7 @@ width:40px;
 <th:block layout:fragment="script"> 
 <script th:inline="javascript">
 	$(document).ready(function() {
-	
+		//큰이미지
 		(function() {
 			
 			var firstImg=[[${product.imgList[0]}]];
@@ -224,7 +236,7 @@ width:40px;
 		
 				
 		})();
-		
+		//왼쪽 작은 이미지
 	(function() {
 			
 			var imgList=[[${product.imgList}]];
@@ -248,7 +260,23 @@ width:40px;
 				
 		})();
 		
+		var actionForm=$('#actionForm');
 		
+		
+		$(".selectBtn").on('click',function(e){
+			
+			var opno=$(this).attr('name');
+		
+			var qty=$(".count").find("input[name='"+opno+"']").val();
+			var size=$(".option").find("div[name='"+opno+"']").attr('data-size');
+			
+			console.log(qty);
+			console.log(size);
+			
+			actionForm.append("<input type='hidden' name='info' value='"+size+"_"+qty+"'>");
+			
+			
+		});
 		
 		$(".detailDownArea").click(function(e) {
 			var count = $(this).next("input").val();
@@ -294,7 +322,9 @@ width:40px;
 			}
 		});
 		
-		$(".btn_order_direct").click(function(){
+		$(".btn_order_direct").click(function(e){
+			e.preventDefault();
+			actionForm.submit();
 			
 		});
 	});
