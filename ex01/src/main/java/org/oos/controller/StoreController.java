@@ -45,4 +45,6 @@ public class StoreController {
 		model.addAttribute("store", storeService.get(vo.getSno()));
 		model.addAttribute("product", vo);
 	}
+	
+
 }

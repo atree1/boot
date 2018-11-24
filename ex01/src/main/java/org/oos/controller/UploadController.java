@@ -160,7 +160,7 @@ public class UploadController {
 
 		//log.info("fileName: " + fileName);
 
-		File file = new File("c:\\upload\\" + fileName);
+		File file = new File("c:\\upload\\"+ fileName);
 
 		//log.info("file: " + file);
 

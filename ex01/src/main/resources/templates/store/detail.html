@@ -2,6 +2,19 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layout/shopLayout}">
 
+
+<style>
+.inner_main_img img{
+	width:540px;
+	height:80px;
+}
+.gthumb img{
+width:40px;
+	height:10px;
+}
+
+
+</style>
 <div class="container" style="margin-top: 20px;"
 	layout:fragment="container">
 	<div class="menuRoot">
@@ -22,21 +35,7 @@
 						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154259213776627100_302507012.jpg"
 						style="display: block;"> <span class="img_edge"></span>
 				</div>
-				<div class="gthumb">
-					<img width="60" height="80"
-						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154259213799793800_1094352992.jpg"
-						style="display: block;"><span class="img_edge"></span>
-				</div>
-				<div class="gthumb">
-					<img width="60" height="80"
-						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_15425921383346300_519679408.jpg"
-						style="display: block;"> <span class="img_edge"></span>
-				</div>
-				<div class="gthumb">
-					<img width="60" height="80"
-						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_15425921386451100_1657614549.jpg"
-						style="display: block;"><span class="img_edge"></span>
-				</div>
+			
 			</div>
 			<div class="inner_main_img">
 				<img width="540" height="720"
@@ -129,10 +128,6 @@
 							</tr>
 						</tbody>
 					</table>
-					<div class="div_line_1px" style="width: 100%; margin-bottom: 21px;"></div>
-					<form action="/order/list">
-						<input type="hidden" name="pno" th:value="${product.pno}">
-						<input type="hidden" name="mid" value="member1">
 						<div class="option_area">
 							<ul class="goods_option_ul" style="width: 100%;" th:each="arr:${product.optList}">
 								<li class="min-height42 optionLi">
@@ -141,6 +136,7 @@
 										th:text="|SIZE / ${arr.size}|">SIZE</div>
 										<div style="margin-top: 6px; font-size: 12px;"
 											th:text="|재고수량 / ${arr.qty}|">QTY</div>
+											
 									</div>
 									<div class="count">
 										<div class="option_count_control" style="">
@@ -157,6 +153,11 @@
 							<div class="div_line_1px"
 								style="width: 100%; margin-top: 20px; margin-bottom: 15px;"></div>
 						</div>
+					<div class="div_line_1px" style="width: 100%; margin-bottom: 21px;"></div>
+					<form action="/order/list">
+						<input type="hidden" name="pno" th:value="${product.pno}">
+						<input type="hidden" name="mid" value="test1">
+				
 						<div class="displayTable"
 							style="width: 100%; background-color: #ffefef; height: 50px; padding: 0px 16px; box-sizing: border-box; margin-bottom: 15px;">
 							<div class="table-cell" style="font-size: 14px;">총 결제금액</div>
@@ -193,43 +194,6 @@
 				<div class="div_line_1px"></div>
 				<div class="mgoods_images">
 
-					<div class="mgoods_images_title displayTable">
-						<div class="table-cell" style="">매장 최신 등록상품</div>
-						<div class="table-cell moreShow" style="text-align: right;">
-							<a href="wstore?sid=16011" target="_blank"><span>더보기&nbsp;&nbsp;
-									&gt;</span></a>
-						</div>
-					</div>
-					<div class="mgoods_thumb scopeLimit" style="margin-right: 46px;">
-						<a class="modalOpen" href="goodsDetail?gid=19767931">
-							<div style="position: relative;">
-								<img width="180" height="240"
-									src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_15425382225968100_1821781105.jpg&amp;h=293&amp;w=224"
-									style="display: block;"><span class="img_edge"></span>
-							</div>
-							<div class="mgoods_gname">(주문폭주)하운두 투스 울 체크자켓</div>
-						</a>
-					</div>
-					<div class="mgoods_thumb scopeLimit" style="margin-right: 46px;">
-						<a class="modalOpen" href="goodsDetail?gid=19767854">
-							<div style="position: relative;">
-								<img width="180" height="240"
-									src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154253809051503000_47540165.jpg&amp;h=293&amp;w=224"
-									style="display: block;"><span class="img_edge"></span>
-							</div>
-							<div class="mgoods_gname">(주문폭주,미송필수)알파카 포그니니트</div>
-						</a>
-					</div>
-					<div class="mgoods_thumb scopeLimit">
-						<a class="modalOpen" href="goodsDetail?gid=19767796">
-							<div style="position: relative;">
-								<img width="180" height="240"
-									src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154253800659404000_2143852372.jpg&amp;h=293&amp;w=224"
-									style="display: block;"><span class="img_edge"></span>
-							</div>
-							<div class="mgoods_gname">(주문폭주,리오더폭주)레터링 양기모 맨투맨</div>
-						</a>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -239,6 +203,52 @@
 <th:block layout:fragment="script"> 
 <script th:inline="javascript">
 	$(document).ready(function() {
+	
+		(function() {
+			
+			var firstImg=[[${product.imgList[0]}]];
+			var str="";
+			console.log(firstImg);
+			var fileCallPath =  encodeURIComponent(firstImg.ipath+ "/"+ firstImg.uuid +"_"+firstImg.iname);
+			console.log(fileCallPath);
+			str += "<li data-path='"+ firstImg.ipath+"' data-uuid='"+ firstImg.uuid+"' data-filename='"+ firstImg.iname+"'><div>";
+			str += "<img src='/display?fileName="+fileCallPath+"'>";
+			str+="<p><a href='#'>"+ firstImg.iname+"</a></p>"
+			str += "</div>";
+			str +"</li>";
+			
+			console.log("filePath: "+fileCallPath);
+					
+				
+				$(".inner_main_img").html(str);
+		
+				
+		})();
+		
+	(function() {
+			
+			var imgList=[[${product.imgList}]];
+			var str="";
+			console.log(imgList);
+			for(img of imgList){
+				
+			var fileCallPath =  encodeURIComponent(img.ipath+ "/"+ img.uuid +"_"+img.iname);
+			console.log(fileCallPath);
+			str += "<li data-path='"+ img.ipath+"' data-uuid='"+ img.uuid+"' data-filename='"+ img.iname+"'><div>";
+			str += "<img src='/display?fileName="+fileCallPath+"'>";
+			str+="<p><a href='#'>"+ img.iname+"</a></p>"
+			str += "</div>";
+			str +"</li>";
+			}
+			console.log("filePath: "+fileCallPath);
+					
+				
+				$(".gthumb").html(str);
+		
+				
+		})();
+		
+		
 		
 		$(".detailDownArea").click(function(e) {
 			var count = $(this).next("input").val();

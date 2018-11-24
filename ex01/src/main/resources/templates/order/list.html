@@ -111,114 +111,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<table id="payMethodTable_0" class="basketGoodsTableEnd"
-							cellspacing="0" style="width: 760px;">
-							<tbody>
-								<tr id="payMentStore_0"
-									class="paymentOption height60 payMethodTR">
-									<td id="storePayMethod_0" class="textLeft storeLengthCount"
-										colspan="5" storeindex="0"
-										style="border-spacing: 10px; padding: 0px 30px;">
-										<button class="payMethodText" style="">결제방법 선택</button>
-										<button id="payDirect_0" class="payMethod hideBtn_0"
-											onclick="selectPayMethod(0,1)">카카오페이</button>
-	
-									</td>
-									<td style="width: 170px; padding-right: 30px;">
-										<div class="basketStoreSumPrice">0원</div>
-									</td>
-								</tr>
-	
-								<tr class="paymentOption" style="height: 102px;">
-									<td class="" colspan="6"
-										style="padding: 0 30px; border-spacing: 10px;">
-										<div class="payMethodInputArea" style="height: 54px;">
-											<div class="textLeft">주소 입력</div>
-											<input class="payMethodInput" type="text"
-												placeholder="주소 전체를 정확히 적어주세요." value=""
-												style="width: 600px; height: 32px; box-sizing: border-box; padding: 0px 9px; margin-top: 7px;">
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
 						
-					</div>
-					<div style="margin-top:20px;">
-						<div style="border-bottom: 4px solid #e5e5e5; width: 760px;"></div>
-						<table class="basketGoodsTableMiddle" cellspacing="0"
-							style="width: 760px;">
-							<tbody>
-								<tr>
-									<td colspan="6" class="borderBottom"
-										style="height: 52px; text-align: left;"><a
-										style="color: #202225; font-size: 14px;">누죤 6층 607호 짱구(y
-											sh)</a></td>
-								</tr>
-							</tbody>
-						</table>
-						<table cellspacing="0" class="goods basketGoodsTableMiddle"
-							storeindex="0" storesid="4488" style="width: 760px;">
-							<tbody>
-								<tr style="height: 120px;">
-									<td class="checkBoxTd borderBottom">
-										<div class="check_box">
-											<input type="checkbox"></label>
-										</div>
-									</td>
-									<td class="height90 borderBottom " colspan="4"
-										style="text-align: left;">
-										<div class="shoppingGoodsThumbnail">
-											<img
-												src="https://img7.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img7.sinsangmarket.co.kr/upfiles3/ssmGoods/u_153139400118506700_2086705566.jpg&amp;h=293&amp;w=224"
-												style="width: 60px; display: inline-block; vertical-align: middle;">
-										</div>
-										<div
-											style="display: inline-block; margin-left: 6px; vertical-align: middle;">
-											<div class="basketGoodsName" style="width: 360px;">
-												<a class="modalOpen" style="color: #333;">567</a>
-												<div class="basketGoodsDeleteBtn"></div>
-											</div>
-											<div class="basketStoreInfo"
-												style="font-size: 15px; margin-top: 6px;">28,000원</div>
-										</div>
-									</td>
-									<td class="height90 borderBottom btnTdArea">
-										<button onclick="optionModify()" class="basketCommonBtn"
-											style="margin-top: 8px;">옵션변경/수정</button>
-									</td>
-								</tr>
-								<tr>
-									<td class="borderRight" colspan="5" style="border-spacing: 0px;">
-										<table cellspacing="0" style="width: 100%;">
-											<tbody>
-												<tr class="height60 optionClass">
-													<td class="checkBoxTd ">
-														<div class="check_box">
-															<input type="checkbox" id="133912908"> <label
-																for="133912908"></label>
-														</div>
-													</td>
-													<td class="textLeft  basketOptionArea">브라운/270</td>
-													<td class=" upDownTd">
-														<div class="upDownDiv">
-															<div class="downArea"></div>
-															<input class="upDownNumArea" maxlength="3" type="text"
-																value="1" placeholder="0" style="ime-mode: disabled;">
-															<div id="count_up_0" class="upArea"></div>
-														</div>
-													</td>
-													<td class="optionPrice" data-price="26000">26,000원</td>
-												</tr>
-											</tbody>
-										</table>
-									</td>
-									<td id="index_0" class="basketGoodsSumPrice">
-										<div class="sumPrice">0원</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
 						<table id="payMethodTable_0" class="basketGoodsTableEnd"
 							cellspacing="0" style="width: 760px;">
 							<tbody>
@@ -302,7 +195,7 @@
 								</tr>
 								<tr>
 									<td colspan="2">
-										<button class="orderBtn" onclick="directOrderBtnClick()"
+										<button class="orderBtn" 
 											style="background-color: #ff7f7a; border: 1px solid #ff7f7a;">
 											결제하기</button>
 									</td>
@@ -320,6 +213,8 @@
 			</div>
 		</div>
 	</div>
+	<form id="actionForm" method="post" action="/kakaopay/pay">
+	</form>
 </div>
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
@@ -327,11 +222,18 @@
 		var totalCount = $(".optionPrice").data("price");
 		var sum = 0;
 		
+		
 		(function(){
 			
 			getTotalSum();
 			
 		})();
+		$(".orderBtn").on('click',function(e){
+			e.preventDefault();
+			$('#actionForm').submit();
+			
+		});
+		
 		
 		function getTotalSum(){
 			$.makeArray($(".optionPrice").map(function(){

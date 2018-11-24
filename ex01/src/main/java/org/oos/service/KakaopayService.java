@@ -3,7 +3,7 @@ package org.oos.service;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.oos.domain.KakaoPayDTO;
+import org.oos.domain.KakaoPayInfoDTO;
 import org.oos.domain.KakaoPayReadyDTO;
 import org.oos.domain.MemberVO;
 import org.oos.domain.OrderDetailVO;
@@ -18,17 +18,20 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.Setter;
+import lombok.extern.java.Log;
 
 @Service
+@Log
 public class KakaopayService {
 	private static final String HOST = "https://kapi.kakao.com";
-	private KakaoPayDTO kakaoPayDTO;
+	private KakaoPayInfoDTO kakaoPayDTO;
 	private KakaoPayReadyDTO kakaoPayReadyDTO;
+	
 	@Setter(onMethod_ = @Autowired)
 	private OrderDetailService service;
 
 	public String kakaoPayReady() {
-		
+
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "KakaoAK 80751743222df1787be1cbbc946d6ea5");
@@ -63,7 +66,7 @@ public class KakaopayService {
 		return "/pay";
 	}
 
-	public KakaoPayDTO kakaoPayInfo(String pg_token) {
+	public KakaoPayInfoDTO kakaoPayInfo(String pg_token) {
 
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -75,15 +78,16 @@ public class KakaopayService {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("cid", "TC0ONETIME");
 		params.add("tid", kakaoPayReadyDTO.getTid());
-		params.add("partner_order_id", "1001");
+		params.add("partner_order_id", "1111");
 		params.add("partner_user_id", "atree");
-		params.add("pg_token", pg_token);
-		params.add("total_amount", "1000");
 
+		params.add("total_amount", "100");
+		params.add("pg_token", pg_token);
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, headers);
 		try {
-			kakaoPayDTO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayDTO.class);
-
+			kakaoPayDTO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body,
+					KakaoPayInfoDTO.class);
+			log.info("" + kakaoPayDTO);
 			return kakaoPayDTO;
 		} catch (RestClientException e) {
 			// TODO Auto-generated catch block
