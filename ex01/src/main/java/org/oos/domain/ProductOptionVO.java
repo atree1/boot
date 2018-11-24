@@ -9,4 +9,5 @@ public class ProductOptionVO {
 	private String size;
 	private Long qty;
 	private Long opno;
+	
 }

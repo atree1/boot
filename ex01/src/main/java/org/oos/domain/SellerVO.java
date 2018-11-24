@@ -15,5 +15,5 @@ public class SellerVO {
 	private String tel;
 	private Date regdate;
 	private Date updatedate;
-	
+	private  char del;
 }

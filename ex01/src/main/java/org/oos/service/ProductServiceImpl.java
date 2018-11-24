@@ -54,6 +54,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional
 	public int update(ProductVO vo) {
 		// TODO Auto-generated method stub
 
@@ -88,9 +89,11 @@ public class ProductServiceImpl implements ProductService {
 		int result=pMapper.insert(vo);
 		
 		for (ProductImgVO img:vo.getImgList()) {
+			img.setPno(vo.getPno());
 			imgMapper.insert(img);
 		}
 		for (ProductOptionVO opt:vo.getOptList()) {
+			opt.setPno(vo.getPno());
 			optMapper.insert(opt);
 		}
 		

@@ -23,10 +23,17 @@ public class KakaoPayController {
 	public String kakaoPay() {
 		log.info("kakaoPay post............................................");
 		
-		return "redirect:" + service.kakaoPayReady();
+		return "redirect:";//service.kakaoPayReady()
 
 	}
-	
+	@GetMapping("/success")
+	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
+		log.info("kakaoPaySuccess get............................................");
+		log.info("kakaoPaySuccess pg_token : " + pg_token);
+		
+		model.addAttribute("info", service.kakaoPayInfo(pg_token));
+		
+	}
 	@GetMapping("/fail")
 	public void fail() {
 		log.info("kakaoPayFail get............................................");

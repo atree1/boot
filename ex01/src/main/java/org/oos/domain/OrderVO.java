@@ -14,5 +14,5 @@ public class OrderVO {
 	private String mid;
 	private String state;
 	private Date regdate;
-	
+	private  char del;
 }

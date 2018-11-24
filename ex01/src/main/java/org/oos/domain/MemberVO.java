@@ -13,5 +13,5 @@ public class MemberVO {
 	private String email;
 	private String address;
 	private char permit;
-	
+	private  char del;
 }

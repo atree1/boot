@@ -10,7 +10,7 @@ public class OrderDetailVO {
 	private Long pno;
 	private Long qty;
 	private Long opno;
-	
+	private String del;
 	private ProductVO product;
 	private ProductOptionVO option;
 }

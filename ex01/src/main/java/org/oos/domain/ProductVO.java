@@ -16,5 +16,5 @@ public class ProductVO {
 	private Date updatedate;
 	private List<ProductImgVO> imgList;
 	private List<ProductOptionVO> optList;
-		
+	private  char del;	
 }
