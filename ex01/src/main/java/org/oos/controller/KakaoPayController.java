@@ -13,7 +13,7 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Controller
-@RequestMapping("/kakao/*")
+@RequestMapping("/kakaopay/*")
 @Log
 public class KakaoPayController {
 	@Setter(onMethod_ = @Autowired)
