@@ -36,21 +36,22 @@
 							</tr>
 						</tbody>
 					</table>
+					
 					<div>
 						<div style="border-bottom: 4px solid #e5e5e5; width: 760px;"></div>
 						<table class="basketGoodsTableMiddle" cellspacing="0"
-							style="width: 760px;">
+							style="width: 760px;" >
 							<tbody>
 								<tr>
 									<td colspan="6" class="borderBottom"
 										style="height: 52px; text-align: left;"><a
-										style="color: #202225; font-size: 14px;">누죤 6층 607호 짱구(y
+										style="color: #202225; font-size: 14px;" >누죤 6층 607호 짱구(y
 											sh)</a></td>
 								</tr>
 							</tbody>
 						</table>
 						<table cellspacing="0" class="goods basketGoodsTableMiddle"
-							storeindex="0" storesid="4488" style="width: 760px;">
+							storeindex="0" storesid="4488" style="width: 760px;" th:each="arr:${orderList}">
 							<tbody>
 								<tr style="height: 120px;">
 									<td class="checkBoxTd borderBottom">
@@ -68,11 +69,11 @@
 										<div
 											style="display: inline-block; margin-left: 6px; vertical-align: middle;">
 											<div class="basketGoodsName" style="width: 360px;">
-												<a class="modalOpen" style="color: #333;">567</a>
+												<a class="modalOpen" style="color: #333;" th:text="${arr.product.pname}">567</a>
 												<div class="basketGoodsDeleteBtn"></div>
 											</div>
 											<div class="basketStoreInfo"
-												style="font-size: 15px; margin-top: 6px;">28,000원</div>
+												style="font-size: 15px; margin-top: 6px;"  th:text="${arr.product.price}">28,000원</div>
 										</div>
 									</td>
 									<td class="height90 borderBottom btnTdArea">
@@ -91,22 +92,22 @@
 																for="133912908"></label>
 														</div>
 													</td>
-													<td class="textLeft  basketOptionArea">브라운/270</td>
+													<td class="textLeft  basketOptionArea" th:text="${arr.option.size}">브라운/270</td>
 													<td class=" upDownTd">
 														<div class="upDownDiv">
 															<div class="downArea"></div>
 															<input class="upDownNumArea" maxlength="3" type="text"
-																value="1" placeholder="0" style="ime-mode: disabled;">
+																th:value="${arr.qty}" placeholder="0" style="ime-mode: disabled;">
 															<div id="count_up_0" class="upArea"></div>
 														</div>
 													</td>
-													<td class="optionPrice" data-price="28000">28,000원</td>
+													<td class="optionPrice" th:data-price="${arr.product.price}" th:text="|${arr.product.price}원|">28,000원</td>
 												</tr>
 											</tbody>
 										</table>
 									</td>
 									<td id="index_0" class="basketGoodsSumPrice">
-										<div class="sumPrice">0원</div>
+										<div class="sumPrice" th:data-price="${arr.product.price*arr.qty}" th:text="${arr.product.price*arr.qty}"></div>
 									</td>
 								</tr>
 							</tbody>
@@ -136,7 +137,7 @@
 										<div class="payMethodInputArea" style="height: 54px;">
 											<div class="textLeft">주소 입력</div>
 											<input class="payMethodInput" type="text"
-												placeholder="주소 전체를 정확히 적어주세요." value=""
+												placeholder="주소 전체를 정확히 적어주세요."  th:value="${member.address}"
 												style="width: 600px; height: 32px; box-sizing: border-box; padding: 0px 9px; margin-top: 7px;">
 										</div>
 									</td>
@@ -214,7 +215,10 @@
 		</div>
 	</div>
 	<form id="actionForm" method="post" action="/kakaopay/pay">
-	
+		<input id='mid' name='mid' type="hidden" th:value="${member.mid}">
+		
+		<input id='orderList' name='orderList' type="text" th:value="${orderList[0]}">
+		
 	</form>
 </div>
 <th:block layout:fragment="script">
@@ -222,7 +226,7 @@
 	$(document).ready(function(){
 		var totalCount = $(".optionPrice").data("price");
 		var sum = 0;
-		
+		var actionForm= $('#actionForm');
 		
 		(function(){
 			
@@ -231,13 +235,14 @@
 		})();
 		$(".orderBtn").on('click',function(e){
 			e.preventDefault();
-			$('#actionForm').submit();
+			actionForm.submit();
+			
 			
 		});
 		
 		
 		function getTotalSum(){
-			$.makeArray($(".optionPrice").map(function(){
+			$.makeArray($(".sumPrice").map(function(){
 				sum += $(this).data("price");
 			}));
 			$(".d_goodsSumPrice").html(sum);

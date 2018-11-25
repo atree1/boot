@@ -61,18 +61,20 @@ public class OrderController {
 			ProductVO pVO=productService.read(pno);
 			pVO.getOptList().forEach(opt->{
 				if(opt.getSize().equals(sizeInfo[0])) {
-					vo.setOpno(opt.getOpno());	
+					vo.setOpno(opt.getOpno());
+					vo.setOption(opt);
 				}
 			});
 			vo.setPno(pno);
 			vo.setProduct(pVO);
+			
 			vo.setQty(Long.parseLong(sizeInfo[1]));
 			
 			list.add(vo);
 			log.info(""+vo);
 		}
-		model.addAttribute("Member", memberService.get(mid));
-		model.addAttribute("Store", storeService.get(sno));
+		model.addAttribute("member", memberService.get(mid));
+		model.addAttribute("store", storeService.get(sno));
 		model.addAttribute("orderList",list);
 	}
 

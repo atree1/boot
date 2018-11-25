@@ -1,5 +1,8 @@
 package org.oos.controller;
 
+
+
+import org.oos.domain.OrderDetailVO;
 import org.oos.service.KakaopayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +23,10 @@ public class KakaoPayController {
 	private KakaopayService service;
 	
 	@PostMapping("/pay")
-	public String kakaoPay() {
+	public String kakaoPay(String mid,OrderDetailVO orderList) {
 		log.info("kakaoPay post............................................");
-		
+		log.info("member:"+mid);  
+		log.info("orderList:"+orderList);
 		return "redirect:"+service.kakaoPayReady();
 
 	}
