@@ -2,13 +2,13 @@ package org.oos.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.oos.domain.KakaoPayInfoDTO;
 import org.oos.domain.KakaoPayReadyDTO;
-import org.oos.domain.MemberVO;
 import org.oos.domain.OrderDetailVO;
-import org.oos.domain.StoreVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -76,7 +76,7 @@ public class KakaopayService {
 		return "/pay";
 	}
 
-	public KakaoPayInfoDTO kakaoPayInfo(String pg_token) {
+	public Map<String,Object> kakaoPayInfo(String pg_token) {
 		String mid=orderList.get(0).getMid();
 		Long sno=orderList.get(0).getSno();
 		RestTemplate restTemplate = new RestTemplate();
@@ -95,11 +95,15 @@ public class KakaopayService {
 		params.add("total_amount",""+orderList.get(0).getProduct().getPrice()*orderList.get(0).getQty());
 		params.add("pg_token", pg_token);
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, headers);
+		Map<String, Object> map = new HashMap<>();
 		try {
 			kakaoPayInfoDTO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body,
 					KakaoPayInfoDTO.class);
 			log.info("" + kakaoPayInfoDTO);
-			return kakaoPayInfoDTO;
+			
+			map.put("kakao", kakaoPayInfoDTO);
+			map.put("orderList", orderList);
+			return map;
 		} catch (RestClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
