@@ -56,12 +56,12 @@ public class OrderController {
 		List<OrderDetailVO> list=new ArrayList<>();
 		for (String size : info) {
 			String[] sizeInfo=size.split("_");
-			OrderDetailVO vo=new OrderDetailVO();			
-			
+			OrderDetailVO vo=new OrderDetailVO();
+			Long opno=Long.parseLong(sizeInfo[0]);
+			vo.setOpno(opno);
 			ProductVO pVO=productService.read(pno);
 			pVO.getOptList().forEach(opt->{
-				if(opt.getSize().equals(sizeInfo[0])) {
-					vo.setOpno(opt.getOpno());
+				if(opt.getOpno()==opno) {	
 					vo.setOption(opt);
 				}
 			});
