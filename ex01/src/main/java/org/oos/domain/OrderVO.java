@@ -15,4 +15,5 @@ public class OrderVO {
 	private String state;
 	private Date regdate;
 	private  char del;
+	private Long total;
 }

@@ -230,7 +230,20 @@
 			
 		})();
 	
+		(function(){
+			var obj = [[${orderList[0].product.imgList[0]}]];
+			console.log(obj);
 		
+	 		var uploadUL=$(".shoppingGoodsThumbnail ul");
+			var str="";
+			
+			
+					var fileCallPath =  encodeURIComponent( obj.ipath+ "/s_"+obj.uuid +"_"+obj.iname);
+					str += "<li><img src='/display?fileName="+fileCallPath+"'>";
+					str += "</li>"; 
+				uploadUL.append(str);
+	
+		})();
 		
 		function getTotalSum(){
 			$.makeArray($(".sumPrice").map(function(){

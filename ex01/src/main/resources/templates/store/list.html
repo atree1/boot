@@ -132,12 +132,10 @@
 				
 					<li class="goodsContainer"  style="margin-right: 5px;" th:each="arr :${product}"  
 						th:id="@{${arr.pno}}">
-					<div style="position: relative; width: 270px; height: 353px;">
-					
-							<img
-								src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154232399036319400_1127724793.jpg&amp;h=440&amp;w=336"
-								style="width: 100%; display: block;">
-								<span th:text="${arr.imgList}"></span>
+						<div class="goodsImg" style="position: relative; width: 270px; height: 353px;">
+							<div th:data-pno="${arr.pno}">
+							
+							</div>					
 						</div>
 						<div class="goodsInfo" style="position: relative;">
 							<div class="goodsName" th:text="${arr.pname}" style="">PNAME</div>
@@ -174,6 +172,31 @@
 				$("#pno").val(pno);
 				actionForm.attr("action","/store/detail").submit();
 			});
+			
+			(function() {
+				
+				var goodsImg=[[${product}]];
+				
+				//console.log(goodsImg);
+				for(var i=0; i<goodsImg.length; i++){
+					
+					var str="";
+					var img = goodsImg[i].imgList[0];
+					var imgUl= $('.goodsContainer').find("div [data-pno='"+img.pno+"']");
+					console.log(imgUl);
+		
+					var fileCallPath =  encodeURIComponent(img.ipath+ "/"+ img.uuid +"_"+img.iname);
+					str += "<ul><img src='/display?fileName="+fileCallPath+"' style='width: 100%; height:420px; display: block;'></ul>";
+					console.log(str);
+					console.log(img.pno);
+					imgUl.html(str); 
+				
+				}
+				
+					
+			})();
+		
+			
 		});
 	</script>
 </th:block>

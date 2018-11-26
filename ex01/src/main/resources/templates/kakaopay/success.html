@@ -4,24 +4,77 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+#payment strong {
+	display: block;
+	width: 55px;
+	height: 18px;
+	background: url(../img/img_pay_160930.png) no-repeat;
+	background-position: 0px -100px;
+	font-size: 0;
+}
+
+#payment {
+	padding: 30px;
+}
+
+#payment .body{
+	padding-top: 42px;
+}
+
+p {
+	margin: 0 0 10px;
+}
+
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #333;
+}
+
+.area_btn{
+	position: absolute;
+	bottom: 17px;
+	left: 0;
+	padding: 0 18px;
+	width: 100%;
+	box-sizing: border-box
+}
+
+.btn_submit{
+	width: 100%;
+	height: 54px;
+	font-size: 18px;
+	color: #222;
+	background-color: #fdd835;
+	border: 0 none;
+	cursor: pointer;
+	vertical-align: middle;
+	font-family: 'Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',sans-serif;
+	line-height: 1.5;
+}	
+</style>
 <body>
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<div id="payment">
+		<div class="header">
+			<strong> <kakaopay></kakaopay>
+			</strong>
+		</div>
 
-<strong>
-<kakaopay></kakaopay>
-</strong>
+		<div class="body">
+			<p>카카오페이 결제가 정상적으로 완료되었습니다.</p>
 
+			<p>결제일시: [[${info.approved_at}]]</p>
+			<p>상품명: [[${info.item_name}]]</p>
+			<p>결제금액: [[${info.amount}]]</p>
 
-카카오페이 결제가 정상적으로 완료되었습니다.
-
-결제일시: 	[[${info.approved_at}]]<br/>
-주문번호:	[[${info.partner_order_id}]]<br/>
-상품명:	[[${info.item_name}]]<br/>
-상품수량:	[[${info.quantity}]]<br/>
-결제금액:	[[${info.amount}]]<br/>
-결제방법:	[[${info.payment_method_type}]]<br/>
-
-
-<h2>[[${info}]]</h2>
+		</div>
+		<div class="area_btn">
+			<button type="submit" class="btn_submit" onclick="location.href='/store/list'">
+			창 닫기
+			</button>
+		</div>
+	</div>
 </body>
 </html>

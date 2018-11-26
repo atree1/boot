@@ -1,4 +1,14 @@
-    $(".categoryMenu").hover(
+	$(".selectBox").click(function(){
+			if($(".selectBox").hasClass("open")){
+				$(".MultipleSelectBox").slideUp();
+				$(".selectBox").removeClass("open")
+			}else{
+				$(".MultipleSelectBox").slideDown();
+				$(".selectBox").addClass("open")
+			}
+	});    
+
+	$(".categoryMenu").hover(
         function () {
             $(this).show();
         },
