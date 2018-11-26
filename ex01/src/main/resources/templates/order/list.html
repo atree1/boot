@@ -214,12 +214,8 @@
 			</div>
 		</div>
 	</div>
-	<form id="actionForm" method="post" action="/kakaopay/pay">
-		<input id='mid' name='mid' type="hidden" th:value="${member.mid}">
-		
-		<input id='orderList' name='orderList' type="text" th:value="${orderList[0]}">
-		
-	</form>
+	
+
 </div>
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
@@ -233,12 +229,7 @@
 			getTotalSum();
 			
 		})();
-		$(".orderBtn").on('click',function(e){
-			e.preventDefault();
-			actionForm.submit();
-			
-			
-		});
+	
 		
 		
 		function getTotalSum(){
@@ -267,7 +258,29 @@
 			$(this).prev("input").val(count);
 			
 		})
-		
+		$(".orderBtn").on('click',function(e){
+			e.preventDefault();
+
+		$.ajax({
+				
+				type:'post',
+				url:'/kakaopay/pay',
+				data:JSON.stringify([[${orderList}]]),
+				contentType:"application/json; charset=utf-8",
+				success:function(result,status,xhr){
+						console.log(result);
+						 window.location.href=result;
+				},
+				error:function(xhr,status,er){
+					if(error){
+						error(er);
+					}
+				}
+			})
+	
+			
+			
+		});
 	});
 	</script>
 </th:block>

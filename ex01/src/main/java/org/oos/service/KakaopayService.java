@@ -2,11 +2,13 @@ package org.oos.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.oos.domain.KakaoPayInfoDTO;
 import org.oos.domain.KakaoPayReadyDTO;
 import org.oos.domain.MemberVO;
 import org.oos.domain.OrderDetailVO;
+import org.oos.domain.StoreVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,27 +26,35 @@ import lombok.extern.java.Log;
 @Log
 public class KakaopayService {
 	private static final String HOST = "https://kapi.kakao.com";
-	private KakaoPayInfoDTO kakaoPayDTO;
+	private KakaoPayInfoDTO kakaoPayInfoDTO;
 	private KakaoPayReadyDTO kakaoPayReadyDTO;
 	
 	@Setter(onMethod_ = @Autowired)
-	private OrderDetailService service;
-
-	public String kakaoPayReady() {
-
+	private OrderDetailService orderService;
+	@Setter(onMethod_ = @Autowired)
+	private MemberService memberService;
+	@Setter(onMethod_ = @Autowired)
+	private StoreService storeService;
+	
+	private List<OrderDetailVO> orderList;
+	public String kakaoPayReady(List<OrderDetailVO> order) {
+		this.orderList=order;
+		String mid=orderList.get(0).getMid();
+		Long sno=orderList.get(0).getSno();
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "KakaoAK 80751743222df1787be1cbbc946d6ea5");
 		headers.add("Accpet", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
-
+		
+		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("cid", "TC0ONETIME");
-		params.add("partner_order_id", "1111");
-		params.add("partner_user_id", "atree");
-		params.add("item_name", "가방");
-		params.add("quantity", "1");
-		params.add("total_amount", "100");
+		params.add("partner_order_id",""+sno);
+		params.add("partner_user_id",mid);
+		params.add("item_name", orderList.get(0).getProduct().getPname());
+		params.add("quantity",""+orderList.get(0).getQty());
+		params.add("total_amount", ""+orderList.get(0).getProduct().getPrice()*orderList.get(0).getQty());
 		params.add("tax_free_amount", "0");
 		params.add("approval_url", "http://localhost:8080/kakaopay/success");
 		params.add("cancel_url", "http://localhost:8080/kakaopay/cancel");
@@ -67,7 +77,8 @@ public class KakaopayService {
 	}
 
 	public KakaoPayInfoDTO kakaoPayInfo(String pg_token) {
-
+		String mid=orderList.get(0).getMid();
+		Long sno=orderList.get(0).getSno();
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -78,17 +89,17 @@ public class KakaopayService {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("cid", "TC0ONETIME");
 		params.add("tid", kakaoPayReadyDTO.getTid());
-		params.add("partner_order_id", "1111");
-		params.add("partner_user_id", "atree");
+		params.add("partner_order_id",""+sno );
+		params.add("partner_user_id", mid);
 
-		params.add("total_amount", "100");
+		params.add("total_amount",""+orderList.get(0).getProduct().getPrice()*orderList.get(0).getQty());
 		params.add("pg_token", pg_token);
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, headers);
 		try {
-			kakaoPayDTO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body,
+			kakaoPayInfoDTO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body,
 					KakaoPayInfoDTO.class);
-			log.info("" + kakaoPayDTO);
-			return kakaoPayDTO;
+			log.info("" + kakaoPayInfoDTO);
+			return kakaoPayInfoDTO;
 		} catch (RestClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

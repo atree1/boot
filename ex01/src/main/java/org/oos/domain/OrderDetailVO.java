@@ -6,6 +6,8 @@ import lombok.Data;
 public class OrderDetailVO {
 
 	private Long odno;
+	private String mid;
+	private Long sno;
 	private Long ono;
 	private Long pno;
 	private Long qty;

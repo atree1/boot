@@ -2,13 +2,20 @@ package org.oos.controller;
 
 
 
+import java.util.List;
+
+import org.oos.domain.KakaoPayReadyDTO;
 import org.oos.domain.OrderDetailVO;
 import org.oos.service.KakaopayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,13 +28,13 @@ import lombok.extern.java.Log;
 public class KakaoPayController {
 	@Setter(onMethod_ = @Autowired)
 	private KakaopayService service;
-	
-	@PostMapping("/pay")
-	public String kakaoPay(String mid,OrderDetailVO orderList) {
+	@CrossOrigin
+	@PostMapping(value="/pay",consumes = "application/json; charset=utf-8" )
+	public ResponseEntity<String> kakaoPay(@RequestBody List<OrderDetailVO> orderList) {
 		log.info("kakaoPay post............................................");
-		log.info("member:"+mid);  
+		
 		log.info("orderList:"+orderList);
-		return "redirect:"+service.kakaoPayReady();
+		return new ResponseEntity<>(service.kakaoPayReady(orderList),HttpStatus.OK);
 
 	}
 	@GetMapping("/success")

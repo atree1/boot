@@ -65,6 +65,8 @@ public class OrderController {
 					vo.setOption(opt);
 				}
 			});
+			vo.setSno(sno);
+			vo.setMid(mid);
 			vo.setPno(pno);
 			vo.setProduct(pVO);
 			
