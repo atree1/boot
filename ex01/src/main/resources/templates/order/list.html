@@ -51,9 +51,9 @@
 							</tbody>
 						</table>
 						<table cellspacing="0" class="goods basketGoodsTableMiddle"
-							storeindex="0" storesid="4488" style="width: 760px;" th:each="arr:${orderList}">
+							storeindex="0" storesid="4488" style="width: 760px;" th:with="arr=${orderList[0]}">
 							<tbody>
-								<tr style="height: 120px;">
+								<tr style="height: 120px;" >
 									<td class="checkBoxTd borderBottom">
 										<div class="check_box">
 											<input type="checkbox"></label>
@@ -69,11 +69,11 @@
 										<div
 											style="display: inline-block; margin-left: 6px; vertical-align: middle;">
 											<div class="basketGoodsName" style="width: 360px;">
-												<a class="modalOpen" style="color: #333;" th:text="${arr.product.pname}">567</a>
+												<a class="modalOpen" style="color: #333;" th:text="${arr.product.pname}"></a>
 												<div class="basketGoodsDeleteBtn"></div>
 											</div>
 											<div class="basketStoreInfo"
-												style="font-size: 15px; margin-top: 6px;"  th:text="${arr.product.price}">28,000원</div>
+												style="font-size: 15px; margin-top: 6px;"  th:text="${arr.product.price}">PRICE</div>
 										</div>
 									</td>
 									<td class="height90 borderBottom btnTdArea">
@@ -81,7 +81,7 @@
 											style="margin-top: 8px;">옵션변경/수정</button>
 									</td>
 								</tr>
-								<tr>
+								<tr th:each="arr:${orderList}" th:if="${arr.qty != 0}" th:id="|option_${arr.option.opno}|">
 									<td class="borderRight" colspan="5" style="border-spacing: 0px;">
 										<table cellspacing="0" style="width: 100%;">
 											<tbody>
@@ -92,22 +92,24 @@
 																for="133912908"></label>
 														</div>
 													</td>
-													<td class="textLeft  basketOptionArea" th:text="${arr.option.size}">브라운/270</td>
+													<td class="textLeft basketOptionArea" th:text="${arr.option.size}">SIZE</td>
 													<td class=" upDownTd">
 														<div class="upDownDiv">
-															<div class="downArea"></div>
-															<input class="upDownNumArea" maxlength="3" type="text"
+															<div class="downArea" th:id="|down_${arr.option.opno}|"></div>
+															<input class="upDownNumArea" type="text" name="price"
 																th:value="${arr.qty}" placeholder="0" style="ime-mode: disabled;">
-															<div id="count_up_0" class="upArea"></div>
+															<div class="upArea" th:id="|up_${arr.option.opno}|"></div>
 														</div>
 													</td>
-													<td class="optionPrice" th:data-price="${arr.product.price}" th:text="|${arr.product.price}원|">28,000원</td>
+												
 												</tr>
 											</tbody>
 										</table>
 									</td>
-									<td id="index_0" class="basketGoodsSumPrice">
-										<div class="sumPrice" th:data-price="${arr.product.price*arr.qty}" th:text="${arr.product.price*arr.qty}"></div>
+									<td class="basketGoodsSumPrice">
+										<span id="|price_${arr.option.opno}|" class="sumPrice" 
+										th:data-price="${arr.product.price*arr.qty}" th:text="${arr.product.price*arr.qty}">PRICE
+										</span><strong>원</strong>
 									</td>
 								</tr>
 							</tbody>
@@ -214,37 +216,45 @@
 			</div>
 		</div>
 	</div>
-	
 
 </div>
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 	$(document).ready(function(){
+		
+	    var list = [[${orderList}]];
+		
 		var totalCount = $(".optionPrice").data("price");
 		var sum = 0;
-		var actionForm= $('#actionForm');
 		
 		(function(){
 			
 			getTotalSum();
 			
 		})();
-	
-		(function(){
-			var obj = [[${orderList[0].product.imgList[0]}]];
-			console.log(obj);
 		
-	 		var uploadUL=$(".shoppingGoodsThumbnail ul");
-			var str="";
+		$(".orderBtn").on('click',function(e){
+			e.preventDefault();
 			
+			 $.ajax({
+                type:"post",
+                data : JSON.stringify(list),
+                url: "/kakaopay/pay",
+                contentType : "application/json; charset=UTF-8",
+                success:function(result, status, xhr){
+                	popupOpen(result);
+    			}
+            }); 
 			
-					var fileCallPath =  encodeURIComponent( obj.ipath+ "/s_"+obj.uuid +"_"+obj.iname);
-					str += "<li><img src='/display?fileName="+fileCallPath+"'>";
-					str += "</li>"; 
-				uploadUL.append(str);
-	
-		})();
+		});
 		
+		function popupOpen(popUrl){
+
+			var popOption = "width=400, height=500, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+			window.open(popUrl,"",popOption);
+
+		}
+
 		function getTotalSum(){
 			$.makeArray($(".sumPrice").map(function(){
 				sum += $(this).data("price");
@@ -258,42 +268,19 @@
 			if (count > 1) {
 				count -= 1;
 				$(this).next("input").val(count);
-			}else{
-				$('html').css({'cursor':'url(cursor.png), auto'});
 			}
-
-		})
+			
+		});
 
 		$(".upArea").click(function(e) {
-
+			
 			var count = Number($(this).prev("input").val());
 			count += 1;
 			$(this).prev("input").val(count);
 			
-		})
-		$(".orderBtn").on('click',function(e){
-			e.preventDefault();
-
-		$.ajax({
-				
-				type:'post',
-				url:'/kakaopay/pay',
-				data:JSON.stringify([[${orderList}]]),
-				contentType:"application/json; charset=utf-8",
-				success:function(result,status,xhr){
-						console.log(result);
-						 window.location.href=result;
-				},
-				error:function(xhr,status,er){
-					if(error){
-						error(er);
-					}
-				}
-			})
-	
-			
-			
 		});
+	
+		
 	});
 	</script>
 </th:block>

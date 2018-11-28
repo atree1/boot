@@ -4,5 +4,45 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.oos.mapper.CartMapper">
+<select id="getList" parameterType="map" resultType="org.oos.domain.CartVO">
+		select *
+		from tbl_cart
+		where cno>0 and mid=#{mid}
+		order by cno desc
+		limit #{criteria.skip} ,#{criteria.amount} 
+	</select>
 
+	<select id="get" resultType="org.oos.domain.CartVO">
+		select * from tbl_cart where
+		cno=#{cno}
+	</select>
+
+	<insert id="insert">
+		insert into tbl_cart(mid,pno,qty,opno)
+		values(#{mid},#{pno},#{qty},#{opno})
+	</insert>
+
+	<update id="modify">
+		update tbl_cart set qty = #{qty}, opno =
+		#{opno}
+
+		where cno = #{cno}
+	</update>
+
+	<delete id="delete">
+		delete
+		from
+		tbl_cart
+		where cno = #{cno}
+	</delete>
+
+
+	<select id="count" resultType="int">
+
+		select count(*)
+		from
+		tbl_cart
+		where cno>0 and mid=#{mid}
+
+	</select>
 </mapper>

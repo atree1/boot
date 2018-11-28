@@ -5,6 +5,7 @@ package org.oos.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.oos.domain.KakaoPayInfoDTO;
 import org.oos.domain.OrderDetailVO;
 import org.oos.domain.OrderVO;
 import org.oos.service.KakaopayService;
@@ -37,8 +38,13 @@ public class KakaoPayController {
 	@PostMapping(value="/pay",
 			consumes="application/json")
 	public ResponseEntity<String> kakaoPay(@RequestBody List<OrderDetailVO> orderList) {
-
-		return new ResponseEntity<>(service.kakaoPayReady(orderList), HttpStatus.OK);
+		Long totalPrice = 0L;
+		
+		for(OrderDetailVO vo : orderList) {
+			totalPrice += (vo.getQty() * vo.getProduct().getPrice());
+		};
+		
+		return new ResponseEntity<>(service.kakaoPayReady(totalPrice, orderList), HttpStatus.OK);
 	}
 	@GetMapping("/success")
 	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
@@ -48,11 +54,11 @@ public class KakaoPayController {
 		OrderVO order = new OrderVO();
 		order.setMid(list.get(0).getMid());
 		order.setSno(list.get(0).getSno());
-		
-		
+		KakaoPayInfoDTO dto = (KakaoPayInfoDTO) map.get("kakao");
+		order.setTotal(Long.valueOf(dto.getAmount().getTotal()));
 		orderService.insert(order, list);
 		
-		
+		model.addAttribute("ono", list.get(0).getOno());
 		model.addAttribute("info", map.get("kakao"));
 	}
 	@GetMapping("/fail")

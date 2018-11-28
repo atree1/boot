@@ -44,7 +44,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductVO read(Long pno) {
-		// TODO Auto-generated method stub
 	
 		ProductVO vo=pMapper.get(pno);
 		vo.setOptList(optMapper.getList(pno));
@@ -56,7 +55,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public int update(ProductVO vo) {
-		// TODO Auto-generated method stub
 
 		imgMapper.deleteAll(vo.getPno());
 

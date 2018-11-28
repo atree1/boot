@@ -11,12 +11,6 @@ function dBuyingOrder(){
 	window.location.href = '/user/productOrder';
 }
 
-$(".goodsContainer").click(function(e){
-	var goodsNum = $(this).attr("id");
-	var str = "";
-	str += "<input type='hidden' name='gid' value='"+goodsNum+"'/>";
-	actionForm.append(str).attr("action","/user/productDetail").submit();
-});
 
 function memberJoin(){
 	window.location.href = '/memberJoin';

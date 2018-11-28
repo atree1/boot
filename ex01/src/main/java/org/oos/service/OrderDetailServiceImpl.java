@@ -21,7 +21,7 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 	private OrderDetailMapper orderDetailMapper;
 	
 	@Setter(onMethod_=@Autowired)
-	private ProductMapper productMapper;
+	private ProductService productService;
 	
 	@Setter(onMethod_=@Autowired)
 	private ProductOptionMapper productOptionMapper;
@@ -31,10 +31,11 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 		
 		List<OrderDetailVO> list = orderDetailMapper.getList(ono);
 		list.forEach(vo -> {
-			ProductVO product = productMapper.get(vo.getPno());
+			ProductVO product = productService.read(vo.getPno());
 			ProductOptionVO option = productOptionMapper.get(vo.getOpno());
 			vo.setProduct(product);
 			vo.setOption(option);
+			
 		});
 		
 		return list;
@@ -43,7 +44,7 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 	@Override
 	public OrderDetailVO get(Long odno) {
 		OrderDetailVO vo = orderDetailMapper.get(odno);
-		ProductVO product = productMapper.get(vo.getPno());
+		ProductVO product = productService.read(vo.getPno());
 		ProductOptionVO option = productOptionMapper.get(vo.getOpno());
 		vo.setProduct(product);
 		vo.setOption(option);

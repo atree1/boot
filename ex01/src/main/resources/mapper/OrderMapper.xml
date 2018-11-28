@@ -23,7 +23,7 @@
 	</select>
 	
 	<insert id="insert"  useGeneratedKeys="true" keyProperty="ono">
-		insert into tbl_order(mid, sno) value(#{mid},#{sno})
+		insert into tbl_order(mid, sno, total) value(#{mid},#{sno}, #{total})
 	</insert>
 	
 	<update id="modify">

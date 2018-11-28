@@ -9,5 +9,7 @@ public class CartVO {
 	private String mid;
 	private Long pno;
 	private Long qty;
-	private Long opt;
+	private Long opno;
+	private ProductVO product;
+	private ProductOptionVO opt;
 }

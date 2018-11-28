@@ -43,41 +43,37 @@ public class OrderController {
 	
 	@GetMapping("/success")
 	public void successGET(Long ono, Model model) {
-		
-		model.addAttribute("order", orderService.get(ono));
+
+		model.addAttribute("order", orderDetailService.getList(ono));
 	}
 	
 	@GetMapping("/list")
-	public void orderListGET(Long pno,String mid, Long sno,String[] info, Model model) {
-		
-		log.info("------------------------------------------");
-		log.info("info: "+Arrays.toString(info));
-		
-		List<OrderDetailVO> list=new ArrayList<>();
-		for (String size : info) {
-			String[] sizeInfo=size.split("_");
-			OrderDetailVO vo=new OrderDetailVO();
-			Long opno=Long.parseLong(sizeInfo[0]);
-			vo.setOpno(opno);
-			ProductVO pVO=productService.read(pno);
-			pVO.getOptList().forEach(opt->{
-				if(opt.getOpno()==opno) {	
-					vo.setOption(opt);
-				}
-			});
-			vo.setSno(sno);
-			vo.setMid(mid);
-			vo.setPno(pno);
-			vo.setProduct(pVO);
-			
-			vo.setQty(Long.parseLong(sizeInfo[1]));
-			
-			list.add(vo);
-			log.info(""+vo);
-		}
-		model.addAttribute("member", memberService.get(mid));
-		model.addAttribute("store", storeService.get(sno));
-		model.addAttribute("orderList",list);
-	}
+    public void orderListGET(Long pno, String mid, Long sno, String[] info, Model model) {
+ 
+        List<OrderDetailVO> list=new ArrayList<>();
+        for (String size : info) {
+            String[] sizeInfo=size.split("_");
+            
+            OrderDetailVO vo=new OrderDetailVO();
+            Long opno=Long.parseLong(sizeInfo[0]);
+            vo.setOpno(opno);
+            ProductVO pVO=productService.read(pno);
+            
+            pVO.getOptList().forEach(opt->{
+                if(opt.getOpno()==opno) {    
+                    vo.setOption(opt);
+                }
+            });
+            vo.setPno(pno);
+            vo.setProduct(pVO);
+            vo.setQty(Long.parseLong(sizeInfo[1]));
+            vo.setMid(mid);
+            vo.setSno(sno);
+            list.add(vo);
+        }
+        model.addAttribute("member", memberService.get(mid));
+        model.addAttribute("store", storeService.get(sno));
+        model.addAttribute("orderList",list);
+    }
 
 }

@@ -25,36 +25,33 @@ import lombok.extern.java.Log;
 @Service
 @Log
 public class KakaopayService {
+
+	private static List<OrderDetailVO> finalOrderList;
+	
 	private static final String HOST = "https://kapi.kakao.com";
-	private KakaoPayInfoDTO kakaoPayInfoDTO;
+	private KakaoPayInfoDTO kakaoPayDTO;
 	private KakaoPayReadyDTO kakaoPayReadyDTO;
 	
 	@Setter(onMethod_ = @Autowired)
-	private OrderDetailService orderService;
-	@Setter(onMethod_ = @Autowired)
-	private MemberService memberService;
-	@Setter(onMethod_ = @Autowired)
-	private StoreService storeService;
-	
-	private List<OrderDetailVO> orderList;
-	public String kakaoPayReady(List<OrderDetailVO> order) {
-		this.orderList=order;
-		String mid=orderList.get(0).getMid();
-		Long sno=orderList.get(0).getSno();
+	private OrderDetailService service;
+
+	public String kakaoPayReady(Long totalPrice, List<OrderDetailVO> orderList) {
+		
+		finalOrderList = orderList;
+		
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK 80751743222df1787be1cbbc946d6ea5");
+		headers.add("Authorization", "KakaoAK f3071c0fe499cf06231fd365c1cc4d30");
 		headers.add("Accpet", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
-		
-		
+
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("cid", "TC0ONETIME");
-		params.add("partner_order_id",""+sno);
-		params.add("partner_user_id",mid);
-		params.add("item_name", orderList.get(0).getProduct().getPname());
-		params.add("quantity",""+orderList.get(0).getQty());
-		params.add("total_amount", ""+orderList.get(0).getProduct().getPrice()*orderList.get(0).getQty());
+		params.add("partner_order_id", "1111");
+		params.add("partner_user_id", finalOrderList.get(0).getMid());
+		params.add("item_name", finalOrderList.get(0).getProduct().getPname());
+		params.add("quantity", finalOrderList.get(0).getQty()+"");
+		params.add("total_amount", totalPrice+"");
 		params.add("tax_free_amount", "0");
 		params.add("approval_url", "http://localhost:8080/kakaopay/success");
 		params.add("cancel_url", "http://localhost:8080/kakaopay/cancel");
@@ -63,52 +60,48 @@ public class KakaopayService {
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
 		try {
-			kakaoPayReadyDTO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body,
+			kakaoPayReadyDTO = restTemplate.postForObject(new URI("https://kapi.kakao.com/v1/payment/ready"), body,
 					KakaoPayReadyDTO.class);
+			
 			return kakaoPayReadyDTO.getNext_redirect_pc_url();
 		} catch (RestClientException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "/pay";
 	}
 
-	public Map<String,Object> kakaoPayInfo(String pg_token) {
-		String mid=orderList.get(0).getMid();
-		Long sno=orderList.get(0).getSno();
+	public Map<String, Object> kakaoPayInfo(String pg_token) {
 		RestTemplate restTemplate = new RestTemplate();
-
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK 80751743222df1787be1cbbc946d6ea5");
+		headers.add("Authorization", "KakaoAK f3071c0fe499cf06231fd365c1cc4d30");
 		headers.add("Accpet", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("cid", "TC0ONETIME");
 		params.add("tid", kakaoPayReadyDTO.getTid());
-		params.add("partner_order_id",""+sno );
-		params.add("partner_user_id", mid);
+		params.add("partner_order_id", "1111");
+		params.add("partner_user_id",finalOrderList.get(0).getMid());
 
-		params.add("total_amount",""+orderList.get(0).getProduct().getPrice()*orderList.get(0).getQty());
 		params.add("pg_token", pg_token);
+	
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, headers);
 		Map<String, Object> map = new HashMap<>();
 		try {
-			kakaoPayInfoDTO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body,
+
+			kakaoPayDTO = restTemplate.postForObject(new URI("https://kapi.kakao.com/v1/payment/approve"), body,
 					KakaoPayInfoDTO.class);
-			log.info("" + kakaoPayInfoDTO);
 			
-			map.put("kakao", kakaoPayInfoDTO);
-			map.put("orderList", orderList);
+			map.put("kakao", kakaoPayDTO);
+			map.put("orderList", finalOrderList);
+			
+			
 			return map;
 		} catch (RestClientException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

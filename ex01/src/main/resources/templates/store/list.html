@@ -128,14 +128,10 @@
 	<div style="width: 1100px; margin: 0 auto; position: relative;">
 		<ul id="goodsList"
 			style="list-style: outside none none; padding: 0px; position: relative; overflow: hidden;">
-			<ul class="goods_ul_0">
-				
-					<li class="goodsContainer"  style="margin-right: 5px;" th:each="arr :${product}"  
-						th:id="@{${arr.pno}}">
+			<ul class="goods_ul" th:each="arr :${product}">
+					<li class="goodsContainer"  style="margin-right: 5px;" th:id="|link_${arr.pno}|">
 						<div class="goodsImg" style="position: relative; width: 270px; height: 353px;">
-							<div th:data-pno="${arr.pno}">
-							
-							</div>					
+							<img th:id="|img_${arr.pno}|" class="productImg" style="width:100%; display:block;">		
 						</div>
 						<div class="goodsInfo" style="position: relative;">
 							<div class="goodsName" th:text="${arr.pname}" style="">PNAME</div>
@@ -167,7 +163,7 @@
 			var actionForm = $("#actionForm")
 			
 			$(".goodsContainer").click(function(e){
-				var pno = $(this).attr("id");
+				var pno = $(this).attr("id").substring(5);
 				actionForm.append("<input id='pno' type='hidden' name='pno'>");
 				$("#pno").val(pno);
 				actionForm.attr("action","/store/detail").submit();
@@ -176,24 +172,18 @@
 			(function() {
 				
 				var goodsImg=[[${product}]];
-				
-				//console.log(goodsImg);
-				for(var i=0; i<goodsImg.length; i++){
+				$.each(goodsImg, function(index, item){
+					console.log(item);
+					var img = item.imgList[0];
+
 					
-					var str="";
-					var img = goodsImg[i].imgList[0];
-					var imgUl= $('.goodsContainer').find("div [data-pno='"+img.pno+"']");
-					console.log(imgUl);
-		
 					var fileCallPath =  encodeURIComponent(img.ipath+ "/"+ img.uuid +"_"+img.iname);
-					str += "<ul><img src='/display?fileName="+fileCallPath+"' style='width: 100%; height:420px; display: block;'></ul>";
-					console.log(str);
-					console.log(img.pno);
-					imgUl.html(str); 
-				
-				}
-				
 					
+					var imgDiv= $('#img_'+item.pno);
+					console.log(imgDiv);
+					imgDiv.attr("src","/display?fileName="+fileCallPath);
+				}); 
+				
 			})();
 		
 			

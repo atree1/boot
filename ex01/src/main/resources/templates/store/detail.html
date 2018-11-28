@@ -2,6 +2,19 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layout/shopLayout}">
 
+
+<style>
+.inner_main_img img{
+	width:540px;
+	height:80px;
+}
+.gthumb img{
+width:40px;
+	height:10px;
+}
+
+
+</style>
 <div class="container" style="margin-top: 20px;"
 	layout:fragment="container">
 	<div class="menuRoot">
@@ -16,31 +29,11 @@
 	<div class="innerDetail_goods_info" style="padding-bottom: 50px;">
 		<div class="img_area"
 			style="border-right: 1px solid rgb(221, 221, 221);">
-			<div class="gthumbs" style="max-height: 720px; overflow-y: auto;">
-				<div class="gthumb">
-					<img width="60" height="80"
-						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154259213776627100_302507012.jpg"
-						style="display: block;"> <span class="img_edge"></span>
-				</div>
-				<div class="gthumb">
-					<img width="60" height="80"
-						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154259213799793800_1094352992.jpg"
-						style="display: block;"><span class="img_edge"></span>
-				</div>
-				<div class="gthumb">
-					<img width="60" height="80"
-						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_15425921383346300_519679408.jpg"
-						style="display: block;"> <span class="img_edge"></span>
-				</div>
-				<div class="gthumb">
-					<img width="60" height="80"
-						src="http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_15425921386451100_1657614549.jpg"
-						style="display: block;"><span class="img_edge"></span>
-				</div>
+			<div class="gthumbs" style="height: 720px; overflow-y: auto;">
+				
 			</div>
-			<div class="inner_main_img">
-				<img width="540" height="720"
-					src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_15425921383346300_519679408.jpg&amp;h=907&amp;w=690">
+			<div style="line-height:200px">
+				<img width="540" style="vertical-align:middle;" class="inner_main_img" src="">
 			</div>
 			<div id="innerDetail_goods_detail" class="goods_detail">
 				<div class="div_line_1px" style="width: 632px; margin-right: 20px;"></div>
@@ -129,44 +122,59 @@
 							</tr>
 						</tbody>
 					</table>
-					<div class="div_line_1px" style="width: 100%; margin-bottom: 21px;"></div>
-					
-							<input type="hidden" name="sno" value="1">
 						<div class="option_area">
 							<ul class="goods_option_ul" style="width: 100%;" th:each="arr:${product.optList}">
 								<li class="min-height42 optionLi">
+									
 									<div class="option">
-										<div style="color: #333; font-weight: 500; font-size: 14px;" 
+										<div th:name="${arr.opno}" th:data-size="${arr.size}" style="color: #333; font-weight: 500; font-size: 14px;" 
 										th:text="|SIZE / ${arr.size}|">SIZE</div>
 										<div style="margin-top: 6px; font-size: 12px;"
 											th:text="|재고수량 / ${arr.qty}|">QTY</div>
+											
 									</div>
+									
 									<div class="count">
+									
 										<div class="option_count_control" style="">
 											<div class="detailUpDownDiv">
 												<div class="detailDownArea"></div>
 												<input name="option" th:id="${arr.opno}" class="detailUpDownNumArea" type="text"
 													value="0">
 												<div class="detailUpArea"></div>
+											
 											</div>
 										</div>
+										
+									
 									</div>
+								
 								</li>
+								
 							</ul>
 							<div class="div_line_1px"
 								style="width: 100%; margin-top: 20px; margin-bottom: 15px;"></div>
 						</div>
+					<div class="div_line_1px" style="width: 100%; margin-bottom: 21px;"></div>
+						<input type="hidden" name="pno" th:value="${product.pno}">
+						<input type="hidden" name="mid" value="member1">
+					
 						<div class="displayTable"
 							style="width: 100%; background-color: #ffefef; height: 50px; padding: 0px 16px; box-sizing: border-box; margin-bottom: 15px;">
+							<div id="selectResult" class="table-cell"></div>
 							<div class="table-cell" style="font-size: 14px;">총 결제금액</div>
 							<div class="detailOrderPrice table-cell"
-								style="text-align: right; font-size: 20px; color: #ff5252; font-weight: 500;">0원
+								style="text-align: right; font-size: 20px; color: #ff5252; font-weight: 500;">
+								<span class="totalSum">0</span>원
 							</div>
 						</div>
 
 						<div class="btn_area">
+							
+	
+							<div style="position:relative">
 							<div class="basketInfoTextBox basketMoveBox"
-								style="position: absolute; left: 111px; top: 500px; width: 318px; height: 100px; z-index: 3; display: none">
+								style="position: absolute; left: 111px; top: -106px; width: 318px; height: 100px; z-index: 3; display:none">
 								<div class="close_btn"
 									style="position: absolute; right: 8px; top: 8px;"></div>
 								<div
@@ -178,63 +186,28 @@
 									</button>
 								</div>
 							</div>
-	
 							<button class="btn_order" style="display: inline-block;">장바구니에
 								담기</button>
+							</div>
 							<button class="btn_order_direct" style="display: inline-block;">
 								<div class="symbolLogo"></div>
 								주문하기
 							</button>
 							
 						</div>
-					
+				
 				</div>
 				<div class="div_line_1px"></div>
 				<div class="mgoods_images">
 
-					<div class="mgoods_images_title displayTable">
-						<div class="table-cell" style="">매장 최신 등록상품</div>
-						<div class="table-cell moreShow" style="text-align: right;">
-							<a href="wstore?sid=16011" target="_blank"><span>더보기&nbsp;&nbsp;
-									&gt;</span></a>
-						</div>
-					</div>
-					<div class="mgoods_thumb scopeLimit" style="margin-right: 46px;">
-						<a class="modalOpen" href="goodsDetail?gid=19767931">
-							<div style="position: relative;">
-								<img width="180" height="240"
-									src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_15425382225968100_1821781105.jpg&amp;h=293&amp;w=224"
-									style="display: block;"><span class="img_edge"></span>
-							</div>
-							<div class="mgoods_gname">(주문폭주)하운두 투스 울 체크자켓</div>
-						</a>
-					</div>
-					<div class="mgoods_thumb scopeLimit" style="margin-right: 46px;">
-						<a class="modalOpen" href="goodsDetail?gid=19767854">
-							<div style="position: relative;">
-								<img width="180" height="240"
-									src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154253809051503000_47540165.jpg&amp;h=293&amp;w=224"
-									style="display: block;"><span class="img_edge"></span>
-							</div>
-							<div class="mgoods_gname">(주문폭주,미송필수)알파카 포그니니트</div>
-						</a>
-					</div>
-					<div class="mgoods_thumb scopeLimit">
-						<a class="modalOpen" href="goodsDetail?gid=19767796">
-							<div style="position: relative;">
-								<img width="180" height="240"
-									src="https://img6.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img6.sinsangmarket.co.kr/upfilesf/ssmGoods/u_154253800659404000_2143852372.jpg&amp;h=293&amp;w=224"
-									style="display: block;"><span class="img_edge"></span>
-							</div>
-							<div class="mgoods_gname">(주문폭주,리오더폭주)레터링 양기모 맨투맨</div>
-						</a>
-					</div>
 				</div>
+				
 			</div>
 		</div>
+			
 	</div>
-	<form action="/order/list" id="actionForm" method="get" >
-		<input type="hidden" name="pno" th:value="${product.pno}">
+	<form action="/order/list" id="storeDetailForm" method="get" >
+		<input type="hidden" name="pno" th:value="${product.pno}"/>
 		<input type="hidden" name="mid" value="member1"/>
 		<input type="hidden" name="sno" value="1"/>
 	</form>
@@ -243,68 +216,73 @@
 <th:block layout:fragment="script"> 
 <script th:inline="javascript">
 	$(document).ready(function() {
-		//큰이미지
+		var actionForm = $("#storeDetailForm");
+	    var product = [[${product}]];
+
 		(function() {
 			
-			var firstImg=[[${product.imgList[0]}]];
-			var str="";
-			console.log(firstImg);
-			var fileCallPath =  encodeURIComponent(firstImg.ipath+ "/"+ firstImg.uuid +"_"+firstImg.iname);
-			console.log(fileCallPath);
-			str += "<li data-path='"+ firstImg.ipath+"' data-uuid='"+ firstImg.uuid+"' data-filename='"+ firstImg.iname+"'><div>";
-			str += "<img src='/display?fileName="+fileCallPath+"'>";
-			str+="<p><a href='#'>"+ firstImg.iname+"</a></p>"
-			str += "</div>";
-			str +"</li>";
+			setImg();
 			
-			console.log("filePath: "+fileCallPath);
-					
-				
-				$(".inner_main_img").html(str);
-		
-				
+			
 		})();
-		//왼쪽 작은 이미지
-	(function() {
+		
+		function setImg(){
 			
 			var imgList=[[${product.imgList}]];
 			var str="";
-			console.log(imgList);
+			var fileCallPath =  encodeURIComponent(imgList[0].ipath+ "/"+ imgList[0].uuid +"_"+imgList[0].iname);
+			$(".inner_main_img").attr("src","/display?fileName="+fileCallPath);
+			
 			for(img of imgList){
 				
-			var fileCallPath =  encodeURIComponent(img.ipath+ "/s_"+ img.uuid +"_"+img.iname);
-			console.log(fileCallPath);
-			str += "<li data-path='"+ img.ipath+"' data-uuid='"+ img.uuid+"' data-filename='"+ img.iname+"'><div>";
-			str += "<img src='/display?fileName="+fileCallPath+"'>";
-			str+="<p><a href='#'>"+ img.iname+"</a></p>"
-			str += "</div>";
-			str +"</li>";
+				var thumbFileCallPath =  encodeURIComponent(img.ipath+ "/s_"+ img.uuid +"_"+img.iname);
+
+				str += "<div class='gthumb'>"
+				str += "<img width='60' src='/display?fileName="+thumbFileCallPath+"' style='display:block;'>"
+				str += "<span class='img_edge'></span></div>"
+		
 			}
-			console.log("filePath: "+fileCallPath);
+			
+			$(".gthumbs").html(str);
+		}
+		
+		$(".btn_order").on('click',function(e){
+			e.preventDefault();
+			var jsonList = new Array();
+			
+			$.each($(".detailUpDownNumArea"), function(index, item){
+				if($(this).val() !=0){
+					var list = {
+							"mid" : "test",
+							"pno" : product.pno,
+							"qty" : $(this).val(),
+							"opno" : $(this).attr("id")
+					}
 					
+					jsonList.push(list);
+				}
 				
-				$(".gthumb").html(str);
-		
-				
-		})();
-		
-		var actionForm=$('#actionForm');
-		
-		
-		/* $(".selectBtn").on('click',function(e){
+			}); 
+
+			if(jsonList.length != 0){
+				 $.ajax({
+		                type:"post",
+		                data : JSON.stringify(jsonList),
+		                url: "/cart/new",
+		                contentType : "application/json; charset=UTF-8",
+		                success:function(result, status, xhr){
+		                	console.log(result);
+		    			}
+		            }); 
+					 
+					 $(".basketInfoTextBox").css("display", "block");
+					 
+			}else{
+				alert("수량을 입력해주세요.")
+			}
 			
-			var opno=$(this).attr('name');
+		});
 		
-			var qty=$(".count").find("input[name='"+opno+"']").val();
-			var size=$(".option").find("div[name='"+opno+"']").attr('data-size');
-			
-			console.log(qty);
-			console.log(size);
-			
-			actionForm.append("<input type='hidden' name='info' value='"+size+"_"+qty+"'>");
-			
-			
-		}); */
 		
 		$(".detailDownArea").click(function(e) {
 			var count = $(this).next("input").val();
@@ -316,28 +294,24 @@
 					'cursor' : 'url(cursor.png), auto'
 				});
 			}
-
+			totalSum();
 		})
 
 		$(".detailUpArea").click(function(e) {
 
 			var count = Number($(this).prev("input").val());
-
 			count += 1;
 			$(this).prev("input").val(count);
-
+			totalSum();
 		})
 
-		$(".gthumb").mouseenter(function() {
+		$(".gthumbs").on("mouseenter",".gthumb", function(e) {
 			$(this).find("span").attr("class", "hover");
 			var src = $(this).find("img").attr("src");
-			$(".inner_main_img").find("img").attr("src", src);
+			$(".inner_main_img").attr("src", src);
 		}).mouseout(function() {
-			$(this).find("span").attr("class", "img_edge")
-		})
-
-		$(".btn_order").click(function(e) {
-			$(".basketInfoTextBox").css("display", "block")
+			$(this).find("span").attr("class", "img_edge");
+			setImg();
 		})
 
 		$(".close_btn").click(function(e) {
@@ -349,18 +323,30 @@
 				alert("덧글을 입력해주세요");	
 			}
 		});
-		 var query = [[${product}]];
-		$(".btn_order_direct").click(function(e){
-			e.preventDefault();
-			e.stopPropagation();
-			$.each(query.optList, function(index, item){
+		
+		$(".btn_order_direct").click(function(){
+			$.each(product.optList, function(index, item){
 				var value = $("#"+item.opno+"").val();
 				if(value > 0){
-					actionForm.append("<input type='hidden' name='info' value='"+item.opno+"_"+value+"'>");
+					actionForm.append("<input type='hidden' name='info' id='info' value='"+item.opno+"_"+value+"'>");
 				}
 			});
-			actionForm.submit();
+			if($("#info").val() == null){
+				alert("수량을 입력해 주세요");
+			}else{
+				actionForm.submit();
+			}
+			
 		});
+		
+		function totalSum(){
+			var totalSum = 0;
+			$(".detailUpDownNumArea").each(function(index, item){
+				totalSum += Number(product.price * item.value);
+			});
+			
+			$(".totalSum").html(totalSum);
+		}
 	});
 </script> 
 </th:block>

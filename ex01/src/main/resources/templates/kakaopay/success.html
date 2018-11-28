@@ -71,10 +71,22 @@ body {
 
 		</div>
 		<div class="area_btn">
-			<button type="submit" class="btn_submit" onclick="location.href='/store/list'">
+			<button type="submit" class="btn_submit" onClick="success()">
+
 			창 닫기
 			</button>
 		</div>
 	</div>
+	<script>
+		  
+	    var ono = [[${ono}]];
+		
+		function success(){
+			opener.location.href="/order/success?ono=" + ono; 
+			
+			window.close();
+		}
+	
+	</script>
 </body>
 </html>
