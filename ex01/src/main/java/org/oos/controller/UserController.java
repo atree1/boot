@@ -35,4 +35,8 @@ public class UserController {
 		
 		model.addAttribute("cartList",cartService.getList(map));
 	}
+	@GetMapping("/login")
+	public void login() {
+		
+	}
 }

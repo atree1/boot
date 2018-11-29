@@ -74,7 +74,6 @@ public class CartController {
 	
 	
 	@RequestMapping(value="/delete/{cno}")
-	
 	public ResponseEntity<List<CartVO>> delete(@PathVariable("cno") Long cno, Model model){
 		
 		Criteria cri=new Criteria();
