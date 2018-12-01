@@ -7,6 +7,7 @@ public class CartVO {
 
 	private Long cno;
 	private String mid;
+	private Long sno;
 	private Long pno;
 	private Long qty;
 	private Long opno;

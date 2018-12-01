@@ -18,134 +18,110 @@
 					<img src="../img/bg_cart_ssm_title_banner_01.png"
 						style="width: 100%; cursor: pointer;">
 				</div>
-				<table class="table">
-						<tbody>
-							<tr>
-								<td class="" style="width: 30px;">
-									<div class="check_box agreeCheckDiv" title="상품 전체선택 및 해제"
-										style="width: 80px;">
-										<input type="checkbox" id="allCheck_box"
-											onclick="allCheckControl()"> <label>
-											<div class="allSelect">전체선택</div>
-										</label>
-									</div>
-								</td>
-								<td style="text-align: left;">
-									<button class="selectDeleteBtn">선택삭제</button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				<div style="display: inline-block; width: 760px" class='cartContainer'>
+
+				<table class="table" th:if="${!cartList.empty}">
+					<tbody>
+						<tr>
+							<td class="" style="width: 30px;">
+								<div class="check_box agreeCheckDiv" title="상품 전체선택 및 해제"
+									style="width: 80px;">
+									<input type="checkbox" id="allCheck_box"> <label for="allCheck_box">
+										<div class="allSelect">전체선택</div>
+									</label>
+								</div>
+							</td>
+							<td style="text-align: left;">
+								<button class="selectDeleteBtn">선택삭제</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div style="display: inline-block; width: 760px"
+					class='cartContainer'>
 					
-
-					<div class="dummy" th:each='arr:${cartList}' style='margin-bottom: 20px;'>
-							
-							<div style="border-bottom: 4px solid #e5e5e5; width: 760px;"></div>
-							<table class="basketGoodsTableMiddle" cellspacing="0"
-								style="width: 760px;">
-								<tbody>
-									<tr>
-										<td colspan="6" class="borderBottom"
-											style="height: 52px; text-align: left;"><a
-											style="color: #202225; font-size: 14px;"
-											th:text="${arr.product.pname}">PNAME</a></td>
-									</tr>
-
-									<tr style="height: 120px;">
-										<td class="checkBoxTd borderBottom">
-											<div class="check_box">
-												<input type="checkbox" th:id="|chk_${arr.cno}|"> 
-												<label th:for="|chk_${arr.cno}|"></label>
-											</div>
-										</td>
-										<td class="height90 borderBottom" colspan="4"
-											style="text-align: left;">
-											<div class="shoppingGoodsThumbnail">
-												<img th:class="|img_${arr.cno}|"
-													style="width: 60px; display: inline-block; vertical-align: middle;">
-											</div>
-											<div
-												style="display: inline-block; margin-left: 6px; vertical-align: middle;">
-												<div class="basketGoodsName" style="width: 360px;">
-													<a class="modalOpen" style="color: #333;"
-														th:text="${arr.product.pname}">567</a>
-													<div class="basketGoodsDeleteBtn"></div>
-												</div>
-												<div class="basketStoreInfo"
-													style="font-size: 15px; margin-top: 6px;"
-													th:text="|${arr.product.price}원|">28,000원</div>
-											</div>
-										</td>
-										<td class="height90 borderBottom btnTdArea"><br>
-											<button class="basketCommonBtn" style="margin-top: 8px;">옵션변경/수정
-											</button>
-											<button class="basketCommonBtn cartDel"
-												style="margin-top: 8px;">삭제하기</button></td>
-									</tr>
-									<tr>
-										<td class="borderRight" colspan="5"
-											style="border-spacing: 0px;">
-											<table cellspacing="0" style="width: 100%;">
-												<tbody>
-													<tr class="height60 optionClass">
-														<td class="checkBoxTd ">
-															<div class="check_box">
-																<input type="checkbox" id="133912909"> <label
-																	for="133912909"></label>
-															</div>
-														</td>
-														<td class="textLeft basketOptionArea"
-															th:text="${arr.opt.size}">브라운/270</td>
-														<td class=" upDownTd">
-															<div class="upDownDiv">
-																<div class="downArea" onclick="btnCountDown()"></div>
-																<input class="upDownNumArea" maxlength="3" type="text"
-																	th:value="${arr.qty}" placeholder="0"
-																	style="ime-mode: disabled;">
-																<div class="upArea"></div>
-															</div>
-														</td>
-														<td class=" optionPrice">28,000원</td>
-													</tr>
-												</tbody>
-											</table>
-										</td>
-										<td class="basketGoodsSumPrice">
-											<div class="sumPrice">0원</div>
-											<p class="optionLine" style="display: none;">28000</p>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-
-							<table class="basketGoodsTableEnd" cellspacing="0"
-								style="width: 760px;">
-								<tbody>
-								</tbody>
-							</table>
-				
-					</div>
-
-					<table style="padding: 0px 34px;">
-						<tbody>
-							<tr>
-								<td colspan="6"
-									style="padding: 30px 0px 40px 0px; width: 760px;">
-									<div class="cart">
-										임시저장 버튼을 통해 현재의 장바구니 상태를 그대로 저장할 수 있습니다.<br>주문하기는 <span
-											style="color: #ff5252; font-weight: bold;">선택된 상품 및 옵션</span>만
-										주문되고 선택되지 않은 상품은 장바구니에 남아 있습니다.<br>우측에 <span
-											style="color: #00bfa5; font-weight: bold;">매장별 주문하기</span>을
-										하면 도매 매장별로 주문이 들어가며, 주문서를 <span style="color: #4db05e;">엑셀파일로
-											저장</span> 가능합니다.<br>주문하는 시점에 품절되어 있는 상품은 주문되지 않고 장바구니에 남아있습니다.
-									</div>
-								</td>
-							</tr>
+					<table class="basketSheetTable" cellspacing="0" th:if="${cartList.empty}"
+						style="width: 760px; min-height: 680px; position: relative; display: inline-block;">
+						<tbody id="basketDirectTableBody">
+							<td colspan="6"
+								style="height: 420px; width: 760px; border-top: 4px solid #e5e5e5; border-bottom: 4px solid #e5e5e5; text-align: center;"><div
+									class="emptyBasketImg"></div>
+								<div style="margin-top: 10px; font-size: 14px; color: #333;">장바구니에
+									담은 상품이 없습니다.</div>
+							</td>
 						</tbody>
 					</table>
+					
+					<div class="dummy" th:each='arr:${cartList}' th:if="${arr != null}"
+						style='margin-bottom: 20px;'>
+						<div style="border-bottom: 4px solid #e5e5e5; width: 760px;"></div>
+						<table class="basketGoodsTableMiddle" cellspacing="0"
+							style="width: 760px;">
+							<tbody>
+								<tr style="height: 120px;">
+									<td class="checkBoxTd borderBottom">
+										<div class="check_box">
+											<input type="checkbox" name="checkbox" class="checkbox" th:id="|chk_${arr.cno}|"> 
+											<label th:for="|chk_${arr.cno}|"></label>
+										</div>
+									</td>
+									<td class="height90 borderBottom" colspan="4"
+										style="text-align: left; width: 150px;">
+										<div class="shoppingGoodsThumbnail">
+											<img th:class="|img_${arr.cno}|"
+												style="width: 60px; display: inline-block; vertical-align: middle;">
+										</div>
+										<div
+											style="display: inline-block; margin-left: 6px; vertical-align: middle;">
+											<div class="basketGoodsName" style="width: 100px;">
+												<a class="modalOpen" style="color: #333;"
+													th:text="${arr.product.pname}">PNAME</a>
+												<div class="basketGoodsDeleteBtn"></div>
+											</div>
+											<div class="basketStoreInfo"
+												style="font-size: 15px; margin-top: 6px;"
+												th:text="|사이즈 / ${arr.opt.size}|">SIZE</div>
+										</div>
+									</td>
+									<td class="borderRight" colspan="5"
+										style="border-spacing: 0px;">
+										<table cellspacing="0" style="width: 100%;">
+											<tbody>
+												<tr class="height60 optionClass">
+													<td class=" upDownTd">
+														<div class="upDownDiv">
+															<div class="downArea" onclick="btnCountDown()"></div>
+															<input class="upDownNumArea" maxlength="3" type="text"
+																th:value="${arr.qty}" placeholder="0"
+																style="ime-mode: disabled;">
+															<div class="upArea"></div>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+									<td class="basketGoodsSumPrice">
+										<div class="sumPrice"
+											th:data-sum="${arr.qty * arr.product.price}"
+											th:text="|${arr.qty * arr.product.price}원|">PRICE</div>
+									</td>
+									<td class="height90 borderBottom btnTdArea">
+										<button class="basketCommonBtn cartDel"
+											style="margin-top: 8px;" th:id="|del_${arr.cno}|">삭제하기</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table class="basketGoodsTableEnd" cellspacing="0"
+							style="width: 760px;">
+							<tbody>
+							</tbody>
+						</table>
+					</div>
 				</div>
-				<div class="floatArea" style="height: 1585px;">
+
+				<div class="floatArea">
 					<div class="floatMenu" style="">
 						<table class="buyNPriceTable" cellspacing="0"
 							style="width: 100%; color: #202225;">
@@ -155,7 +131,6 @@
 										<button class="formBuyNPriceInfoBoxTitle">주문예정 금액</button>
 									</td>
 								</tr>
-
 								<tr>
 									<td class="floatTableText"
 										style="border-bottom: 1px solid #e1e1e1;">총 주문금액</td>
@@ -168,33 +143,55 @@
 								</tr>
 								<tr>
 									<td colspan="2">
-										<button class="orderBtn" onclick="dBuyingOrder()"
-											style="background-color: #00bfa5; border: 1px solid #00bfa5;">
-											주문하기</button>
+										<button class="orderBtn"
+											style="background-color: #00bfa5; border: 1px solid #00bfa5;">주문하기</button>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
+
 				</div>
 			</tbody>
 
-			<div id="basketSSCTitle" style="display: none; padding: 30px 0px;">
-				<img src="../img/bg_cart_ssc_title_banner_01.png"
-					style="width: 100%;">
-			</div>
 		</div>
 	</div>
-
+	<form id="cartForm" method="get" action="/order/list">
+		<input type="hidden" name="mid" value="test" />
+	</form>
 </div>
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-	
+	var cartForm = $("#cartForm");
 	var cartList = [[${cartList}]];
 	var chkList = new Array();
 	
-	imgLoad(cartList);
+	(function(){
+
+		var totalSum = 0;
+		
+		$(".sumPrice").each(function(){
+			totalSum += Number($(this).data("sum"));
+		})
+		
+		$(".d_totalPrice").html(totalSum);
+		
+		imgLoad(cartList);
+		
+		$("input[type=checkbox]:checkbox").prop("checked", "checked");
+		checkChk();
+	})();
+	
+	$(".checkbox").click(function(){
+		if($("input[name=checkbox]:not(:checked)").length != 0){
+			
+			$("input[id=allCheck_box]:checkbox").prop("checked", false);
+		}else{
+			$("input[id=allCheck_box]:checkbox").prop("checked", true);
+		}
+		checkChk();
+	});
 	
 	function imgLoad(cartList){
 		$.each(cartList, function(index, item){
@@ -203,42 +200,83 @@
 			var fileCallPath =  encodeURIComponent(img.ipath+ "/"+ img.uuid +"_"+img.iname);
 			
 			var imgDiv= $('.img_'+item.cno);
-			console.log(imgDiv);
-			console.log(fileCallPath);
 			imgDiv.attr("src","/display?fileName="+fileCallPath);
 		}); 
 	}
 	
+	$("#allCheck_box").click(function(){
+		if($("input[name=checkbox]:not(:checked)").length != 0){
+			
+			$("input[name=checkbox]:checkbox").prop("checked", "checked");
+		}else{
+			$("input[name=checkbox]:checkbox").prop("checked", false);
+		}
+		checkChk();
+	});
+	
+	$(".cartDel").click(function(){
+		var cno = $(this).attr("id").substring(4);
+		
+		$.ajax({
+            type:"post",
+            url: "/cart/delete/"+cno,
+            success:function(result, status, xhr){
+
+            	alert("삭제되었습니다");
+            	window.location.reload();
+			}
+		});	
+	});
 	
 	$(".selectDeleteBtn").on('click',function(e){
-
+		var str = "";
 		e.preventDefault();
-		 
-		$("input[type='checkbox']:checked").each(function(index, item){
-			chkList.push(item.getAttribute('id').substring(4));
+		
+		
+		$.each(chkList, function(index, item){
+			if(index == 0){
+				str = item;	
+			}else{
+				str += "_"+item
+			}
 		});
 		
-	
 		 $.ajax({
             type:"post",
-            url: "/cart/delete/"+chkList[0],
+            url: "/cart/delete/"+str,
             success:function(result, status, xhr){
-            	/* autoRefresh();
-            	imgLoad(result); */
+
             	alert("삭제되었습니다");
             	window.location.reload();
 			}	
         }); 
 		 
-	 
 	});
+	
+	$(".orderBtn").click(function(){
+		if(chkList.length){
+			$.each(cartList, function(index, item){
+				var cno = chkList.indexOf(String(item.cno));
+				if(cno != -1){
+					console.log(item.cno);
+					cartForm.append("<input type='hidden' name='info' value='"+
+							item.pno+"_"+item.opno+"_"+item.qty+"_"+item.sno+"'>")
+							.submit();
+				}
+			});
+		}else{
+			alert("장바구니에 담긴 상품이 없습니다.");
+		}
 		
-	function autoRefresh(){
-		var currentLocation = window.location;
-		$(".cartContainer").load(currentLocation + ' .dummy');
+	});
+	
+	function checkChk(){
+		chkList = new Array();
+		$("input[name='checkbox']:checked").each(function(index, item){
+			chkList.push(item.getAttribute('id').substring(4));
+		});
 	}
 	
-	
-</script>
+	</script>
 </th:block>
 </html>

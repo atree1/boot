@@ -1,12 +1,15 @@
 package org.oos.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.oos.domain.CartVO;
+import org.oos.domain.Criteria;
 import org.oos.domain.OrderDetailVO;
-import org.oos.domain.ProductOptionVO;
 import org.oos.domain.ProductVO;
+import org.oos.service.CartService;
 import org.oos.service.MemberService;
 import org.oos.service.OrderDetailService;
 import org.oos.service.OrderService;
@@ -30,6 +33,9 @@ public class OrderController {
 	private OrderService orderService;
 	
 	@Setter(onMethod_=@Autowired)
+	private CartService cartService;
+	
+	@Setter(onMethod_=@Autowired)
 	private OrderDetailService orderDetailService;
 	
 	@Setter(onMethod_=@Autowired)
@@ -42,38 +48,60 @@ public class OrderController {
 	private ProductService productService;
 	
 	@GetMapping("/success")
-	public void successGET(Long ono, Model model) {
-
-		model.addAttribute("order", orderDetailService.getList(ono));
+	public void successGET(Long ono, String mid, Model model) {
+		
+		Criteria cri=new Criteria();
+		cri.setAmount(1000000);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("criteria", cri);
+		map.put("mid",mid);
+		
+		List<CartVO> cartList = cartService.getList(map);
+		List<OrderDetailVO> list = orderDetailService.getList(ono);
+		
+		list.forEach(vo -> {
+			cartList.forEach(cart -> {
+				if(cart.getOpno() == vo.getOpno()) {
+					cartService.remove(cart.getCno());
+				}
+			});
+			
+		});
+		 model.addAttribute("member", memberService.get(mid));
+		 model.addAttribute("order", list);
 	}
 	
 	@GetMapping("/list")
-    public void orderListGET(Long pno, String mid, Long sno, String[] info, Model model) {
+    public void orderListGET(String mid, String[] info, Model model) {
  
         List<OrderDetailVO> list=new ArrayList<>();
+
         for (String size : info) {
-            String[] sizeInfo=size.split("_");
+        	String[] sizeInfo=size.split("_");
             
             OrderDetailVO vo=new OrderDetailVO();
-            Long opno=Long.parseLong(sizeInfo[0]);
+            Long opno = Long.parseLong(sizeInfo[1]);
+            
             vo.setOpno(opno);
-            ProductVO pVO=productService.read(pno);
+            ProductVO pVO=productService.read(Long.parseLong(sizeInfo[0]));
             
             pVO.getOptList().forEach(opt->{
                 if(opt.getOpno()==opno) {    
                     vo.setOption(opt);
                 }
             });
-            vo.setPno(pno);
+            vo.setPno(Long.parseLong(sizeInfo[0]));
             vo.setProduct(pVO);
-            vo.setQty(Long.parseLong(sizeInfo[1]));
+            vo.setQty(Long.parseLong(sizeInfo[2]));
             vo.setMid(mid);
-            vo.setSno(sno);
+            vo.setSno(Long.parseLong(sizeInfo[3]));
             list.add(vo);
         }
+        log.info(list + "");
         model.addAttribute("member", memberService.get(mid));
-        model.addAttribute("store", storeService.get(sno));
         model.addAttribute("orderList",list);
     }
+	
+	
 
 }

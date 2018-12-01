@@ -28,12 +28,11 @@ public class CartServiceImpl implements CartService {
 	
 	@Override
     public List<CartVO> getList(Map<String, Object> map) {
-        // TODO Auto-generated method stub
         List<CartVO> list=cartMapper.getList(map);
         for (CartVO vo : list) {
             
             vo.setProduct(productMapper.get(vo.getPno()));
-            vo.setOpt(optMapper.get(vo.getPno()));
+            vo.setOpt(optMapper.get(vo.getOpno()));
             vo.getProduct().setImgList(imgMapper.getList(vo.getPno()));
         }
         return list;

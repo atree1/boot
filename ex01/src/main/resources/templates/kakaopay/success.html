@@ -80,9 +80,10 @@ body {
 	<script>
 		  
 	    var ono = [[${ono}]];
-		
+	    var mid = "[[${mid}]]";
+	    
 		function success(){
-			opener.location.href="/order/success?ono=" + ono; 
+			opener.location.href="/order/success?ono=" + ono +"&mid=" + mid; 
 			
 			window.close();
 		}

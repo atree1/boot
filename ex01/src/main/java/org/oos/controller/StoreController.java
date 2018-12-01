@@ -39,10 +39,10 @@ public class StoreController {
 	}
 	
 	@GetMapping("/detail")
-	public void productRead(Long pno, Model model) {
+	public void productRead(Long pno, Long sno,  Model model) {
 		
 		ProductVO vo = productService.read(pno);
-		model.addAttribute("store", storeService.get(vo.getSno()));
+		model.addAttribute("store", storeService.get(sno));
 		model.addAttribute("product", vo);
 	}
 	

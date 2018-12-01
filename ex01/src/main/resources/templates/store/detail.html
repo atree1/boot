@@ -122,6 +122,7 @@ width:40px;
 							</tr>
 						</tbody>
 					</table>
+						<div class="div_line_1px" style="width: 100%; margin-bottom: 21px;"></div>
 						<div class="option_area">
 							<ul class="goods_option_ul" style="width: 100%;" th:each="arr:${product.optList}">
 								<li class="min-height42 optionLi">
@@ -131,31 +132,24 @@ width:40px;
 										th:text="|SIZE / ${arr.size}|">SIZE</div>
 										<div style="margin-top: 6px; font-size: 12px;"
 											th:text="|재고수량 / ${arr.qty}|">QTY</div>
-											
 									</div>
 									
 									<div class="count">
-									
 										<div class="option_count_control" style="">
 											<div class="detailUpDownDiv">
 												<div class="detailDownArea"></div>
 												<input name="option" th:id="${arr.opno}" class="detailUpDownNumArea" type="text"
 													value="0">
 												<div class="detailUpArea"></div>
-											
 											</div>
 										</div>
-										
-									
 									</div>
-								
 								</li>
-								
 							</ul>
 							<div class="div_line_1px"
 								style="width: 100%; margin-top: 20px; margin-bottom: 15px;"></div>
 						</div>
-					<div class="div_line_1px" style="width: 100%; margin-bottom: 21px;"></div>
+				
 						<input type="hidden" name="pno" th:value="${product.pno}">
 						<input type="hidden" name="mid" value="member1">
 					
@@ -170,8 +164,6 @@ width:40px;
 						</div>
 
 						<div class="btn_area">
-							
-	
 							<div style="position:relative">
 							<div class="basketInfoTextBox basketMoveBox"
 								style="position: absolute; left: 111px; top: -106px; width: 318px; height: 100px; z-index: 3; display:none">
@@ -201,13 +193,11 @@ width:40px;
 				<div class="mgoods_images">
 
 				</div>
-				
 			</div>
 		</div>
 			
 	</div>
 	<form action="/order/list" id="storeDetailForm" method="get" >
-		<input type="hidden" name="pno" th:value="${product.pno}"/>
 		<input type="hidden" name="mid" value="member1"/>
 		<input type="hidden" name="sno" value="1"/>
 	</form>
@@ -218,12 +208,10 @@ width:40px;
 	$(document).ready(function() {
 		var actionForm = $("#storeDetailForm");
 	    var product = [[${product}]];
-
+	    var store = [[${store}]];
+	   
 		(function() {
-			
 			setImg();
-			
-			
 		})();
 		
 		function setImg(){
@@ -238,7 +226,8 @@ width:40px;
 				var thumbFileCallPath =  encodeURIComponent(img.ipath+ "/s_"+ img.uuid +"_"+img.iname);
 
 				str += "<div class='gthumb'>"
-				str += "<img width='60' src='/display?fileName="+thumbFileCallPath+"' style='display:block;'>"
+				str += "<img width='60' src='/display?fileName="+
+						thumbFileCallPath+"' style='display:block;'>"
 				str += "<span class='img_edge'></span></div>"
 		
 			}
@@ -256,7 +245,8 @@ width:40px;
 							"mid" : "test",
 							"pno" : product.pno,
 							"qty" : $(this).val(),
-							"opno" : $(this).attr("id")
+							"opno" : $(this).attr("id"),
+							"sno" : store.sno
 					}
 					
 					jsonList.push(list);
@@ -328,9 +318,12 @@ width:40px;
 			$.each(product.optList, function(index, item){
 				var value = $("#"+item.opno+"").val();
 				if(value > 0){
-					actionForm.append("<input type='hidden' name='info' id='info' value='"+item.opno+"_"+value+"'>");
+					actionForm.append("<input type='hidden' name='info' id='info' value='"
+							+item.pno+"_"+item.opno+"_"+value+"_"+store.sno+"'>");
+					
 				}
 			});
+			actionForm.append("<input type='hidden' name='sno' value='"+store.sno+"'>");
 			if($("#info").val() == null){
 				alert("수량을 입력해 주세요");
 			}else{

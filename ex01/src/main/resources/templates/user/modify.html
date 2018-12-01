@@ -1,0 +1,126 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/shopLayout}">
+
+<div class="container" style="margin-top: 20px;"
+	layout:fragment="container">
+
+	<table cellspacing="0"
+		style="margin-top: 14px; border: 1px solid #d7d7d7; width: 100%;">
+		<tbody>
+			<tr>
+				<td class="personalTd headTitle" style="">회원 이름</td>
+				<td class="personalTd" style="position: relative;"><input
+					type="text" id="joinUserName" readonly="true"
+					placeholder="휴대폰 인증을 통한 본인이름" class="joinInput"></td>
+			</tr>
+			<tr>
+				<td class="personalTd headTitle" style="">회원 아이디</td>
+				<td class="personalTd" style="position: relative;"><input
+					type="text" id="joinUserId"
+					onkeyup="this.value=id_filter(this.value);"
+					onfocusout="idConfirm()" class="joinInput" maxlength="30"
+					style="ime-mode: disabled;">
+				<div id="idMinFourText"
+						style="position: absolute; top: 14px; right: 12px; font-size: 16px; color: rgb(205, 35, 35); text-align: right;">아이디는
+						최소 4글자 이상입니다.</div></td>
+			</tr>
+			<tr>
+				<td class="personalTd headTitle" style="">회원 비밀번호</td>
+				<td class="personalTd" style="position: relative;"><input
+					type="password" onfocusout="passwordConfirm(1)" id="joinPassword"
+					maxlength="20" class="joinInput">
+				<div id="minFourText"
+						style="position: absolute; top: 14px; right: 12px; font-size: 16px; color: #cd2323; text-align: right; display: none;">비밀번호는
+						최소 4자리 이상입니다.</div></td>
+			</tr>
+			<tr>
+				<td class="personalTd headTitle" style="">비밀번호 확인</td>
+				<td class="personalTd" style="position: relative;"><input
+					type="password" onfocusout="passwordConfirm(2)"
+					id="joinPasswordConfirm" maxlength="20" class="joinInput">
+				<div id="notSameText"
+						style="position: absolute; top: 14px; right: 12px; font-size: 16px; color: #cd2323; text-align: right; display: none;">비밀번호가
+						일치하지 않습니다.</div></td>
+			</tr>
+			<tr>
+				<td class="personalTd headTitle" style="">휴대폰 번호</td>
+				<td class="personalTd" style="position: relative;"><input
+					type="password" onfocusout="passwordConfirm(2)"
+					id="joinPasswordConfirm" maxlength="20" class="joinInput">
+				<div id="notSameText"
+						style="position: absolute; top: 14px; right: 12px; font-size: 16px; color: #cd2323; text-align: right; display: none;">비밀번호가
+						일치하지 않습니다.</div></td>
+			</tr>
+			<tr>
+				<td class="personalTd headTitle" style="">생년월일</td>
+				<td class="personalTd" style="position: relative;"><input
+					type="password" onfocusout="passwordConfirm(2)"
+					id="joinPasswordConfirm" maxlength="20" class="joinInput">
+				<div id="notSameText"
+						style="position: absolute; top: 14px; right: 12px; font-size: 16px; color: #cd2323; text-align: right; display: none;">비밀번호가
+						일치하지 않습니다.</div></td>
+			</tr>
+			<tr>
+				<td class="personalTd headTitle" style="">이메일</td>
+				<td class="personalTd" style="position: relative;"><input
+					type="password" onfocusout="passwordConfirm(2)"
+					id="joinPasswordConfirm" maxlength="20" class="joinInput">
+				<div id="notSameText"
+						style="position: absolute; top: 14px; right: 12px; font-size: 16px; color: #cd2323; text-align: right; display: none;">비밀번호가
+						일치하지 않습니다.</div></td>
+			</tr>
+			<tr>
+				<td class="personalTd headTitle" style="">주소</td>
+				<td class="personalTd" style="position: relative;"><input
+					type="password" onfocusout="passwordConfirm(2)"
+					id="joinPasswordConfirm" maxlength="20" class="joinInput">
+				<div id="notSameText"
+						style="position: absolute; top: 14px; right: 12px; font-size: 16px; color: #cd2323; text-align: right; display: none;">비밀번호가
+						일치하지 않습니다.</div></td>
+			</tr>
+
+		</tbody>
+	</table>
+
+	<div class="selectUserType" style="margin-top: 40px;">
+
+		<div class="formTitle">
+			회원 선택<input id="userTypeSelectText" value="회원 종류를 반드시 선택해주세요"
+				readonly="true"
+				style="margin-left: 12px; width: 240px; font-size: 16px; color: #cd2323; text-align: left; display: none;"><input
+				id="onOffLineSelectText" value="온오프라인 여부를 선택해주세요." readonly="true"
+				style="margin-left: 12px; width: 240px; font-size: 16px; color: #cd2323; text-align: left; display: none;">
+		</div>
+
+		<div style="margin-top: 14px; position: relative; height: 48px;">
+			<button id="userTypeSelect" class="joinSelectBox"
+				style="position: absolute; left: 0px; z-index: 1;" color="#039be5">선택해주세요.</button>
+			<div class="selectUserTypeList"
+				style="position: absolute; top: 47px; z-index: 2; display: none;">
+				<li class="userTypeLi" onclick="userTypeSelected(1)"
+					style="border-bottom: 0px;">대표</li>
+				<li class="userTypeLi" onclick="userTypeSelected(2)">직원</li>
+			</div>
+			<span class="css-arrow"
+				style="position: absolute; top: 14px; left: 309px; z-index: 0;"></span>
+			<button id="onOffLineSelect" class="joinSelectBox disable"
+				style="position: absolute; right: 0px; z-index: 1;">선택해주세요.</button>
+			<div class="onOffLineList"
+				style="position: absolute; top: 47px; right: 0px; z-index: 2; display: none;">
+				<li class="userTypeLi" onclick="onOffLineSelected(1)"
+					style="border-bottom: 0px;">온라인 매장</li>
+				<li class="userTypeLi" onclick="onOffLineSelected(2)">오프라인 매장</li>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		
+	</script>
+</th:block>
+</html>

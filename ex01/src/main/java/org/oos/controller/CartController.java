@@ -73,15 +73,21 @@ public class CartController {
 	
 	
 	
-	@RequestMapping(value="/delete/{cno}")
-	public ResponseEntity<List<CartVO>> delete(@PathVariable("cno") Long cno, Model model){
+	@RequestMapping(value="/delete/{str}")
+	
+	public ResponseEntity<List<CartVO>> delete(@PathVariable("str") String str, Model model){
+		int result = -1;
 		
 		Criteria cri=new Criteria();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("criteria", cri);
 		map.put("mid","test");
 		
-		int result=service.remove(cno);
+		String[] list = str.split("_");
+		
+		for(String cno : list) {
+			result = service.remove(Long.parseLong(cno));
+		}
 		
 		return result==1?new ResponseEntity<>(service.getList(map),HttpStatus.OK):new ResponseEntity<> (HttpStatus.INTERNAL_SERVER_ERROR);
 	}

@@ -129,6 +129,7 @@
 		<ul id="goodsList"
 			style="list-style: outside none none; padding: 0px; position: relative; overflow: hidden;">
 			<ul class="goods_ul" th:each="arr :${product}">
+					<input type="hidden" th:id="|sno_${arr.sno}|">
 					<li class="goodsContainer"  style="margin-right: 5px;" th:id="|link_${arr.pno}|">
 						<div class="goodsImg" style="position: relative; width: 270px; height: 353px;">
 							<img th:id="|img_${arr.pno}|" class="productImg" style="width:100%; display:block;">		
@@ -164,8 +165,10 @@
 			
 			$(".goodsContainer").click(function(e){
 				var pno = $(this).attr("id").substring(5);
-				actionForm.append("<input id='pno' type='hidden' name='pno'>");
-				$("#pno").val(pno);
+				var sno = $(this).prev("input").attr("id").substring(4);
+				console.log(sno);
+				actionForm.append("<input type='hidden' name='pno' value='"+pno+"'>");
+				actionForm.append("<input type='hidden' name='sno' value='"+sno+"'>");
 				actionForm.attr("action","/store/detail").submit();
 			});
 			
@@ -173,7 +176,6 @@
 				
 				var goodsImg=[[${product}]];
 				$.each(goodsImg, function(index, item){
-					console.log(item);
 					var img = item.imgList[0];
 
 					

@@ -9,7 +9,7 @@
  		resultType="org.oos.domain.OrderDetailVO">
 		select * from tbl_order_detail 
 		where odno > 0 and ono = #{ono} and del='N'
-		order by odno desc
+		order by odno desc 
 	</select>
 
 	<select id="count" resultType="int">
