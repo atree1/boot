@@ -83,6 +83,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public int register(ProductVO vo) {
+		
 		// TODO Auto-generated method stub
 		int result=pMapper.insert(vo);
 		
