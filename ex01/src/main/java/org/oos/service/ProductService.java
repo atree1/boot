@@ -14,5 +14,5 @@ public interface ProductService {
 	public int remove(ProductVO vo);
 	public int register(ProductVO vo);
 	public int getTotal(Map<String, Object> map);
-	
+	public List<String> getName();
 }

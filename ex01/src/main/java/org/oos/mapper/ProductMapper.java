@@ -14,4 +14,5 @@ public interface ProductMapper {
 	public int delete(ProductVO vo);
 	public int insert(ProductVO vo);
 	public int count(Map<String, Object> map);
+	public List<String> getName();
 }

@@ -44,4 +44,9 @@
 	 		 pno>0 and sno=#{sno}
 	 
 	 </select> 
+	 <select id="getName" resultType="string">
+	 	select pname
+	 	from tbl_product
+	 	where pno>0
+	 </select>
 </mapper>

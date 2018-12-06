@@ -106,4 +106,10 @@ public class ProductServiceImpl implements ProductService {
 		return pMapper.count(map);
 	}
 
+	@Override
+	public List<String> getName() {
+		// TODO Auto-generated method stub
+		return pMapper.getName();
+	}
+
 }
