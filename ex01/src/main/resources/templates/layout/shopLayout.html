@@ -5,9 +5,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <meta charset="utf-8">
     <title>신상마켓 :: No.1 패션 B2B 플랫폼</title>
     <link rel="shortcut icon" type="image/png" href="/ssm_32_favicon.png"/>
-
-    <script src="../js/jquery.min.js"></script>
-
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link href="../css/nanumbarungothic.css" type="text/css" rel="stylesheet">
 	<link href="../css/common.css?20180918" type="text/css" rel="stylesheet">
 	
@@ -44,10 +44,28 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 							</div>
 
 							<input type="text" id="searchText"  style="width:190px; height:36px; border:0px; margin-top:1px; padding:0px; font-size:13px; display:inline-block; padding-left:10px; color:000;" placeholder="검색어를 입력해주세요.">
-
+							
 							<img src="../img/search_btn.png" onclick="search();" align="middle" style="position:absolute; width:21px; height:21px; right:10px; top:8px; cursor:pointer;">
 
 							<div class="autoCompleteArea" style="">
+								 <script type="text/javascript">
+								$(function() {			
+							 $.ajax({
+			         		   type:"post",
+			         	  		 url: "/autocomplete",
+			          				 success:function(result, status, xhr){
+									console.log(result);
+								$( "#searchText" ).autocomplete({
+									source:result 
+							});
+		 	
+			           }	
+			   	     }); 
+
+			
+		});
+
+		</script>
 							
 							</div>
 						</div>
@@ -663,35 +681,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 </div>
 <form id="actionForm"></form>
 <div class="dimmed" style="display:none;"></div>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
 	<!-- <script type="text/javascript" src="https://wcs.naver.net/wcslog.js"></script> -->
 	<script src="../js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="../js/menuhover.js" type="text/javascript"></script>
 	<script src="../js/move.js" type="text/javascript"></script>
 	<th:block script layout:fragment="script">
-	<script th:inline="javascript">
-		
-	 var tags={
-			 '123',
-			 'asd',
-			 '가나다',
-			 '가나',
-			 '아이우에오',
-			 '아이우에오',
-			 'abc',
-			 'a',
-			 'ab'
-	 };
-	 
-	 $(document).ready(function(){
-		 $('#searchText').autocomplete(tags,{
-			 matchContains:true,
-			 selectFirst:false
-		 });
-	 })
-	</script>
-	</th:block>
+	
+		</th:block>
 </body>
 
 </html>

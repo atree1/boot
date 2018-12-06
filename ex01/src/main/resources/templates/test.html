@@ -12,32 +12,28 @@
 
 
 	<th:block layout:fragment="script">
-		<script th:src="@{//code.jquery.com/jquery.min.js}"></script>
-		<script th:src="@{//code.jquery.com/ui/1.11.4/jquery-ui.min.js}"></script>
+		<script th:src="@{https://code.jquery.com/jquery.min.js}"></script>
+		<script th:src="@{https://code.jquery.com/ui/1.11.4/jquery-ui.min.js}"></script>
 		<script th:inline="javascript">
 
 
 	$(function() {
-				var tags = [];
+			
 				
 				 $.ajax({
 			            type:"post",
 			            url: "/autocomplete",
 			            success:function(result, status, xhr){
 							console.log(result);
-							$.each(result,function(index,item){
-									tags.push(item);	
+							$( "#my-language" ).autocomplete({
+								source:result 
 							});
-							console.log(tags);
-							
 			            
 				 	
 			           }	
 			        }); 
 					 
-				$( "#my-language" ).autocomplete({
-					source:tags 
-				});
+			
 			
 		});
 	</script>
