@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -74,5 +75,14 @@ public class ProductController {
 
 		return "redirect:/store/list?sno=" + storeService.get(sno).getSno();
 	}
-
+	@PostMapping("/autocomplete")
+	@ResponseBody
+	public List<String> autoComplete() {
+		
+		List<String> list=productService.getName();
+		
+		
+		log.info(""+list);
+		return list;
+	}
 }

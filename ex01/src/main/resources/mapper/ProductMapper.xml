@@ -49,4 +49,18 @@
 	 	from tbl_product
 	 	where pno>0
 	 </select>
+	 
+	  <update id="updateQuestionReplyCnt">
+	 	
+	 	update tbl_product set questionreplycnt = questionreplycnt + #{amount} where pno = #{pno}
+	 	
+	 	
+	 </update>
+	 
+	  <update id="updateReviewReplyCnt">
+	 	
+	 	update tbl_product set reviewreplycnt = reviewreplycnt + #{amount} where pno = #{pno}
+	 	 
+	 	
+	 </update>
 </mapper>

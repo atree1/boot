@@ -1,10 +1,10 @@
 package org.oos.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.oos.domain.ProductVO;
+import org.springframework.data.repository.query.Param;
  
 public interface ProductMapper {
 
@@ -15,4 +15,6 @@ public interface ProductMapper {
 	public int insert(ProductVO vo);
 	public int count(Map<String, Object> map);
 	public List<String> getName();
+	public void updateQuestionReplyCnt(@Param("pno") Long pno,@Param("amount") int amount);
+	public void updateReviewReplyCnt(@Param("pno") Long pno,@Param("amount") int amount);
 }

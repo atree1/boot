@@ -16,6 +16,6 @@ public interface StoreService {
 	public int remove(Long sno);
 	
 	public int modify(StoreVO vo);
-	
+	public List<String> getName();
 	public int count(Criteria cri);
 }

@@ -17,4 +17,6 @@ public class ProductVO {
 	private List<ProductImgVO> imgList;
 	private List<ProductOptionVO> optList;
 	private  char del;	
+	private int QuestionReplyCnt;
+	private int ReviewReplyCnt;
 }

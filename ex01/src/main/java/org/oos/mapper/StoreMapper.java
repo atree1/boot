@@ -18,5 +18,5 @@ public interface StoreMapper {
 	public int delete(Long sno);
 	
 	public int count(Criteria cri);
-
+	public List<String> getName();
 }

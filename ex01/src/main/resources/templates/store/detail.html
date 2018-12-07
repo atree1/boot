@@ -15,6 +15,7 @@ width:40px;
 
 
 </style>
+
 <div class="container" style="margin-top: 20px;"
 	layout:fragment="container">
 	<div class="menuRoot">
@@ -43,45 +44,58 @@ width:40px;
 				<div class="goods_detail_text">
 					설명설명
 				</div>
-
+				
+				<!--댓글  -->
 				<div class="goods_comments_area">
-					<div name="goods_comment_title" id="goods_comment_title"
+					<div id="replySelector" name="goods_comment_title"
 						class="goods_comment_title displayTable">
-						<div class="table-cell">
-							상품문의 
-							<span id="innerRepleTotalCount"
+						
+						<div class="table-cell" id="review" data-kind='R'>
+							리뷰 
+							<span class="innerRepleTotalCount" th:text="${product.ReviewReplyCnt}"
+								style="color: #9b9b9b; font-size: 14px; font-weight: normal; vertical-align: top;">(0)</span>
+						</div>
+						<div class="table-cell" id="question" data-kind="Q">
+							상품문의
+							<span class="innerRepleTotalCount" th:text="${product.QuestionReplyCnt}"
 								style="color: #9b9b9b; font-size: 14px; font-weight: normal; vertical-align: top;">(0)</span>
 						</div>
 					</div>
-					<div class="goods_comment_input"
-						style="position: relative; box-sizing: border-box; border: 1px solid #e3e3e3; height: 150px;">
-						<textarea id="innerCommentMsg" class="replyTextarea"
-							placeholder="덧글을 입력해주세요." style="width: 100%; height: 100px;"></textarea>
-						
-						<button class="repleRegiBtn">등록하기</button>
+					
+					<div id="replyAdd" class="replyContainer">
+					<div>
+						<input type="text" name="title" style="width: 100%; height: 30px;" placeholder="제목을 입력해주세요.">
 					</div>
-					<ul id="inner_goods_comments" style="position: relative;">
-						<li class="g_comment_li" style="border-bottom: 1px solid #e3e3e3;"><div
-								class="store_name ellipsis wstore_name">닉네임</div>
-							<div class="datetime ellipsis">2018-09-13 05:01</div>	
-							<div class="contents"
-								style="margin-top: 17px; padding-bottom: 15px;">
-								댓글댓글
-								<div class="reply">
-									<div class="qAnswerLogo">A</div>
-									<div class="qAnswer">댓글댓글<br>댓글댓글</div>
-								</div>
-							</div>
-						</li>
+						<div>
+						<input type="text" name="mid" style="width: 100%; height: 30px;" placeholder="작성자.">
+					</div>
+					
+						<div class="
+						star">
+						<select class="score">
+  						<option th:value="1">★</option>
+  						<option th:value="2">★★</option>
+ 						<option th:value="3">★★★</option>
+  						<option th:value="4">★★★★</option>	
+  						<option th:value="5">★★★★★</option>
+						</select>
+						</div>
+							
+						<div 					
+					class="goods_comment_input" style="position: relative; box-sizing: border-box; border: 1px solid #e3e3e3; height: 150px;">
+						<input id="innerCommentMsg" name="content" class="replyTextarea" placeholder="덧글을 입력해주세요." style="width: 100%; height: 100px;">
+						<button class="repleRegiBtn" >등록하기</button>
+					</div>
+					</div>
+					
+					<ul id="inner_goods_comments"  class="inner_goods_comments" style="position: relative;">
+					
 					</ul>
-					<div style="text-align: center;">
-						<div class="pageControlLeft" onclick="prev10PageMove()"
-							title="10페이지 이전" style="margin-right: 2px; margin-top: 30px;"></div>
-						<div class="innerShowPage"
-							style="display: inline-block; vertical-align: top; margin-top: 30px;"></div>
-						<div class="pageControlRight" onclick="next10PageMove()"
-							title="10페이지 다음" style="margin-left: 2px; margin-top: 30px;"></div>
+					<!--페이지 -->
+					<div class="replyPageFooter" style="text-align: center;">
+						
 					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -92,7 +106,7 @@ width:40px;
 					<div class="goods_name" th:text="${product.pname}">PNAME</div>
 					<div class="detail_store_name">
 						<span class="store" th:text="${store.saddress}">ADDRESS</span>
-						/ <span th:text="${store.tel}">TEL<span>
+						 <span th:text="${store.tel}">TEL<span>
 					</div>
 					<div class="goods_price" th:text="${product.price}">PRICE</div>
 					<div class="div_line_1px" style="width: 100%; margin-bottom: 30px;"></div>
@@ -203,9 +217,257 @@ width:40px;
 	</form>
 </div>
 
-<th:block layout:fragment="script"> 
+<th:block layout:fragment="script">
+<script th:inline="javascript" th:src="@{../js/reply.js}"></script>
 <script th:inline="javascript">
 	$(document).ready(function() {
+		
+		var pageNum = 1;
+		var replyPageFooter = $(".replyPageFooter");
+		
+		var pnoValue =  [[${product.pno}]];
+		var replyUL = $("#inner_goods_comments");
+		var kindValue = "Q"; 
+		var parent = 0;
+		
+		var replyAdd = $("#replyAdd");
+		var InputTitle = replyAdd.find("input[name='title']");
+		var InputContent=replyAdd.find("input[name='content']");
+		var InputMid=replyAdd.find("input[name='mid']");
+		
+		var replyContainer =$(".replyContainer").clone(true);
+		var modifyTitle ;
+		var modifyContent;
+		var modifyMid;
+		var modifyRno;
+		var modifyScore;
+		showList(1);
+		
+		var scoreValue = $(".score option:selected").val();
+	
+		//Question 별점숨김.
+		$(".goods_comments_area").on("click","div [data-kind]",function(e){
+			
+			var kind=$(this).data("kind");
+			
+			if(kind =='Q'){
+				$(".star").hide();
+			}
+			else{
+				$(".star").show();	
+			}
+			
+		});
+		
+		//댓글페이지 출력
+		function showReplyPage(replyCnt){
+			
+			var endNum = Math.ceil(pageNum/10.0)*10;
+			var startNum = endNum - 9;
+			
+			var prev = startNum != 1;
+			var next = false;
+			
+			if(endNum*10>=replyCnt){
+				endNum=Math.ceil(replyCnt/10.0);
+			}
+						
+			if(endNum*10 <replyCnt){
+				next=true;				
+			}
+			
+			var str="<ul><li>";
+			
+			if(prev){
+				str+="<li><a href='"+(startNum-1)+"'>Previous</a></li>";
+			}
+			
+			for(var i=startNum; i<=endNum; i++){
+				var active= pageNum ==i?"active":"";
+				
+				str+="<li class='"+active+"'><a href='"+i+"'>"+i+"</a></li>";
+			}
+			
+			if(next){
+				str+="<li><a href='"+(endNum+1)+"'>Next</a></li>";
+			}
+			str+="</li></ul>";
+			console.log(str);
+			replyPageFooter.html(str);
+		}
+		
+		replyPageFooter.on("click","li a",function(e){
+			
+			e.preventDefault();
+			var targetPageNum = $(this).attr("href");
+			
+			pageNum=targetPageNum;
+			
+			showList(pageNum);
+		});
+		
+		//수정하기 조회
+		$(".inner_goods_comments").on("click",".modifyBtn",function(e){
+			
+		 	 modifyTitle = replyContainer.find("input[name='title']");
+			 modifyContent=replyContainer.find("input[name='content']");
+			 modifyMid=replyContainer.find("input[name='mid']");
+			 modifyScore=replyContainer.find(".score option:selected").parent();
+			 
+			console.log("mod clicked.......");
+			modifyRno=$(this).data("rno");
+			
+			$(this).parent().append(replyContainer.show());
+
+			replyService.get(modifyRno,function(reply){
+				
+				modifyTitle.val(reply.title);
+				modifyContent.val(reply.content);
+				modifyMid.val(reply.mid).attr("readonly","readonly");
+				modifyScore.val(reply.score);
+				replyContainer.find('button').text("수정하기").attr("class","modBtn");
+			});
+							
+		});
+		
+		//수정 replyContainer
+		    $(document).on("click",".modBtn",function(e){
+			
+			console.log("mod");
+			
+			var reply ={
+					
+					rno : modifyRno,
+					title:modifyTitle.val(),
+					content:modifyContent.val(),
+					score:modifyScore.val(),
+					kind:kindValue
+			};
+			
+			replyService.update(reply,function(result){
+				alert(result);
+				showList(pageNum);
+			});
+			
+		});
+		
+		//삭제
+		$(".inner_goods_comments").on("click",".deleteBtn",function(e){
+			
+			console.log("clicked....");
+			
+			var rno = $(this).data("rno");
+		
+			replyService.remove(rno,function(result){
+				console.log(rno);
+				alert(result);
+				showList(pageNum);		
+			});
+			
+			var cnt=$("div [data-kind='"+kindValue+"']").find("span ");
+
+			showList(1);
+			cnt.text(parseInt(cnt.text())-1);
+		});
+		
+		//댓글등록
+		$(".repleRegiBtn").on("click",function(e){
+			
+
+			if($(".replyTextarea")[0].textLength === 0){
+				alert("덧글을 입력해주세요");	
+				return;
+			}
+			
+			var reply ={					
+					pno:pnoValue,
+					mid: InputMid.val(),
+					content: InputContent.val(),
+					title: InputTitle.val(),
+					kind: kindValue,
+					parent: ++parent,
+					depth:0,
+					score:scoreValue
+						};
+			
+			replyService.add(reply, function(result){
+				alert(result);
+				replyAdd.find("input").val("");
+				
+				var cnt=$("div [data-kind='"+kindValue+"']").find("span ");
+	
+		
+				showList(1);
+				cnt.text(parseInt(cnt.text())+1);
+								
+			});
+			
+		});
+		
+		
+		
+		$("#replySelector").on("click","div",function(e){
+			
+			var kind=$(this).data("kind");
+			console.log(kind);
+			kindValue=kind;
+			showList(1);
+		
+		});
+		
+		//리스트
+		function showList(pageNum){
+			
+			replyService.getList({pno:pnoValue, page:pageNum, kind:kindValue}, function(replyCnt,parentCnt,list){
+								
+				/* console.log("replyCnt:"+replyCnt);
+				
+				console.log("pageNum:"+pageNum); */
+				console.log(list);
+				if(pageNum == -1){
+					pageNum= Math.ceil(replyCnt/10.0);
+					console.log("pageNum:"+pageNum);
+					showList(pageNum);
+					return;
+				}
+				
+				
+				var str ="";
+				if(list == null || list.length == 0){
+					replyUL.html("");
+					return;
+				}
+				
+				for(var i=0, len = list.length ||0; i<len; i++){
+					console.log(list[i]);
+					str +="<li class='g_comment_li' data-rno='"+list[i].rno+"'>";
+					
+					if(list[i].depth==1){
+						str+="<div class='store_name ellipsis wstore_name' style='margin-left:30px'>"+list[i].mid+"</div>";
+					}else{
+						str +="<div class='store_name ellipsis wstore_name'>"+list[i].mid+"</div>";
+					}					
+					str +="<div class='datetime ellipsis'>"+list[i].regdate+"</div>";
+					str +="<button class='modifyBtn' data-rno='"+list[i].rno+"'>수정</button><button class='deleteBtn' data-rno='"+list[i].rno+"'>삭제</button>"
+					str +="<div class='title' style='margin-top: 17px; padding-bottom: 15px;'>"+list[i].title;
+					if(list[i].kind =="Q"){
+						str+="";
+					}else{
+					str +="<div class='score'>"+list[i].score+"<div>"
+					}
+					str +="<div class='content'><div class='qAnswerLogo'></div><div class='qAnswer'>"+list[i].content+"</div></div>";
+					str +="</div></li>";
+				}
+				
+				
+				replyUL.html(str);
+				parent = parentCnt;
+				showReplyPage(replyCnt);
+				
+			});
+		}
+		
+
 		var actionForm = $("#storeDetailForm");
 	    var product = [[${product}]];
 	    var store = [[${store}]];
@@ -308,11 +570,8 @@ width:40px;
 			$(".basketInfoTextBox").css("display", "none")
 		});
 		
-		$(".repleRegiBtn").click(function(){
-			if($(".replyTextarea")[0].textLength === 0){
-				alert("덧글을 입력해주세요");	
-			}
-		});
+		
+		
 		
 		$(".btn_order_direct").click(function(){
 			$.each(product.optList, function(index, item){

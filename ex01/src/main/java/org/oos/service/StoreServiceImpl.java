@@ -54,4 +54,10 @@ public class StoreServiceImpl implements StoreService {
 		return mapper.count(cri);
 	}
 
+	@Override
+	public List<String> getName() {
+		// TODO Auto-generated method stub
+		return mapper.getName();
+	}
+
 }

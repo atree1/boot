@@ -37,6 +37,10 @@
 	<select id="count" resultType="int">
 		select count(*) from tbl_store where sno > 0 and del = 'N'
 	</select>
-	
+	<select id="getName" resultType="string">
+	 	select sname
+	 	from tbl_store
+	 	where sno>0
+	 </select>
 
 </mapper>

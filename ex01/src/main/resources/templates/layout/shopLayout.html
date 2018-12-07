@@ -35,35 +35,72 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     <div class="searchKeywordBox" style="position:absolute; left:50%; margin-left:-177px; bottom:39px;">
 
 						<div style="position:relative; width:350px; height:38px; border:2px solid #ff7f7a;">
-							<button id="searchOptionSelect" class="selectBox" >전체신상</button>
-							<div id="searchOptionList" class="MultipleSelectBox vertical" unselectable="on" tabindex="0">
-								<li class="selectSearchLi selecting selected" onclick="searchStartBefore(0)" style="margin-top:8px;">전체신상</li>
-								<li class="selectSearchLi" onclick="searchStartBefore(1)">거래처신상</li>
-								<li class="selectSearchLi" onclick="searchStartBefore(2)">매장</li>
-								<li class="selectSearchLi" onclick="searchStartBefore(3)" style="border:0px;">신상초이스</li>
+							<button id="searchOptionSelect" class="selectBox" >상품 검색</button>
+							<div id="searchOptionList" class="MultipleSelectBox vertical" unselectable="off" tabindex="0">
+								<li class="selectSearchLi" data-type="product" style="margin-top:8px;">상품 검색</li>
+								<li class="selectSearchLi" data-type="store" >매장 검색</li>
+							
 							</div>
 
 							<input type="text" id="searchText"  style="width:190px; height:36px; border:0px; margin-top:1px; padding:0px; font-size:13px; display:inline-block; padding-left:10px; color:000;" placeholder="검색어를 입력해주세요.">
 							
-							<img src="../img/search_btn.png" onclick="search();" align="middle" style="position:absolute; width:21px; height:21px; right:10px; top:8px; cursor:pointer;">
+							<!-- <img src="../img/search_btn.png" onclick="search();" align="middle" style="position:absolute; width:21px; height:21px; right:10px; top:8px; cursor:pointer;"> -->
 
 							<div class="autoCompleteArea" style="">
 								 <script type="text/javascript">
-								$(function() {			
-							 $.ajax({
-			         		   type:"post",
-			         	  		 url: "/autocomplete",
-			          				 success:function(result, status, xhr){
-									console.log(result);
-								$( "#searchText" ).autocomplete({
-									source:result 
-							});
-		 	
-			           }	
-			   	     }); 
+									$(function() {			
+										 $.ajax({
+						         		   type:"post",
+						         	  		 url: "/"+type+"/autocomplete",
+						          				 success:function(result, status, xhr){
+												console.log(result);
+											$( "#searchText" ).autocomplete({
+												source:result 
+										});
+					 	
+						           			
+						          				 }	
+						   	   			  }); 
 
-			
-		});
+						
+										});
+								 var search=$("#searchOptionSelect");
+								 var type='product';
+								 $(".selectSearchLi").on("click",function(){
+									 console.log($(this).text());
+									 search.text($(this).text());	
+									 type=$(this).data("type");
+									 console.log(type);
+									 
+										$(function() {			
+											 $.ajax({
+							         		   type:"post",
+							         	  		 url: "/"+type+"/autocomplete",
+							          				 success:function(result, status, xhr){
+													console.log(result);
+												$( "#searchText" ).autocomplete({
+													source:result 
+											});
+						 	
+							           			
+							          				 }	
+							   	   			  }); 
+
+							
+											});
+										slideUp();
+								 })
+						function slideUp(){
+							$(".MultipleSelectBox").slideUp();
+							$(".layoutSelectBox").removeClass("open");
+								$("#searchOptionSelect").addClass("open");
+	}
+	
+						function slideDown(){
+							$(".MultipleSelectBox").slideDown();
+							$(".layoutSelectBox").addClass("open");
+							$("#searchOptionSelect").removeClass("open");
+	}
 
 		</script>
 							
