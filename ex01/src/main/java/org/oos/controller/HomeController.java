@@ -1,15 +1,15 @@
 package org.oos.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.oos.domain.Criteria;
+import org.oos.domain.PageDTO;
 import org.oos.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -19,31 +19,35 @@ import lombok.extern.java.Log;
 public class HomeController {  
 	
 	@Setter(onMethod_=@Autowired)
-	private ProductService service;
+	private ProductService productService;
+	
+	@GetMapping("/aboutus")
+	public void aboutus(Model model) {
+		
+		
+	}
 	
 	@GetMapping("/pay")
 	public void pay(Model model){
 		
 		log.info("payPage....");
-//		model.addAttribute("product", service.read(1L));
-	
 	}
-	@GetMapping("/test")
-	public void test(Model model){
-		
-		log.info("payPage....");
-
 	
+	@GetMapping("/main")
+	public void submain(Model model) {
+		Map<String, Object> map = new HashMap<>();
+		
+		Criteria cri = new Criteria();
+		PageDTO pageDTO = new PageDTO(cri, productService.getTotal(map));
+		map.put("dto", pageDTO);
+		
+		log.info(productService.getList(map)+"");
+		model.addAttribute("product", productService.getList(map));
 	}
-	@PostMapping("/autocomplete")
-	@ResponseBody
-	public List<String> autoComplete() {
+	
+	@GetMapping("/oos")
+	public void main() {
 		
-		List<String> list=service.getName();
-		
-		
-		log.info(""+list);
-		return list;
 	}
 
 }

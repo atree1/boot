@@ -89,11 +89,8 @@
 												<tr class="height60 optionClass">
 													<td class=" upDownTd">
 														<div class="upDownDiv">
-															<div class="downArea" onclick="btnCountDown()"></div>
 															<input class="upDownNumArea" maxlength="3" type="text"
-																th:value="${arr.qty}" placeholder="0"
-																style="ime-mode: disabled;">
-															<div class="upArea"></div>
+																th:value="${arr.qty}" placeholder="0" readonly="readonly">
 														</div>
 													</td>
 												</tr>
@@ -155,8 +152,15 @@
 			</tbody>
 
 		</div>
+		<div style="text-align:center;">
+		<div class="pageControlLeft" th:if="${pageMaker.prev} == true"></div>
+		<div class="showPage" style="display:inline-block; vertical-align:top;"  th:each="page : ${pageList}">
+			<button class="pageNum pageNumber" th:id="|page_${page}|" th:text="${page}">1</button></div>
+		<div class="pageControlRight" th:if="${pageMaker.next} == true"></div>
 	</div>
-	<form id="cartForm" method="get" action="/order/list">
+	</div>
+	<form id="cartForm" method="get">
+		<input type="hidden" name="pageNum" id="pageNum" />
 		<input type="hidden" name="mid" value="test" />
 	</form>
 </div>
@@ -166,6 +170,7 @@
 	var cartForm = $("#cartForm");
 	var cartList = [[${cartList}]];
 	var chkList = new Array();
+	var pageMaker = [[${pageMaker}]];
 	
 	(function(){
 
@@ -179,9 +184,18 @@
 		
 		imgLoad(cartList);
 		
+		$("#pageNum").val(pageMaker.cri.pageNum);
+		$("#page_"+pageMaker.cri.pageNum).attr("style","color:#ff7f7a;");
+		
 		$("input[type=checkbox]:checkbox").prop("checked", "checked");
 		checkChk();
 	})();
+	
+
+	$(".pageNum").click(function(e) {
+		$("#pageNum").val($(this).attr("id").substring(5));
+		cartForm.submit();
+	});
 	
 	$(".checkbox").click(function(){
 		if($("input[name=checkbox]:not(:checked)").length != 0){
@@ -231,8 +245,6 @@
 	$(".selectDeleteBtn").on('click',function(e){
 		var str = "";
 		e.preventDefault();
-		
-		
 		$.each(chkList, function(index, item){
 			if(index == 0){
 				str = item;	
@@ -252,18 +264,19 @@
         }); 
 		 
 	});
-	
+	console.log(cartList);
 	$(".orderBtn").click(function(){
 		if(chkList.length){
+			
 			$.each(cartList, function(index, item){
 				var cno = chkList.indexOf(String(item.cno));
 				if(cno != -1){
-					console.log(item.cno);
+					
 					cartForm.append("<input type='hidden' name='info' value='"+
-							item.pno+"_"+item.opno+"_"+item.qty+"_"+item.sno+"'>")
-							.submit();
+							item.pno+"_"+item.opno+"_"+item.qty+"_"+item.sno+"'>");
 				}
 			});
+			cartForm.attr("action","/order/list").submit()
 		}else{
 			alert("장바구니에 담긴 상품이 없습니다.");
 		}

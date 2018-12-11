@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.oos.mapper.StoreImgMapper">
+
+	<insert id="insert">
+	insert into tbl_store_img(uuid,pno,iname,ipath)
+	values (#{uuid},#{pno},#{iname},#{ipath})
+	</insert>
+	
+	<select id="get" resultType="org.oos.domain.ProductImgVO">
+		select * from tbl_store_img
+		where uuid !='' and sno = #{sno};
+	</select>
+	
+	<delete id="delete">
+		delete from tbl_product_img where uuid=#{uuid}
+	</delete>
+	
+	<delete id="deleteAll">
+		delete from tbl_product_img where pno=#{pno}
+	</delete>
+</mapper>

@@ -3,15 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="org.oos.mapper.ProductMapper">
-
+	
 	<select id="getList" parameterType="map" resultType="org.oos.domain.ProductVO">
-		select *
-		from tbl_product
-		where pno>0 and sno=#{sno}
-		order by pno desc
-		limit #{criteria.skip} ,#{criteria.amount} 
+		select * from tbl_product
+		where pno>0
+		<if test="sno != null">
+		and sno=#{sno}
+		</if>
+		<if test="dto.cri.category != null">
+		and	pname like concat("%", #{dto.cri.keyword} ,"%")
+		</if>
+		<choose> 
+			<when test="dto.cri.orderby == '1'.toString()"> 
+				order by price desc
+			</when>
+			<when test="dto.cri.orderby == '2'.toString()"> 
+				order by price asc
+			</when> 
+			<otherwise> 
+				order by pno desc
+			</otherwise> 
+		</choose>
+		limit #{dto.cri.skip} ,#{dto.cri.amount} 
 	</select>
 	
 	<select id="get" resultType="org.oos.domain.ProductVO">
@@ -23,44 +37,46 @@
 	 <insert id="insert">
 	 	insert into tbl_product(pname,price,sno)
 	 	values(#{pname},#{price},#{sno})
-	 	<selectKey resultType="Long" keyProperty="pno" order="AFTER"> select max(pno) from tbl_product</selectKey>
-	 
+	 	<selectKey resultType="Long" keyProperty="pno" order="AFTER"> 
+	 	select max(pno) from tbl_product
+	 	</selectKey>
 	 </insert>
 	 
 	 <update id="modify">
 	 	update tbl_product 
 	 	set pname=#{pname},price=#{price}
-	 	where pno=#{pno}
+	 	where pno=${pno}
 	 </update>
 	 <update id="delete">
 	 	update tbl_product 
 	 	set del='Y'
-	 	where pno=#{pno}
+	 	where pno=${pno}
 	 </update>
+	 
 	 <select id="count" parameterType="map" resultType="int">
 	 	select count(*)
 	 	from tbl_product
-	 	where
-	 		 pno>0 and sno=#{sno}
-	 
+	 	where pno > 0
+	 	<if test="sno != null">
+		and sno=#{sno}
+		</if>
+		<if test="cri != null and cri.category != null">
+		and	pname like concat("%", #{cri.keyword} ,"%")
+		</if>
 	 </select> 
-	 <select id="getName" resultType="string">
-	 	select pname
-	 	from tbl_product
-	 	where pno>0
-	 </select>
 	 
-	  <update id="updateQuestionReplyCnt">
-	 	
-	 	update tbl_product set questionreplycnt = questionreplycnt + #{amount} where pno = #{pno}
-	 	
-	 	
+	 <select id="getName" resultType="string">
+         select pname from tbl_product
+         where pno>0
+     </select>
+     
+     <update id="updateQuestionReplyCnt">
+	 	update tbl_product set questionreplycnt = questionreplycnt + #{amount} 
+	 	where pno = #{pno}
 	 </update>
 	 
 	  <update id="updateReviewReplyCnt">
-	 	
-	 	update tbl_product set reviewreplycnt = reviewreplycnt + #{amount} where pno = #{pno}
-	 	 
-	 	
+	 	update tbl_product set reviewreplycnt = reviewreplycnt + #{amount} 
+	 	where pno = #{pno}
 	 </update>
 </mapper>

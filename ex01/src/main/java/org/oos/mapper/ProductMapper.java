@@ -3,11 +3,11 @@ package org.oos.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.oos.domain.ProductVO;
-import org.springframework.data.repository.query.Param;
  
 public interface ProductMapper {
-
+	
 	public List<ProductVO> getList(Map<String, Object> map);
 	public ProductVO get(Long pno);
 	public int modify(ProductVO vo);

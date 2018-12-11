@@ -2,65 +2,202 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layout/shopLayout}">
 
-<div class="container" style="margin-top: 20px;"
-	layout:fragment="container">
-	<div class="menuRoot">
-		<div class="table-cell" style="">
-			<span class="" style="color: #9b9b9b;">건물별신상&nbsp;&nbsp;&nbsp;
-				&gt; &nbsp;&nbsp;</span><span class="selectedMypageMenu buildingClickName">APM</span>
-		</div>
-	</div>
+<div layout:fragment="container">
 
-	<div class="store_container"></div>
-	<style>
-.goodsContainer {
-	margin-right: 3px;
-}
-</style>
-	<div style="width: 1100px; margin: 0 auto; position: relative;">
-		<!-- <div id="loadingMsg">로딩중입니다.</div>
-            <div id="noSearchTextMsg"></div> -->
-		<ul id="goodsList"
-			style="list-style: outside none none; padding: 0px; position: relative; overflow: hidden;">
-
-			<div id="noSearchTextMsg" class="msg"
-				style="display: none; font-size: 14px; color: #9a9a9a;">
-				<center>검색어가 입력되지 않았습니다. 검색어를 입력해주세요.</center>
+	<div class="container" style="margin-top: 20px;">
+		<div th:if="${product !=null}">
+			<div style="position: relative; width: 100%;">
+				<div class="sortMethodSelect"
+					style="margin-top: 40px; font-size: 13px; margin-right: 386px;">
+					<div id="sortMethod_0" class="sortMethodClass selected">최신순</div>
+					<div class="breakPoint">∙</div>
+					<div id="sortMethod_1" class="sortMethodClass">높은가격순</div>
+					<div class="breakPoint">∙</div>
+					<div id="sortMethod_2" class="sortMethodClass">낮은가격순</div>
+				</div>
 			</div>
-
-			<ul class="goods_ul">
-				<li class="goodsContainer" id="25410">
-					<div style="position: relative; width: 270px; height: 353px;">
-						<img
-							src="https://img10.sinsangmarket.co.kr/lib/imageResizer.php?f=http://img10.sinsangmarket.co.kr/upfiles2/ssmGoods/u_154259326749892500_648743808.jpg&amp;h=440&amp;w=336"
-							style="width: 100%; display: block;">
-					</div>
-					<div class="goodsInfo" style="position: relative;">
-						<div class="goodsName" style="">메카닉NB</div>
-						<div class="storeLocation"
-							style="font-size: 13px; color: #9b9b9b; margin-top: 4px;">
-							APM 4층 원포인트 (OnePoint)
-							<div class="newWindowBtn"
-								onclick="newWindowGoodsDetail(event, 19789074)"
-								title="새 창으로 상품보기"></div>
-						</div>
-					</div>
-					<div style="margin: 0 15px;">
-						<span style="float: left; font-size: 12px; margin-top: 7px;"><img
-							class="zzimImg" src="../img/card_zzim_off_btn.png">0</span><span
-							style="float: right; font-size: 20px; font-weight: bold; margin-top: 7px;">25,000</span>
-					</div> <span class="mouseOverBorder" style=""></span>
-				</li>
-
-			</ul>
-		</ul>
-
-		<div id="loadmoreajaxloader" class="msg"
-			style="font-size: 14px; color: rgb(154, 154, 154); display: none;">
-			<center>로딩중입니다. 잠시만 기다려주세요.</center>
-		</div>
-		<div class="notListMsg"></div>
+			<div class="div_line_grey_2px"
+				style="margin-top: 16px; margin-bottom: 16px;"></div>
+			<div style="width: 1100px; margin: 0 auto; position: relative;">
+				<ul id="goodsList"
+					style="list-style: outside none none; padding: 0px; position: relative; overflow: hidden;">
+					<ul class="goods_ul" th:each="arr :${product}">
+						<li th:class="|goodsContainer store_${arr.sno}|"
+							style="margin-right: 5px;" th:id="|link_${arr.pno}|">
+							<div class="goodsImg"
+								style="position: relative; width: 270px; height: 353px;">
+								<img th:id="|img_${arr.pno}|" class="productImg"
+									style="width: 100%; display: block;">
+							</div>
+							<div class="goodsInfo" style="position: relative;">
+								<div class="goodsName" th:text="${arr.pname}" style="">PNAME</div>
+								<div class="storeLocation"
+									style="font-size: 13px; color: #9b9b9b; margin-top: 4px;"
+									th:text="${arr.sno}">SNAME</div>
+							</div>
+							<div style="margin: 0 15px;">
+								<span style="float: left; font-size: 12px; margin-top: 7px;"><img
+									class="zzimImg" src="../img/card_zzim_off_btn.png">28</span><span
+									style="float: right; font-size: 20px; font-weight: bold; margin-top: 7px;"
+									th:text="${arr.price}">PRICE</span>
+							</div> <span class="mouseOverBorder"></span>
+						</li>
+					</ul>
+				</ul>
+			</div>
+			<div class="notListMsg"></div>
+		
+	</div>
+	<div th:if="${store !=null}">
+			<div style="position: relative; width: 100%;">
+				<div class="sortMethodSelect"
+					style="margin-top: 40px; font-size: 13px; margin-right: 386px;">
+					<div id="storeMethod_0" class="sortMethodClass selected">최신순</div>
+					<div class="breakPoint">∙</div>
+					<div id="storeMethod_1" class="sortMethodClass">판매량순</div>
+					<div class="breakPoint">∙</div>
+					<div id="storeMethod_2" class="sortMethodClass">상품수량순</div>
+				</div>
+			</div>
+			<div class="div_line_grey_2px"
+				style="margin-top: 16px; margin-bottom: 16px;"></div>
+			<div style="width: 1100px; margin: 0 auto; position: relative;">
+				<ul id="goodsList"
+					style="list-style: outside none none; padding: 0px; position: relative; overflow: hidden;">
+					
+					<table class="myPageSheetTable" cellspacing="0" style="width: 100%;">
+						<colgroup>
+							<col width="80">
+							<col width="140">
+							<col width="80">
+							<col width="70">
+							<col width="225">
+							<col width="90">
+							<col width="100">
+						</colgroup>
+						<thead>
+							<tr style="background-color: #fff;">
+								<th class="">이미지</th>
+								<th class="">건물</th>
+								<th class="">층</th>
+								<th class="">호수</th>
+								<th class="">상호</th>
+								<th class="">상품수</th>
+								<th class="">관리</th>
+							</tr>
+						</thead>
+						<tbody id="storeSearchList_tbody">
+							<tr id="trade_13695" class="height90" th:each="arr : ${store}">
+								<td class="borderBottom">
+									<div class="store_thumb">
+										<img class="goods_li_img" src=""></div>
+								</td>
+								<td class="borderBottom" th:text="${arr.building}">청평화</td>
+								<td class="borderBottom" th:text="${arr.floor}">5층</td>
+								<td class="borderBottom" th:text="${arr.room}">다2호</td>
+								<td class="borderBottom" style="padding: 1px 10px;">
+									<a class="linkClass" th:id="|sno_${arr.sno}|" 
+										style="color: #333; cursor:pointer" th:text="${arr.sname}">SNAME</a>
+								</td>
+								<td class="borderBottom"><span style="color: #ffa000;">6,964</span></td>
+								<td class="borderBottom">
+									<button class="optionModifi" style="width: 100px;">
+										스토어찜 추가
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</ul>
+			</div>
+			<div class="notListMsg"></div>
+		
+	</div>
+	
+	<div style="text-align:center;">
+		<div class="pageControlLeft" th:if="${pageMaker.prev} == true"></div>
+		<div class="showPage" style="display:inline-block; vertical-align:top;"  th:each="page : ${pageList}">
+			<button class="pageNum pageNumber" th:id="|page_${page}|" th:text="${page}">1</button></div>
+		<div class="pageControlRight" th:if="${pageMaker.next} == true"></div>
 	</div>
 
+	
+	<form id="listForm">
+		<input type='hidden' name='amount' value='12' /> 
+		<input type='hidden' id="pageNum" name='pageNum' />
+		<input type='hidden' name='mid'  value='member1'/>
+		<input type='hidden' name='category' id='category' th:value="${cri.category}"/> 
+		<input type='hidden' name='keyword' id='keyword' th:value="${cri.keyword}"/>
+	</form>
 </div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			var listForm = $("#listForm");
+			var cri = [[${cri}]];
+			var img = [[${img}]];
+			var pageMaker = [[${pageMaker}]];
+			
+			(function() {
+				/* if( [[${product}]] != null){
+					var goodsImg=[[${product}]];
+					$.each(goodsImg, function(index, item){
+						var img = item.imgList[0];
+					}); 
+				} */
+				
+				$.each(img, function(index, item){
+					$("#img_"+item.pno).attr("src",item.img);
+				}); 
+				
+				$("#pageNum").val(pageMaker.cri.pageNum);
+				$("#page_"+pageMaker.cri.pageNum).attr("style","color:#ff7f7a;");
+			})();
+			
+
+			$(".pageControlLeft").click(function(){
+				$("#pageNum").val(Number(pageMaker.startPage) -1);
+				listForm.submit();
+			});
+			
+			$(".pageControlRight").click(function(){
+				$("#pageNum").val(Number(pageMaker.endPage) + 1);
+				listForm.submit();
+			});
+			
+			$(".goodsContainer").click(function(e){
+				var pno = $(this).attr("id").substring(5);
+				var sno = $(this).attr("class").substring(21);
+				listForm.append("<input type='hidden' name='pno' value='"+pno+"'>");
+				listForm.append("<input type='hidden' name='sno' value='"+sno+"'>");
+		
+				
+				if(cri.keyword == null){$("#keyword").remove();}
+				if(cri.category == null){$("#category").remove();}
+				
+				listForm.attr("action","/store/detail").submit();
+			});
+			
+			$(".sortMethodClass").click(function(e) {
+                var val = $(this).attr("id").substring(11);
+                listForm.append("<input type='hidden' name='orderby' value='"+val+"'>");
+                listForm.attr("action", "/user/list").submit();
+            });
+			
+			$(".pageNum").click(function(e) {
+				$("#pageNum").val($(this).attr("id").substring(5));
+				listForm.submit();
+			});
+			
+			$(".linkClass").click(function(e){
+				e.preventDefault();
+				var sno = $(this).attr("id").substring(4);
+				listForm.attr("action","/store/list")
+						.append("<input type='hidden' name='sno' value='"+sno+"'>").submit();
+			});
+			
+		});
+	</script>
+</th:block>
 </html>

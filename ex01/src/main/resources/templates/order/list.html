@@ -6,8 +6,20 @@
 	layout:fragment="container">
 	<style>
 	.orderInfo{
-		padding:7px 0;
+		padding:7px;
 		font-size:14px;
+		box-sizing: border-box; 
+		height: 32px;
+		padding: 0px 9px; 
+		margin-top: 7px;
+	}
+	
+	.addressInfo{
+		width: 300px;
+	 	font-size:12px;
+	 	border:1px solid #e1e1e1;
+	 	color:#5b5b5b;
+	 	padding:3px 7px;;
 	}
 	</style>
 	<div class="shoppingBasketArea" style="">
@@ -99,12 +111,50 @@
 										style="padding: 0 30px; border-spacing: 10px;">
 										
 										<div class="payMethodInputArea" style="height: 54px;">
-											<div class="orderInfo"><strong  th:text="${member.mname}">NAME</strong></div>
-											<div class="orderInfo" th:text="${member.address}">Address</div>
-											<div class="orderInfo" th:text="${member.pnum}" style="color:#9b9b9b">전화번호</div>
-											<input class="payMethodInput" type="text"
-												placeholder="배송시 요청사항을 입력해주세요(선택)" 
-												style="width: 600px; height: 32px; box-sizing: border-box; padding: 0px 9px; margin-top: 7px;">
+											<div><strong  th:text="${member.mname}">NAME</strong></div>
+										
+										<table class="data-row">
+											<colgroup>
+												<col>
+											</colgroup>
+											<tbody>
+												<tr>
+													<td>
+														<input style="width: 80px;" class="orderInfo addressInfo" type="text"
+														 id="roadAddr1" readonly="readonly"> 
+														 <button class="basketSwapBtn adressSearch" 
+														 style="background: #ff7f7a; color:#fff; width:60px; height:25px;">주소검색</button>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<input class="orderInfo addressInfo" type="text" id="roadAddr2" 
+															th:value="${member.address}" readonly="readonly">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<input type="text" class="orderInfo addressInfo" id="roadAddr3" maxlength="15" 
+															th:value="${member.addressDetail}" placeholder="상세 주소를 입력해주세요">
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<div style="margin:10px 0 0 3px">
+										<select class="addressInfo" id="pnum" style="width:60px;"> 
+											<option value="010">010</option> 
+											<option value="011">011</option> 
+											<option value="016">016</option> 
+											<option value="019">019</option> 
+										</select> 
+										<span class="dash">-</span> 
+										<input type="text" style="width:35px;" maxlength="4" class="addressInfo" id="pnum2"
+															onkeydown="onlyNumber(event)" onkeyup="removeChar(event)"> 
+										<span class="dash">-</span> 
+										<input type="text" style="width:35px;" maxlength="4" class="addressInfo" id="pnum3"
+															onkeydown="onlyNumber(event)" onkeyup="removeChar(event)">
+										<input class="orderInfo payMethodInput" type="text" placeholder="배송시 요청사항을 입력해주세요(선택)"
+											style="width: 600px; height: 32px; margin-top:20px;">
 										</div>
 										
 									</td>
@@ -124,7 +174,7 @@
 										colspan="5" style="border-spacing: 10px; 
 										padding: 0px 30px; border-top: 4px solid #e5e5e5;">
 										
-										<button id="payDirect_0" class="basketSwapBtn">카카오페이</button>
+										<button class="payMethod payMethodSelectedBtn">카카오페이</button>
 
 									</td>
 								</tr>
@@ -199,11 +249,18 @@
 
 </div>
 <th:block layout:fragment="script">
+
+	<script src="../../js/function.js" th:inline="javascript"></script>
+	<script th:inline="javascript" 
+		src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 	<script th:inline="javascript">
+
 	$(document).ready(function(){
 		
-	    var list = [[${orderList}]];
-		
+	    var orderList = [[${orderList}]];
+	    var list = new Array();
+	    var tel = [[${member.pnum}]];
+	    
 		var totalCount = $(".optionPrice").data("price");
 		var sum = 0;
 		
@@ -211,7 +268,7 @@
 			
 			getTotalSum();
 			
-			$.each(list, function(index, item){
+			$.each(orderList, function(index, item){
 				var sum = 0;
 				
 				$.makeArray($(".sumPrice").map(function(){
@@ -231,11 +288,56 @@
 				$("#sumText_"+item.pno).html(sum);
 				
 			});
+			
+			
+			if(tel.substring(0,2) == "10"){
+				$("#pnum").val("010").prop("selected",true);
+			}if(tel.substring(0,2) == "11"){
+				$("#pnum").val("011").prop("selected",true);
+			}if(tel.substring(0,2) == "16"){
+				$("#pnum").val("011").prop("selected",true);
+			}if(tel.substring(0,2) == "19"){
+				$("#pnum").val("019").prop("selected",true);
+			}
+			
+			$("#pnum2").val(tel.substring(2,6));
+			$("#pnum3").val(tel.substring(6));
+			
 		})();
+
+
+		$(".adressSearch").click(function(){
+			daum.postcode.load(function(){
+		        new daum.Postcode({
+		            oncomplete: function(data) {
+		            	address(data);
+		            }
+		        }).open();
+		    });
+		});
 		
+		function address(data){
+			$("#roadAddr1").val(data.postcode);
+			$("#roadAddr2").val(data.roadAddress);
+		}	$("#roadAddr3").val("");
 		
 		$(".orderBtn").on('click',function(e){
 			e.preventDefault();
+			$.each(orderList, function(index, item){
+				
+				var json = { 
+						pno: item.pno,
+						mid : item.mid,
+						product: item.product,
+						qty: item.qty,
+						opno: item.opno,
+						address: $("#roadAddr2").val(),
+						addressDetail: $("#roadAddr3").val(),
+						pnum: $("#pnum option:selected").val()+$("#pnum2").val()+$("#pnum3").val()
+				}
+				
+				list.push(json);
+			});			
 			
 			 $.ajax({
                 type:"post",
@@ -249,14 +351,14 @@
 			
 		});
 		
-		function popupOpen(popUrl){
+	function popupOpen(popUrl){
 
 			var popOption = "width=400, height=500, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 			window.open(popUrl,"",popOption);
 
 		}
 
-		function getTotalSum(){
+		 function getTotalSum(){
 			$.makeArray($(".sumPrice").map(function(){
 				sum += $(this).data("price");
 			}));
@@ -264,30 +366,7 @@
 			$(".d_totalPrice").html(sum + 3000);
 		}
 		
-		$(".downArea").click(function(e) {
-			var count = $(this).next("input").val();
-			if (count > 1) {
-				count -= 1;
-				$(this).next("input").val(count);
-			}
-			
-		});
-
-		$(".upArea").click(function(e) {
-			
-			var count = Number($(this).prev("input").val());
-			var opno = $(this).attr("id").substring(3);
-			$.each(list,function(index, item){
-				if(item.opno = opno){
-					
-				}
-			});
-			count += 1;
-			$(this).prev("input").val(count);
-
-		});
 	
-		
 	});
 	</script>
 </th:block>

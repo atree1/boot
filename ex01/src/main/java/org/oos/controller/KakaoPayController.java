@@ -46,13 +46,13 @@ public class KakaoPayController {
 		totalPrice += 3000;
 		return new ResponseEntity<>(service.kakaoPayReady(totalPrice, orderList), HttpStatus.OK);
 	}
+	
 	@GetMapping("/success")
 	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
 		Map<String, Object> map = service.kakaoPayInfo(pg_token);
 		List<OrderDetailVO> list = (List<OrderDetailVO>) map.get("orderList");
 		OrderVO order = new OrderVO();
 		order.setMid(list.get(0).getMid());
-		order.setSno(list.get(0).getSno());
 		KakaoPayInfoDTO dto = (KakaoPayInfoDTO) map.get("kakao");
 		order.setTotal(Long.valueOf(dto.getAmount().getTotal()));
 		orderService.insert(order, list);

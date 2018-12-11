@@ -11,8 +11,13 @@ public class StoreVO {
 	private String owner;
 	private String sinfo;
 	private String saddress;
+	private String building;
+	private String floor;
+	private String room;
 	private String tel;
 	private Date regdate;
 	private Date updatedate;
 	private char del;
+	
+	private ProductImgVO img;
 }

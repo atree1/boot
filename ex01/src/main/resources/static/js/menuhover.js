@@ -1,13 +1,25 @@
-	$(".selectBox").click(function(){
-			if($(".selectBox").hasClass("open")){
-				$(".MultipleSelectBox").slideUp();
-				$(".selectBox").removeClass("open")
-			}else{
-				$(".MultipleSelectBox").slideDown();
-				$(".selectBox").addClass("open")
-			}
-	});    
 
+
+	$("#searchOptionSelect").click(function(){
+		if($(".layoutSelectBox").hasClass("open")){
+			slideUp();
+		}else{
+			slideDown();
+		}
+	});    
+	
+	function slideUp(){
+		$(".MultipleSelectBox").slideUp();
+		$(".layoutSelectBox").removeClass("open");
+		$("#searchOptionSelect").addClass("open");
+	}
+	
+	function slideDown(){
+		$(".MultipleSelectBox").slideDown();
+		$(".layoutSelectBox").addClass("open");
+		$("#searchOptionSelect").removeClass("open");
+	}
+	
 	$(".categoryMenu").hover(
         function () {
             $(this).show();
@@ -34,6 +46,8 @@
         $(this).addClass('active');
     }
 
+
+    
     function categoryChange(num){
         $(".selectCategoryArea").removeClass('active');
         if(num == 1){

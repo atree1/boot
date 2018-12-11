@@ -12,6 +12,7 @@ public class MemberVO {
 	private String birth;
 	private String email;
 	private String address;
+	private String addressDetail;
 	private char permit;
 	private  char del;
 }

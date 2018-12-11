@@ -5,11 +5,11 @@
 
 <mapper namespace="org.oos.mapper.OrderDetailMapper">
 
-	<select id="getList" 
+	<select id="getList"
  		resultType="org.oos.domain.OrderDetailVO">
 		select * from tbl_order_detail 
 		where odno > 0 and ono = #{ono} and del='N'
-		order by odno desc 
+		order by odno desc
 	</select>
 
 	<select id="count" resultType="int">
@@ -23,8 +23,8 @@
 	</select>
 
 	<insert id="insert">
-		insert into tbl_order_detail(ono, pno, qty, opno) 
-		value(#{ono}, #{pno}, #{qty}, #{opno})
+		insert into tbl_order_detail(ono, pno, qty, opno, pnum, address, addressDetail) 
+		value(#{ono}, #{pno}, #{qty}, #{opno}, #{pnum}, #{address}, #{addressDetail})
 	</insert>
 
 	<update id="modify">

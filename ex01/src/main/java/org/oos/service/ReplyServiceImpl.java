@@ -1,8 +1,11 @@
 package org.oos.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.oos.domain.AmountVO;
+import org.oos.domain.Criteria;
 import org.oos.domain.ReplyPageDTO;
 import org.oos.domain.ReplyVO;
 import org.oos.mapper.ProductMapper;
@@ -38,13 +41,11 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public ReplyVO get(Long rno) {
-		// TODO Auto-generated method stub
 		return mapper.get(rno);
 	}
 
 	@Override
 	public int modify(ReplyVO vo) {
-		// TODO Auto-generated method stub
 		return mapper.update(vo);
 	}
 
@@ -64,22 +65,30 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public List<ReplyVO> getList(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return mapper.depthGetList(map);
+		return mapper.getList(map);
 	}
 
 	@Override
 	public int count(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return mapper.count(map);
 	}
 
 	@Override
 	public ReplyPageDTO getListPage(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return new ReplyPageDTO(mapper.count(map), mapper.parentCount(map),mapper.depthGetList(map));
+		return new ReplyPageDTO(mapper.count(map), 
+								mapper.parentCount(map), 
+								mapper.getList(map),
+								mapper.scoreAverage(map));
 	}
 	
-	
+	@Override
+	public List<ReplyVO> getDetailList(Map<String, Object> map) {
+		return mapper.depthGetList(map);
+	}
+
+	@Override
+	public int myOrderCount(Map<String, Object> map) {
+		return mapper.myOrderCount(map);
+	}
 
 }

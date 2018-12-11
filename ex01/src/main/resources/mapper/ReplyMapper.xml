@@ -11,6 +11,12 @@
 		order by parent desc, rno asc
 		limit #{cri.skip}, #{cri.amount}
 	</select>
+		
+	<select id="depthGetList" parameterType="map" resultType="org.oos.domain.ReplyVO">
+		select * from tbl_reply
+		where pno=#{pno} and del='N' and kind=#{kind} and rno>0 and mid = #{mid}
+		order by parent desc, depth asc
+	</select>
 	
 	<insert id="insert">
 		insert into tbl_reply(pno, mid, sid, content, title, kind)
@@ -34,13 +40,18 @@
 	 	where rno=#{rno}
 	 </update>
 	 
+	 <select id="myOrderCount" parameterType="map" resultType="int">	 
+	 	select count(*) from tbl_reply 
+		where rno > 0 and mid = #{mid} and del='N' and kind = #{kind}
+	 </select>
+	 
 	 <select id="count" parameterType="map" resultType="int">	 
 	 	select count(*)
 	 	from tbl_reply
 	 	where
-	 	 rno>0 and pno=#{pno} and del='N' and kind=#{kind}
-	 	 
+	 	rno>0 and pno=#{pno} and del='N' and kind=#{kind}
 	 </select>
+	 
 	 <select id="parentCount" parameterType="map" resultType="Integer">
 	 	select ifnull(max(parent),0)
 	 	from tbl_reply
@@ -51,15 +62,13 @@
 	 <insert id="depthInsert">
 		insert into
 		tbl_reply(pno,mid,sid,content,title,kind,parent,depth,score)
-		
 		values(#{pno},#{mid},#{sid},#{content},#{title},#{kind},#{parent},#{depth},#{score})
-		
 	</insert>
-	<select id="depthGetList" parameterType="map" resultType="org.oos.domain.ReplyVO">
-		select * from tbl_reply
-		where  pno=#{pno} and del='N' and kind=#{kind} and rno>0
-		order by parent desc, rno asc limit #{cri.skip}, #{cri.amount}
-		
-	</select>
 
+	<select id="scoreAverage" parameterType="map" resultType="double">
+		select ifnull(avg(score),0)
+		from tbl_reply
+		where pno = #{pno} and kind='R' and del='N';
+	</select>
+	
 </mapper>

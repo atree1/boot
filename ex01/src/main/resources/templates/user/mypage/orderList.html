@@ -1,0 +1,241 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/shopLayout}">
+<div class="container" style="" layout:fragment="container">
+	<div class="menuRoot">
+		<div class="table-cell" style="">
+			<span style="color: #9b9b9b;">마이페이지&nbsp;&nbsp;&nbsp; &gt; </span><span
+				class="selectedMypageMenu" style="">&nbsp; 주문상세</span>
+		</div>
+	</div>
+
+	<div style="height: 70px;">
+		<table cellspacing="0"
+			style="padding-left: 225px; width: 1100px; height: 50px;">
+			<tbody>
+				<tr style="width: 800px;">
+					<td class="orderListTab basket1 active" 
+						style="border-right: 1px solid #e4e4e4;">주문내역리스트</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<div id="date_sort">
+		<p>
+			<span class="blind">기간별조회</span>
+		</p>
+		<ul class="date_3ea" style="margin: 0px;">
+			<li><a id="btnDate1"><strong>1</strong>주일</a></li>
+			<li><a id="btnDate2"><strong>15</strong>일</a></li>
+			<li><a id="btnDate3"><strong>1</strong>개월</a></li>
+		</ul>
+
+		<ul class="date_pick" style="margin-left: 340px;">
+			<li class="pick_d1"><input id="date1" readonly="true"
+				type="text" th:value="${pageMaker.cri.dayStart}"></li>
+			<li class="date_wave">~</li>
+			<li class="pick_d2"><input id="date2" readonly="true"
+				type="text" th:value="${pageMaker.cri.dayEnd}"></li>
+		</ul>
+		<button class="basketSwapBtn" id="daySearch" style="width: 60px;">조회하기</button>
+	</div>
+	<div></div>
+	<div class="myPageContentArea" style="position: relative;">
+		<div class="myPageLeftMenu" style="width: 160px; margin-left:20px; height: 315px;">
+		  <div class="" style="width: 100%; height: 65px;">
+		    <div class=""
+		         style="font-size: 32px; color: #333; line-height: 1.0;">마이페이지</div>
+		    <div style="font-size: 20px; color: #9b9b9b; margin-top: 10px;">MYPAGE</div>
+		  </div>
+		
+		  <div class="displayTable"
+		       style="width: 100%; height: 30px; margin-top: 30px;">
+		    <div class="table-cell myPageMenuClass" style="">
+		      <a class="myPageMenuA tradeList"  onclick="myPageMove(1)">내 정보 수정</a>
+		    </div>
+		  </div>
+		  <div class="displayTable" style="width: 100%; height: 60px;">
+		    <div class="table-cell myPageMenuClass" style="">
+		      <a class="myPageMenuA orderSheetList"
+		         onclick="myPageMove(2)">주문내역</a>
+		    </div>
+		  </div>
+		
+		  <div class="displayTable"
+		       style="width: 100%; height: 30px; color: #444; font-size: 14px;">
+		    <div class="table-cell myPageOrderList" style="">내가 쓴 글</div>
+		  </div>
+		  <div class="displayTable" style="width: 100%; height: 30px;">
+		    <div class="table-cell" style="text-indent: 20px;">
+		      <a class="myPageOrderListInner orderList"
+		         onclick="myPageMove(3)">REVIEW</a>
+		    </div>
+		  </div>
+		  <div class="displayTable" style="width: 100%; height: 30px;">
+		    <div class="table-cell" style="text-indent: 20px;">
+		      <a class="myPageOrderListInner dOrderList"
+		         onclick="myPageMove(4)">QNA</a>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="orderlistArea"
+			style="position: relative; margin-top: -315px; left: 225px; width: 800px; margin-bottom: 68px; min-height: 600px;">
+
+			<table class="myPageSheetTable" cellspacing="0" style="width: 100%;">
+				<colgroup>
+					<col width="100">
+					<col width="110">
+					<col width="220">
+					<col width="110">
+					<col width="110">
+					<col width="110">
+					<col width="135">
+				</colgroup>
+				<thead>
+					<tr style="background-color: #fff;">
+						<th class="">주문번호</th>
+						<th class="">주문일시</th>
+						<th class="">대표상품</th>
+						<th class="">상세보기</th>
+						<th class="">주문금액</th>
+						<th class="">주문상태</th>
+						<th class="">관리</th>
+					</tr>
+				</thead>
+				<tbody id="orderList_tbody">
+					<tr class="height100" th:each=arr:${orderList}>
+						<td class="" th:text="${arr.ono}"></td>
+						<td class="" th:text="${#dates.format(arr.regdate,'yyyy-MM-dd')}"></td>
+						<td class="" th:text="${arr.detail.product.pname}"></td>
+						<td th:id="|ono_${arr.ono}|" class="orderDetail"><button
+							type="button" class="btn btn-info basketSwapBtn" style="width:70px;">상세보기</button></td>
+						<td class="" th:text="${arr.total}">주문금액</td>
+						<td class="" th:text="${arr.state}">주문상태</td>
+						<td class=""><button type="submit" data-oper='remove'
+								class="btn-remove basketSwapBtn" style="width:70px; color:#fff; background:#ff7f7a" 
+								th:data-ono="${arr.ono}">주문취소</button>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div style="text-align:center;">
+		<div class="pageControlLeft" th:if="${pageMaker.prev} == true"></div>
+		<div class="showPage" style="display:inline-block; vertical-align:top;"  th:each="page : ${pageList}">
+			<button class="pageNum pageNumber" th:id="|page_${page}|" th:text="${page}">1</button></div>
+		<div class="pageControlRight" th:if="${pageMaker.next} == true"></div>
+	</div>
+	<form id="orderListForm">
+		<input type='hidden' name='mid' value='member1'>
+		<input type='hidden' id="pageNum" name='pageNum' />
+	</form>
+</div>
+
+</div>
+<th:block layout:fragment="script">
+
+	<link rel="stylesheet"
+		href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+		type="text/css" />
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	<script th:inline="javascript">
+		var orderForm = $("#orderListForm");
+		var pageMaker = [[${pageMaker}]];
+		
+		$(function() {
+
+			$("#date1").datepicker({
+				showOn : "both",
+				buttonImage : "../../img/btn_cal.gif",
+				buttonImageOnly : true,
+				buttonText : "Select date"
+			});
+
+			$("#date2").datepicker({
+				showOn : "both",
+				buttonImage : "../../img/btn_cal.gif",
+				buttonImageOnly : true,
+				buttonText : "Select date"
+
+			});
+
+			$("#pageNum").val(pageMaker.cri.pageNum);
+			$("#page_"+pageMaker.cri.pageNum).attr("style","color:#ff7f7a;");
+			
+		});
+
+		(function(factory) {
+			if (typeof define === "function" && define.amd) {
+				define([ "../widgets/datepicker" ], factory);
+				
+			} else { factory(jQuery.datepicker);}
+		}(function(datepicker) {
+
+			datepicker.regional.ko = {
+				closeText : "닫기",
+				prevText : "이전달",
+				nextText : "다음달",
+				currentText : "오늘",
+				monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월",
+						"9월", "10월", "11월", "12월" ],
+				monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월",
+						"8월", "9월", "10월", "11월", "12월" ],
+				dayNames : [ "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" ],
+				dayNamesShort : [ "일", "월", "화", "수", "목", "금", "토" ],
+				dayNamesMin : [ "일", "월", "화", "수", "목", "금", "토" ],
+				weekHeader : "주",
+				dateFormat : "yy-mm-dd",
+				firstDay : 0,
+				isRTL : false,
+				showMonthAfterYear : true,
+				yearSuffix : "년"
+			};
+			datepicker.setDefaults(datepicker.regional.ko);
+
+			return datepicker.regional.ko;
+
+		}));
+	
+		$(".orderDetail").click(function() {
+			var popOption = "width=811, height=642, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(optoin)
+			window.open("/user/mypage/orderDetail?ono="
+					+ $(this).attr("id").substring(4), "order",
+					popOption);
+		});
+		
+		$("#daySearch").click(function(){
+			var date1 = $('#date1').val();
+			var date2 = $('#date2').val();
+			
+			orderForm.attr("action","/user/mypage/orderList")
+					.append("<input type='hidden' name='dayStart' value='"+ date1 +"'>")
+					.append("<input type='hidden' name='dayEnd' value='"+ date2 +"'>").submit();
+		});
+
+		$('.btn-remove').click(function() {
+			if (confirm("해당 주문건을 취소하시겠습니까?")) {
+				var operation = $(this).data("oper");
+				var ono = $(this).data("ono");
+				console.log(ono);
+				orderForm.attr("action", "/user/mypage/orderList")
+						.append("<input type='hidden' name='ono' value='"+ono+"' >");
+				orderForm.attr("method", "post").submit();
+			}
+		});
+
+		$(".pageNum").click(function(e) {
+			$("#pageNum").val($(this).attr("id").substring(5));
+			orderForm.submit();
+		});
+		
+		$(".orderListTab").click(function(){
+			window.location.href="/user/mypage/orderList?mid=member1";
+		})
+	</script>
+</th:block>
+</html>

@@ -1,6 +1,7 @@
 package org.oos.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.oos.domain.OrderDetailVO;
 import org.oos.domain.ProductOptionVO;
@@ -68,6 +69,12 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 	public int insert(OrderDetailVO vo) {
 
 		return orderDetailMapper.insert(vo);
+	}
+
+	@Override
+	public int count(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	

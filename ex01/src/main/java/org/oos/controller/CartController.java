@@ -42,7 +42,7 @@ public class CartController {
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@GetMapping(value="/pages/{mid}/{page}",produces={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_UTF8_VALUE})
+/*	@GetMapping(value="/pages/{mid}/{page}",produces={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<CartVO>> getList(@PathVariable("page")int pageNum,@PathVariable("mid") String mid,Model model){
 		
 		Criteria cri=new Criteria();
@@ -56,11 +56,8 @@ public class CartController {
 	@GetMapping(value="/{cno}",produces={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<CartVO> get(@PathVariable("cno")Long cno){
 		
-		
 		return new ResponseEntity<CartVO>(service.get(cno),HttpStatus.OK);
 	}
-	
-	
 	
 	@RequestMapping(method= {RequestMethod.PUT,RequestMethod.PATCH},value="/{cno}",consumes="application/json",
 			produces= {MediaType.TEXT_PLAIN_VALUE})
@@ -69,9 +66,7 @@ public class CartController {
 		vo.setCno(cno);
 		int result=service.modify(vo);
 		return result==1?new ResponseEntity<String>("success",HttpStatus.OK):new ResponseEntity<String> (HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-	
-	
+	}*/
 	
 	@RequestMapping(value="/delete/{str}")
 	

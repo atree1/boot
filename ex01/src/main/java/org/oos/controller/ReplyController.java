@@ -1,6 +1,8 @@
 package org.oos.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.oos.domain.Criteria;
@@ -33,8 +35,6 @@ public class ReplyController {
 	//댓글등록
 	@PostMapping(value = "/new", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> create(@RequestBody ReplyVO vo) {
-		log.info("reply vo :" + vo);
-		
 		int result = service.register(vo);
 		
 		return result == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
@@ -45,12 +45,6 @@ public class ReplyController {
 	@GetMapping(value="/pages/{kind}/{pno}/{page}")
 	public ReplyPageDTO getList(@PathVariable("page") int pageNum, @PathVariable("pno") Long pno, @PathVariable("kind") char kind ){
 	
-		
-		log.info("page: " + pageNum);
-		
-		log.info("pno: " + pno);
-		
-				
 		Criteria cri = new Criteria(pageNum,10);
 				
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -58,7 +52,7 @@ public class ReplyController {
 		map.put("cri", cri);
 		map.put("pno", pno);
 		map.put("kind", kind);
-		log.info(""+service.getListPage(map));
+		
 		return service.getListPage(map);
 	}
 	
@@ -67,31 +61,22 @@ public class ReplyController {
 	@GetMapping(value="/{rno}")
 	public ReplyVO get(@PathVariable("rno") Long rno){
 		
-		log.info("get:" + rno);
-		
 		return service.get(rno);
 	}
-	
-	
 	
 	//댓글삭제
 	@RequestMapping(method= {RequestMethod.PUT,RequestMethod.PATCH}, value="/delete/{rno}", produces={MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> remove(@PathVariable("rno") Long rno){
-		
-		log.info("remove: " + rno);
-		
+	
 		int result = service.remove(rno);
-		
 		return result == 1? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	//댓글수정
 	@RequestMapping(method= {RequestMethod.PUT,RequestMethod.PATCH}, value="/{rno}", consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> modify(@RequestBody ReplyVO vo, @PathVariable("rno") Long rno){
-		log.info("update~");
+
 		vo.setRno(rno);
-		
-		log.info("rno: " + rno);
 		
 		int result = service.modify(vo);
 		

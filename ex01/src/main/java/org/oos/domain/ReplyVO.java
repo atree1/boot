@@ -2,6 +2,7 @@ package org.oos.domain;
 
 import java.util.Date;
 
+
 import lombok.Data;
 
 @Data
@@ -13,6 +14,7 @@ public class ReplyVO {
 	private String sid;
 	private String title;
 	private String content;
+	
 	private Date regdate;
 	private Date updatedate;
 	private char kind;

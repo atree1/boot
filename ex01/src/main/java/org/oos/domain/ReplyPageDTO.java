@@ -14,5 +14,5 @@ public class ReplyPageDTO {
 	private int replyCnt;
 	private int parentCnt;
 	private List<ReplyVO> list;
-	
+	private double scoreAverage;
 }

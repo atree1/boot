@@ -1,0 +1,68 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 상세정보</title>
+</head>
+<body>
+
+
+	<div class="myPageContentArea" style="position: relative;">
+
+
+
+		<div class="myPageLeftMenu" style="width: 60px; height: 315px;">
+			<div class="" style="width: 50%; height: 65px;">
+				<div class=""
+					style="font-size: 32px; color: #333; line-height: 1.0;"></div>
+			</div>
+		</div>
+		<div class=""
+			style="position: relative; margin-top: -315px; left: 225px; width: 875px; margin-bottom: 68px; min-height: 600px;">
+			<div
+				style="font-size: 20px; color: #202225; height: 40px; border-bottom: 1px solid #bebebe;">My
+				Q&A</div>
+
+
+			<div
+				style="font-size: 14px; width: 100%; height: 50px; position: relative; border-bottom: 1px solid #eee;">
+				<div
+					style="position: absolute; left: 40px; top: 15px; font-size: 20px; text-align: center;">
+					제목 : <span class="writeTitle" th:text="${reviewDetail[0].title}"></span>
+				</div>
+				<div class="answered"
+					style="position: absolute; right: 40px; top: 10px;">답변대기</div>
+
+				<div class="answered"
+					style="position: absolute; right: 40px; top: 30px;"
+					th:text="${reviewDetail[0].regdate}"></div>
+			</div>
+			<div th:each="arr:${reviewDetail}">
+				<div class="questionDetail">
+					<div style="background-color: #fafafa; font-size: 14px; color: #202225; border-bottom: 1px solid #eee; min-height: 100px; line-height: 1.4;"  th:if="${arr.depth != 1}">
+						<div style="padding: 30px 15px 15px 15px; padding-left: 40px;">
+							<span class="qnaType"
+								style="font-weight: bold; background-color: #ffffff"
+								th:text="${arr.content}">&gt;&gt;&gt;구매자</span>
+
+
+						</div>
+					</div>
+
+					<div class="answerContent" th:if="${arr.depth == 1}"
+						style="padding: 40px; color: #202225; font-size: 14px; border-bottom: 1px solid #eee; line-height: 1.4;">
+						<span class="qnaType" th:text="${arr.content}"></span>
+						&gt;&gt;&gt;판매자
+					</div>
+				</div>
+			</div>
+			<div class="buttonArea" style="text-align: center;">
+				<button type='submit' class="backList" id="backList"
+					onclick='javascript:self.close();' style="margin-top: 25px;">목록
+					돌아가기</button>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

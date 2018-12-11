@@ -108,14 +108,11 @@
 
 			<div class="sortMethodSelect"
 				style="margin-top: 40px; font-size: 13px; margin-right: 386px;">
-				<div id="sortMethod_0" class="sortMethodClass selected"
-					onclick="sortMethodStart(0)">최신순</div>
+				<div id="sortMethod_0" class="sortMethodClass selected">최신순</div>
 				<div class="breakPoint">∙</div>
-				<div id="sortMethod_1" class="sortMethodClass"
-					onclick="sortMethodStart(1)">높은가격순</div>
+				<div id="sortMethod_1" class="sortMethodClass">높은가격순</div>
 				<div class="breakPoint">∙</div>
-				<div id="sortMethod_2" class="sortMethodClass"
-					onclick="sortMethodStart(2)">낮은가격순</div>
+				<div id="sortMethod_2" class="sortMethodClass">낮은가격순</div>
 				<div class="sortingText"
 					style="color: #9b9b9b; margin-left: 5px; display: inline-block; visibility: hidden;">
 					※ 매장에서 중복으로 업로드한 상품이 연달아서 나올 수 있습니다.</div>
@@ -151,43 +148,74 @@
 			</ul>
 		</ul>
 		<div class="notListMsg"></div>
-
+		<form id="storeForm">
+			<input type='hidden' name='amount' value='12'/>
+			<input type='hidden' id='pageNum' name='pageNum'/>
+			<input type='hidden' name='sno' th:value='1'/>
+		</form>
 	</div>
+	
+	<div style="text-align:center;">
+		<div class="pageControlLeft" th:if="${pageMaker.prev} == true"></div>
+		<div class="showPage" style="display:inline-block; vertical-align:top;"  th:each="page : ${pageList}">
+			<button class="pageNum pageNumber" th:id="|page_${page}|" th:text="${page}">1</button></div>
+		<div class="pageControlRight" th:if="${pageMaker.next} == true"></div>
+	</div>
+
 </div>
-<form id="actionForm">
-	<input type='hidden' name='amount' value='12'/>
-	<input type='hidden' name='pageNum' value='1'/>
-</form>
+
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		$(document).ready(function() {
-			var actionForm = $("#actionForm")
+			var storeForm = $("#storeForm");
+			var pageMaker = [[${pageMaker}]]
+			var goodsImg=[[${product}]];
+			
+			(function(){
+
+				/* $.each(goodsImg, function(index, item){
+					var img = item.imgList[0];
+					
+					var fileCallPath =  encodeURIComponent(img.ipath+ "/"+ img.uuid +"_"+img.iname);
+					
+					var imgDiv= $('#img_'+item.pno);
+					imgDiv.attr("src","/display?fileName="+fileCallPath); 
+				}); 
+				*/
+				$("#pageNum").val(pageMaker.cri.pageNum);
+				$("#page_"+pageMaker.cri.pageNum).attr("style","color:#ff7f7a;");
+			})();
+			
+		
+			$(".pageControlLeft").click(function(){
+				$("#pageNum").val(Number(pageMaker.startPage) -1);
+				storeForm.submit();
+			});
+			
+			$(".pageControlRight").click(function(){
+				$("#pageNum").val(Number(pageMaker.endPage) + 1);
+				storeForm.submit();
+			});
 			
 			$(".goodsContainer").click(function(e){
 				var pno = $(this).attr("id").substring(5);
 				var sno = $(this).prev("input").attr("id").substring(4);
 				console.log(sno);
-				actionForm.append("<input type='hidden' name='pno' value='"+pno+"'>");
-				actionForm.append("<input type='hidden' name='sno' value='"+sno+"'>");
-				actionForm.attr("action","/store/detail").submit();
+				storeForm.append("<input type='hidden' name='pno' value='"+pno+"'>");
+				storeForm.append("<input type='hidden' name='sno' value='"+sno+"'>");
+				storeForm.attr("action","/store/detail").submit();
 			});
 			
-			(function() {
-				
-				var goodsImg=[[${product}]];
-				$.each(goodsImg, function(index, item){
-					var img = item.imgList[0];
-
-					
-					var fileCallPath =  encodeURIComponent(img.ipath+ "/"+ img.uuid +"_"+img.iname);
-					
-					var imgDiv= $('#img_'+item.pno);
-					console.log(imgDiv);
-					imgDiv.attr("src","/display?fileName="+fileCallPath);
-				}); 
-				
-			})();
-		
+			$(".sortMethodClass").click(function(e) {
+                var val = $(this).attr("id").substring(11);
+                storeForm.append("<input type='hidden' name='orderby' value='"+val+"'>");
+                storeForm.attr("action", "/store/list").submit();
+            });
+			
+			$(".pageNum").click(function(e) {
+				$("#pageNum").val($(this).attr("id").substring(5));
+				storeForm.submit();
+			});
 			
 		});
 	</script>

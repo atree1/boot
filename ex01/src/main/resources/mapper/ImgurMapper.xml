@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.oos.mapper.ImgurMapper">
+	<insert id="insert">
+	insert into test_img(pno, img)
+	values (#{pno},#{img})
+	</insert>
+	
+	<select id="getList" resultType="org.oos.domain.ImgurVO">
+	select * from test_img
+	</select>
+</mapper>

@@ -12,10 +12,12 @@ public interface ReplyMapper {
 	public int update(ReplyVO vo);
 	public int delete(Long rno);
 	public List<ReplyVO> getList(Map<String, Object> map);
-	public int depthInsert(ReplyVO vo);
 	public List<ReplyVO> depthGetList(Map<String, Object> map);
+	public int depthInsert(ReplyVO vo);
+	public int myOrderCount(Map<String, Object> map);
 	public int count(Map<String, Object> map);
 	public int parentCount(Map<String, Object> map);
+	public double scoreAverage(Map<String, Object> map);
 	
 	
 }

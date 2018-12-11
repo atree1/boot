@@ -16,6 +16,7 @@ button, input, table, div, textarea, a, span {
 }
 
 
+
 @-moz-document url-prefix() {
 @import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
@@ -54,10 +55,257 @@ button, input, table, div, textarea, a, span {
       display: none;
 }
 
+.starRev{
+	width:200px;
+}
+
+.starR1{
+    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat -52px 0;
+    background-size: auto 100%;
+    width: 15px;
+    height: 30px;
+    float:left;
+    text-indent: -9999px;
+    cursor: pointer;
+}
+.starR2{
+    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
+    background-size: auto 100%;
+    width: 15px;
+    height: 30px;
+    float:left;
+    text-indent: -9999px;
+    cursor: pointer;
+}
+.starR1.on{background-position:0 0;}
+.starR2.on{background-position:-15px 0;}
+
 .container{
     width:1100px;
     margin: 0 auto;
     background-color:#ffffff;
+}
+
+.replyTitle{
+	cursor:pointer;
+	font-weight:bold;
+}
+
+.item_review {
+	position: relative;
+	padding: 20px 0;
+	border-bottom: 1px solid #eaeced;
+}
+
+.text_info{
+	padding: 0 3px; 	
+}
+
+.area_status_user{
+	color:#aaa;
+	padding-left:42px;
+	padding-top:2px;
+}
+
+.infoBtn{
+	cursor:pointer;
+}
+
+.review_profile {
+	position: relative;
+	float: left;
+	width: 30px;
+	height: 30px;
+	-webkit-border-radius: 50%;
+	        border-radius: 50%;
+	overflow: hidden;
+}
+
+.review_profile .image {
+	width: 100%;
+	height: 100%;
+	-webkit-border-radius: 50%;
+	        border-radius: 50%;
+}
+.replyTitle:hover{
+	text-decoration: underline;
+}
+
+#date_sort {
+	clear: both;
+	background: rgb(247, 247, 247);
+	margin-left: 225px;
+	border: 1px solid rgb(199, 199, 199);
+	width: 875px;
+	height: 42px;
+	margin-bottom: 6px;
+	padding-top: 15px
+}
+
+#date_sort.bd_other {
+	border-top-color: #444;
+	border-left: none;
+	border-right: none
+}
+
+#date_sort p {
+	background: url(//pics.gmkt.kr/pc/ko/myg/img_myg.png) no-repeat 0px
+		-227px;
+	margin: 8px 20px 0px 21px;
+	width: 52px;
+	height: 11px;
+	float: left;
+	display: inline
+}
+
+#date_sort p.bg_none {
+	background: none;
+	color: #777;
+	font-size: 11px;
+	font-weight: bold;
+	letter-spacing: -1px
+}
+
+ul.date_3ea {
+	background: url(//pics.gmkt.kr/pc/ko/myg/img_myg.png) no-repeat -485px
+		-908px;
+	width: 165px;
+	height: 29px;
+	float: left
+}
+
+.tit_travel2+#date_sort ul.date_3ea, .tit_air_ticket2+div+#date_sort ul.date_3ea
+	{
+	margin-right: 280px
+}
+
+ul.date_3ea li {
+	width: 54px;
+	text-align: center;
+	color: rgb(74, 74, 74);
+	float: left;
+}
+
+ul.date_3ea li a {
+	width: 54px;
+	height: 27px;
+	line-height: 27px;
+	display: block
+}
+
+ul.date_3ea li a:hover {
+	background: url(//pics.gmkt.kr/pc/ko/myg/img_myg.png) no-repeat -377px
+		-908px;
+	color: rgb(255, 255, 255);
+	text-decoration: none
+}
+
+ul.date_3ea li a:hover strong {
+	color: rgb(255, 255, 255)
+}
+
+ul.date_3ea li a.on {
+	background: url(//pics.gmkt.kr/pc/ko/myg/img_myg.png) no-repeat -377px
+		-908px;
+	color: rgb(255, 255, 255);
+	text-decoration: none
+}
+
+ul.date_3ea li a.on strong {
+	color: rgb(255, 255, 255)
+}
+
+ul.date_5ea {
+	background: url(//pics.gmkt.kr/pc/ko/myg/img_myg.png) no-repeat -377px
+		-937px;
+	margin: 0px 0px 0px 3px;
+	width: 273px;
+	height: 29px;
+	float: left
+}
+
+ul.date_5ea li {
+	width: 54px;
+	text-align: center;
+	color: rgb(74, 74, 74);
+	float: left
+}
+
+ul.date_5ea li a {
+	width: 54px;
+	height: 27px;
+	line-height: 27px;
+	display: block
+}
+
+ul.date_5ea li a:hover {
+	background: url(//pics.gmkt.kr/pc/ko/myg/img_myg.png) no-repeat -377px
+		-908px;
+	color: rgb(255, 255, 255);
+	text-decoration: none
+}
+
+ul.date_5ea li a:hover strong {
+	color: rgb(255, 255, 255)
+}
+
+ul.date_5ea li a.on {
+	background: url(//pics.gmkt.kr/pc/ko/myg/img_myg.png) no-repeat -377px
+		-908px;
+	color: rgb(255, 255, 255);
+	text-decoration: none
+}
+
+ul.date_5ea li a.on strong {
+	color: rgb(255, 255, 255)
+}
+
+ul.date_pick {
+	background: url(//pics.gmkt.kr/pc/ko/myg/img_myg.png) no-repeat -461px
+		-879px;
+	margin: 0px 3px;
+	width: 190px;
+	height: 29px;
+	float: left
+}
+
+ul.date_pick li.pick_d1 {
+	margin-left: 8px;
+	display: inline
+}
+
+ul.date_pick li {
+	margin: 5px 0px 0px;
+	float: left
+}
+
+ul.date_pick li.date_wave {
+	width: 20px;
+	text-align: center;
+	padding-top: 2px
+}
+
+ul.date_pick li a img {
+	margin: 1px 0px 0px 1px
+}
+
+ul.date_pick li input {
+	width: 60px;
+	height: 15px;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 11px
+}
+
+#searchText{
+	width:190px; 
+	height:36px; 
+	border:0px; 
+	margin-top:1px; 
+	padding:0px;
+	font-size:13px; 
+	display:inline-block; 
+	padding-left:10px; 
+	color:000;
 }
 
 input:focus{ outline-style:none;}
@@ -70,6 +318,30 @@ div { outline:0; }
 button { outline:0; padding:0; border-radius: 0; }
 
 img { border: 0px; }
+
+ul.date_pick{background:url(//pics.gmkt.kr/pc/ko/myg/img_myg.png) no-repeat -461px -879px;width:190px;height:29px}
+ul.date_pick li.pick_d1{margin-left:8px;display:inline}
+ul.date_pick li{margin:5px 0px 0px;float:left}
+ul.date_pick li.date_wave{width:20px;text-align:center;padding-top:2px}
+ul.date_pick li a img{margin:1px 0px 0px 1px}
+ul.date_pick li input{width:60px;height:15px;font-family:Tahoma, Geneva, sans-serif;font-size:11px; border:0px}
+.ui-datepicker-header{background:#fff !important; border:0px !important;}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+	background:#ffffff !important;
+	border:0px !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+	background:#00bfa5 !important;
+	border:0px !important;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{
+background:#00bfa5 !important;
+	border:0px !important;
+}
+    
 
 .table {
 	width: 760px;
@@ -110,6 +382,7 @@ img { border: 0px; }
 	width:430px;
 	height:200px;
 }
+
 
 .formBuyNPriceInfoBoxTitle{
 	width: 100%; 
@@ -1435,7 +1708,7 @@ div.darken:hover span {
     color: #333333;
     display:table-cell;
     vertical-align: middle;
-    text-align:center;
+/*     text-align:center; */
 }
 
 .payMethodInput {
@@ -1875,6 +2148,7 @@ input[type="radio"]:checked + label:before{
 .pageNumber:hover {
     color: #ff7f7a;
 }
+
 
 .menuSelected {
     font-weight: bold !important;
@@ -2367,14 +2641,14 @@ input[type="radio"]:checked + label:before{
 
 .repleRegiBtn {
     width:110px;
-    height:49px;
+    height:29px;
     color:#fff;
     background-color:#ff7f7a;
     border:0px;
-    font-size:14px;
+    font-size:12px;
     position:absolute;
     right:0px;
-    top:100px;
+    top:79px;
     cursor:pointer;
 }
 
@@ -3281,8 +3555,7 @@ input[type="radio"]:checked + label:before{
 .autoCompleteArea .found { color: #eb0c00; }
 
 #searchOptionList{
-	position: absolute; 
-	height: 128px; 
+	position: absolute;
 	top: 39px; 
 	left: -2px; 
 	z-index: 1001;
@@ -3457,7 +3730,7 @@ input[type="radio"]:checked + label:before{
 .floatMenu {
     /*position: absolute;*/
     width: 316px;
-    height: 341px;
+    /* height: 341px; */
     /*padding:40px 0px 40px 0px;*/
     /*background-color:#f8f8f8;*/
     /*margin-left:788px;*/

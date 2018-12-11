@@ -27,6 +27,10 @@ public class ProductServiceImpl implements ProductService {
 	@Setter(onMethod_=@Autowired)
 	private ProductOptionMapper optMapper;
 	
+	@Override
+    public List<String> getName() {
+        return pMapper.getName();
+    }
 	
 	@Override
 	public List<ProductVO> getList(Map<String, Object> map) {
@@ -41,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		return list;
 	}
-
+	
 	@Override
 	public ProductVO read(Long pno) {
 	
@@ -68,14 +72,12 @@ public class ProductServiceImpl implements ProductService {
 			});
 		}
 		
-		
 		return pMapper.modify(vo);
 		
 	}
 
 	@Override
 	public int remove(ProductVO vo) {
-		// TODO Auto-generated method stub
 		return pMapper.delete(vo);
 	}
 
@@ -83,8 +85,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public int register(ProductVO vo) {
-		
-		// TODO Auto-generated method stub
 		int result=pMapper.insert(vo);
 		
 		for (ProductImgVO img:vo.getImgList()) {
@@ -102,14 +102,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int getTotal(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return pMapper.count(map);
-	}
-
-	@Override
-	public List<String> getName() {
-		// TODO Auto-generated method stub
-		return pMapper.getName();
 	}
 
 }

@@ -9,13 +9,20 @@
 		resultType="org.oos.domain.OrderVO">
 		select * from tbl_order 
 		where ono > 0 and mid = #{mid} and del='N'
+		<if test="dto.cri.dayStart != null and dto.cri.dayEnd != null ">
+		and DATE(regdate) BETWEEN #{dto.cri.dayStart} AND #{dto.cri.dayEnd}
+		</if>
 		order by ono desc
-		limit #{cri.skip}, #{cri.amount}
+		limit #{dto.cri.skip}, #{dto.cri.amount}
 	</select>
 	
 	<select id="count" resultType="int">
 		select count(*) from tbl_order 
-		where ono > 0 and mid = #{mid} and del='N'
+		where ono > 0 
+		and mid = #{mid} and del='N'
+		<if test="cri.dayStart != null and cri.dayEnd != null ">
+		and DATE(regdate) BETWEEN #{dto.cri.dayStart} AND #{dto.cri.dayEnd}
+		</if>
 	</select>
 	
 	<select id="get" resultType="org.oos.domain.OrderVO">
@@ -23,7 +30,7 @@
 	</select>
 	
 	<insert id="insert"  useGeneratedKeys="true" keyProperty="ono">
-		insert into tbl_order(mid, sno, total) value(#{mid},#{sno}, #{total})
+		insert into tbl_order(mid, total) value(#{mid}, #{total})
 	</insert>
 	
 	<update id="modify">

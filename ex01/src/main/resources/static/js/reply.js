@@ -1,10 +1,7 @@
-console.log("Reply Module....");
 var replyService = (function(){
 	
 	//댓글추가
 	function add(reply, callback){
-		console.log("reply.....");
-		
 		$.ajax({
 			type:'post',
 			url:'/replies/new',
@@ -34,9 +31,7 @@ var replyService = (function(){
 				
 		  function(data){
 			if(callback){
-				console.log(data);
-				console.log(data.list);
-				callback(data.replyCnt,data.parentCnt,data.list);
+				callback(data.replyCnt,data.parentCnt,data.list,data.scoreAverage);
 			}
 		}).fail(function(xhr,status,err){
 			if(error){
@@ -64,14 +59,11 @@ var replyService = (function(){
 					error(er);
 				}
 			}
-			
 		});
 	}
 	
 	//댓글수정
 	function update(reply, callback, error){
-		
-		console.log("RNO:" + reply.rno);
 		
 		$.ajax({
 			type:'put',
